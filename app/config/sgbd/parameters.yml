@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: stages
+    database_user: root
+    database_password: null
+    locale: fr
+    mailer_transport: voo
+    mailer_user: null
+    mailer_password: null
+    asset.version:  v1
+    asset.version_format:  %%s?version=%%s
+    public.images_dir: %app.root_dir%/../web/img
+    web.upload_dir: %app.root_dir%/../web/upload

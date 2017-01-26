@@ -1,0 +1,29 @@
+# Group
+group:
+    edit:
+        submit: Update group
+    show:
+        name: Group name
+    new:
+        submit: Create group
+    flash:
+        updated: The group has been updated
+        created: The group has been created
+        deleted: The group has been deleted
+
+# Global strings
+layout:
+    categories: Categories
+    articles: Articles
+    states: States
+    brands: Brands
+
+# Form field labels
+form:
+    title: "Title"
+    description: "Description"
+    image: "Image"
+    created_at: "Created Date"
+    updated_at: "Modified Date"
+    status: "Status"
+    slug: "Slug"

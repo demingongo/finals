@@ -1,0 +1,7 @@
+parameters:
+    nested_set.class: Doctrine\NestedSetModule\Services\NestedSetManagerCreator
+
+services:   
+   nested_set:
+    class: %nested_set.class%
+    arguments: [@managers,{}]

@@ -1,0 +1,26 @@
+@media (min-width: 768px) {
+.subhead-collapse {
+    display: block;
+	margin-bottom: 10px;
+}
+
+.subhead-collapse .btn {
+    display: inline-block;
+	width: auto;
+}
+
+.subhead-collapse.pull-right {
+    float: right !important;
+}
+}
+
+@media (max-width: 767px) {
+.subhead-collapse .btn {
+    display: block;
+	width: 100%;
+}
+
+.subhead-collapse.pull-right {
+    float: none !important;
+}
+}

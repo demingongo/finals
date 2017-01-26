@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+		<parameter key="doctrine.class">DoctrineModule\Registry</parameter>
+		<parameter key="service_doctrine">managers</parameter>
+
+		<parameter key="doctrine.orm.configuration.class">Doctrine\ORM\Configuration</parameter>
+
+		<!-- cache -->
+        <parameter key="managers.cache.array.class">Doctrine\Common\Cache\ArrayCache</parameter>
+        <parameter key="managers.cache.apc.class">Doctrine\Common\Cache\ApcCache</parameter>
+        <parameter key="managers.cache.memcache.class">Doctrine\Common\Cache\MemcacheCache</parameter>
+        <parameter key="managers.cache.memcache_host">localhost</parameter>
+        <parameter key="managers.cache.memcache_port">11211</parameter>
+        <parameter key="managers.cache.memcache_instance.class">Memcache</parameter>
+        <parameter key="managers.cache.memcached.class">Doctrine\Common\Cache\MemcachedCache</parameter>
+        <parameter key="managers.cache.memcached_host">localhost</parameter>
+        <parameter key="managers.cache.memcached_port">11211</parameter>
+        <parameter key="managers.cache.memcached_instance.class">Memcached</parameter>
+        <parameter key="managers.cache.redis.class">Doctrine\Common\Cache\RedisCache</parameter>
+        <parameter key="managers.cache.redis_host">localhost</parameter>
+        <parameter key="managers.cache.redis_port">6379</parameter>
+        <parameter key="managers.cache.redis_instance.class">Redis</parameter>
+        <parameter key="managers.cache.xcache.class">Doctrine\Common\Cache\XcacheCache</parameter>
+        <parameter key="managers.cache.wincache.class">Doctrine\Common\Cache\WinCacheCache</parameter>
+        <parameter key="managers.cache.zenddata.class">Doctrine\Common\Cache\ZendDataCache</parameter>
+
+		<!-- metadata -->
+        <parameter key="managers.metadata.driver_chain.class">Doctrine\ORM\Mapping\Driver\DriverChain</parameter>
+        <parameter key="managers.metadata.annotation.class">Doctrine\ORM\Mapping\Driver\AnnotationDriver</parameter>
+        <parameter key="managers.metadata.xml.class">Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver</parameter>
+        <parameter key="managers.metadata.yml.class">Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver</parameter>
+        <parameter key="managers.metadata.php.class">Doctrine\ORM\Mapping\Driver\PHPDriver</parameter>
+        <parameter key="managers.metadata.staticphp.class">Doctrine\ORM\Mapping\Driver\StaticPHPDriver</parameter>
+
+
+		<parameter key="managers.metadata.annotation_reader.class">Doctrine\Common\Annotations\AnnotationReader</parameter>
+		<parameter key="managers.metadata.cached_reader.class">Doctrine\Common\Annotations\CachedReader</parameter>
+		<parameter key="gedmo.doctrine_extensions.class">Gedmo\DoctrineExtensions</parameter>
+		<parameter key="managers.mapping.driver_configurator.class">DoctrineModule\MappingDriverConfigurator</parameter>
+		<parameter key="managers.event_manager.class">Doctrine\Common\EventManager</parameter>
+
+		<!-- naming strategy -->
+        <parameter key="managers.naming_strategy.default.class">Doctrine\ORM\Mapping\DefaultNamingStrategy</parameter>
+        <parameter key="managers.naming_strategy.underscore.class">Doctrine\ORM\Mapping\UnderscoreNamingStrategy</parameter>
+    </parameters>
+
+    <services>
+
+		<service id="doctrine" class="%doctrine.class%" public="false" abstract="true" />
+
+		<service id="doctrine.dbal.connection" class="stdClass" abstract="true" >
+			<factory service="managers" method="getConnection"/>
+		</service>
+
+		<service id="doctrine.orm.entity_manager" class="stdClass" abstract="true" >
+			<factory service="managers" method="getManager"/>
+		</service>
+
+		<!-- naming strategy -->
+        <service id="managers.naming_strategy.default" class="%managers.naming_strategy.default.class%" public="false" />
+        <service id="managers.naming_strategy.underscore" class="%managers.naming_strategy.underscore.class%" public="false" />
+
+		<service id="doctrine.orm.configuration" class="%doctrine.orm.configuration.class%" abstract="true" public="false" />
+		
+		<service id="managers.event_manager" class="%managers.event_manager.class%" public="false" />
+
+		<!--- Annotation Metadata Reader Service -->
+        <service id="managers.metadata.annotation_reader" alias="annotation_reader" public="false" />
+		<service id="annotation_reader" class="%managers.metadata.annotation_reader.class%" public="false" />
+
+		<!--<service id="gedmo.doctrine_extensions" class="gedmo.doctrine_extensions.class" public="false">
+			<call method="registerAbstractMappingIntoDriverChainORM">
+                <argument type="service" id="" />
+				<argument type="service" id="" />
+            </call>
+		</service>-->
+		<!--<service id="managers.metadata.cached_reader" class="%managers.metadata.annotation.class%" />-->
+
+
+        <!--<service id="managers" class="%managers.class%">
+            <argument type="service" id="service_container" />
+            <argument>%managers.connections%</argument>
+			<argument>%managers.default_connection%</argument>
+            
+        </service>
+		
+		<service id="managers.dbal.connection" class="stdClass">
+            <factory service="managers" method="getConnection"/>
+        </service>-->
+
+    </services>
+	    <!--<argument>%doctrine.entity_managers%</argument>
+            <argument>%doctrine.default_entity_manager%</argument>-->
+</container>

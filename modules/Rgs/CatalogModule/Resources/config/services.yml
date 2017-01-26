@@ -1,0 +1,47 @@
+parameters:
+    rgs.mailer.class: Rgs\CatalogModule\Services\Mailer
+    rgs.locale_middleware.class: Rgs\CatalogModule\Middleware\LocaleMiddleware
+    default_locale: fr
+    rgs.user_portal_middleware.class: Rgs\CatalogModule\Middleware\UserPortalMiddleware
+    rgs.caddie.class: Rgs\CatalogModule\Services\Caddie
+    rgs.caddie_middleware.class: Rgs\CatalogModule\Middleware\CaddieMiddleware
+    rgs.assign_middleware.class: Rgs\CatalogModule\Middleware\RgsAssignMiddleware
+
+services:
+   rgs.mailer:
+    class: %rgs.mailer.class%
+    arguments: [@swiftmailer.mailer,@templating]
+
+   rgs.caddie:
+    class: %rgs.caddie.class%
+    arguments: [@session, @managers]
+
+   rgs.article_name_editor:
+    class: Rgs\CatalogModule\Services\ArticleNameEditor
+    arguments: [@service_container]
+    public: false
+    tags:
+            - { name: novice.property_editor, alias: article_name_editor }
+
+   #MIDDLEWARES
+
+   rgs.locale_middleware:
+    class: %rgs.locale_middleware.class%
+    arguments: [%default_locale%]
+    tags:
+            - { name: app.event_subscriber }
+
+   rgs.user_portal_middleware:
+    class: %rgs.user_portal_middleware.class%
+    tags:
+            - { name: app.event_subscriber }
+
+   rgs.caddie_middleware:
+    class: %rgs.caddie_middleware.class%
+    tags:
+            - { name: app.event_subscriber }
+
+   rgs.assign_middleware:
+    class: %rgs.assign_middleware.class%
+    tags:
+            - { name: app.event_subscriber }

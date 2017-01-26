@@ -1,0 +1,78 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+/*
+#body {
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. 
+}
+
+@media (min-width: 768px) {
+#body {
+    padding-top: 110px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. 
+}
+}
+
+@media (min-width: 1200px) {
+#body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. 
+}
+}
+*/
+
+#footer {
+  background-color: black;
+  border-color: black;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-height: 5px;
+  padding: 10px 0px 0px;
+  /*background-color: #f5f5f5;*/
+}
+
+footer {
+    margin: 0;
+}
+
+.fixed-bottom , .scroll-to-top
+{
+    bottom: 0;
+	position: fixed;
+	right: 0;
+}
+
+.scroll-to-top
+{
+	border-width: 0 0 1px;
+	z-index: 1030;
+}
+
+@media (min-width: 768px) {
+.scroll-to-top{
+	right: 10px;}
+}
+
+.fixed-top
+{
+    top: 0;
+    border-width: 0 0 1px;
+	position: fixed;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+}
+
+.fancybox-wrap, .fancybox-skin, .fancybox-outer, .fancybox-inner{
+min-height: 400px;
+}
+
+@media (min-width: 992px) { 
+.modal-dialog{width:36%;}
+.modal-dialog45{width:45%;}
+}

@@ -1,3 +1,5 @@
+*.bak
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -19,6 +21,8 @@
 /app/config/parameters.yml
 /app/config/parameters.ini
 
+/app/config/rgs/parameters.yml
+
 # Managed by Composer
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache
@@ -31,8 +35,13 @@
 /web/bundles/
 /web/uploads/
 
+/web/upload/*
+/web/img/
+
 # Assets managed by Bower
 /web/assets/vendor/
+
+/web/assets/bower_components/
 
 # PHPUnit
 /app/phpunit.xml

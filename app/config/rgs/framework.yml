@@ -1,0 +1,51 @@
+
+framework:
+    asset:
+        strategy:
+            service:    asset.packages.version_strategy
+        packages:
+            urls:
+                cdnjs:  [ https://cdnjs.cloudflare.com/ajax/libs/ ] 
+            paths:
+                novice: /assets/novice
+                bower: /assets/bower_components
+                css:   /assets/css
+                js:    /assets/js
+                js_custom:   /assets/js/custom
+                theme: /assets/themes
+                img:   /img
+                upload:   /upload
+                plugins:   /plugins
+        
+    router:
+        resource: "%app.root_dir%/config/rgs/routing.yml"
+        options:
+            matcher_class: Novice\Routing\Matcher\RedirectableUrlMatcher
+            matcher_base_class: Novice\Routing\Matcher\RedirectableUrlMatcher
+
+    templating:
+        debug:  false
+    
+    translator: { fallbacks: [fr,en] }
+
+    listeners:
+        user_provider:
+            class: Rgs\UserModule\Middleware\UserProviderMiddleware
+            events: [REQUEST]
+            pattern : ^/
+            priority : 30
+        assign_vars:
+            class: Rgs\UserModule\Middleware\AssignMiddleware
+            events: RESPONSE
+            pattern : ^/
+            priority : 0
+        responsive_filemanager:
+            class: Rgs\UserModule\Middleware\RFMiddleware
+            events: [REQUEST]
+            pattern : ^/
+            priority : 0
+
+services:
+    asset.packages.version_strategy:
+        class:    Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy
+        arguments:  [%asset.version% , %asset.version_format%]

@@ -1,0 +1,70 @@
+# Doctrine Configuration
+managers:
+    activate: true
+    connections:
+        default:
+            driver:   %database_driver%
+            host:     %database_host%
+            port:     %database_port%
+            dbname:   %database_name%
+            user:     %database_user%
+            password: %database_password%
+            charset:  utf8
+        second:
+            driver:   %database_driver%
+            host:     %database_host%
+            port:     %database_port%
+            dbname:   testStages
+            user:     %database_user%
+            password: %database_password%
+            charset:  utf8
+    auto_generate_proxy_classes: ALWAYS
+
+services:
+    # gedmo extension listeners
+    
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: managers.event_subscriber }
+        calls:
+            - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: managers.event_subscriber }
+        calls:
+            - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]
+
+    gedmo.listener.blameable:
+        class: Gedmo\Blameable\BlameableListener
+        tags:
+            - { name: managers.event_subscriber }
+        calls:
+            - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]
+            - [ setUserValue, [ anonym ] ]
+
+    gedmo.listener.uploadable:
+        class: Gedmo\Uploadable\UploadableListener
+        tags:
+            - { name: managers.event_subscriber }
+        calls:
+            - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]
+            - [ setDefaultPath, [ %web.upload_dir% ] ]
+
+
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: managers.event_subscriber }
+        calls:
+            - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]
+
+    #gedmo.listener.loggable:
+    #    class: Gedmo\Loggable\LoggableListener
+    #    tags:
+    #        - { name: managers.event_subscriber }
+    #    calls:
+    #        - [ setUsername, [ admin ] ]
+    #        - [ setAnnotationReader, [ @managers.cached.annotation_reader ] ]

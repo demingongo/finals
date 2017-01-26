@@ -1,0 +1,89 @@
+# les parametres pour acceder a la base de donnees
+imports:
+    - { resource: parameters.yml }
+    - { resource: db_testcache.yml }
+
+database:
+    default:
+        host: 127.0.0.1
+        driver: pdo_mysql
+        user: root
+        password: null
+        dbname: doctrine2
+        charset: utf8
+    test:
+        host: 127.0.0.1
+        driver: pdo_mysql
+        user: root
+        password: null
+        dbname: test
+        charset: utf8
+    test2:
+        host: 127.0.0.1
+        driver: pdo_mysql
+        user: root
+        password: null
+        dbname: test2
+        charset: utf8
+
+something:
+    else: what
+    some: the
+
+doctrineTest:
+    dbal:
+        default_connection:   database
+        dbname:               database
+        host:                 localhost
+        port:                 1234
+        user:                 user
+        password:             secret
+        driver:               pdo_mysql
+        driver_class:         MyNamespace\MyDriverImpl
+                # l'option driverOptions de DBAL
+        options:
+            foo: bar
+        path:                 "%kernel.data_dir%/data.sqlite"
+        memory:               true
+        unix_socket:          /tmp/mysql.sock
+                # l'option wrapperClass de DBAL
+        wrapper_class:        Doctrine\DBAL\Connections\MasterSlaveConnection
+        charset:              UTF8
+        # logging:              "%kernel.debug%"
+        # platform_service:     MyOwnDatabasePlatformService
+        # mapping_types:
+            # enum: string
+        types:
+            custom: Acme\HelloBundle\MyCustomType
+        # l'option keepSlave de DBAL
+        keep_slave: false
+    orm:
+        default_entity_manager: ~ # The first defined is used if not set
+        metadata_cache_driver: array
+        query_cache_driver: array
+        result_cache_driver: array
+        auto_generate_proxy_classes: ALWAYS
+        proxy_namespace: Proxies
+        proxy_dir: %kernel.cache_dir%/doctrine/orm/Proxies
+
+doctrine:
+    dbal:
+        default_connection:   doctrine2
+        connections:
+            doctrine2:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+            customer:
+                driver:   %database_driver2%
+                host:     %database_host2%
+                port:     %database_port2%
+                dbname:   %database_name2%
+                user:     %database_user2%
+                password: %database_password2%
+                charset:  UTF8
+    orm:

@@ -1,0 +1,28 @@
+# routing.yml
+
+rgs_catalog:
+    #resource: @RgsCatalogModule/Resources/config/routing/routes.xml
+    resource: @RgsCatalogModule/Controller/
+    type: annotation
+    host: "{domain}"
+    prefix:   /
+    defaults:
+        domain: localhost
+    requirements:
+        domain: localhost|127.0.0.1
+
+rgs_admin:
+    resource: @RgsAdminModule/Resources/config/routing/admin.yml
+    host: "{domain}"
+    prefix:   /admin
+    defaults:
+        domain: localhost
+    requirements:
+        domain: localhost|127.0.0.1
+
+user_security:
+    resource: @UserModule/Resources/config/routing/security.xml
+
+user_register:
+    resource: "@UserModule/Resources/config/routing/registration.xml"
+    prefix: /register

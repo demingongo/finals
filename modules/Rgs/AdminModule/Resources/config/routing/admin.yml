@@ -1,0 +1,157 @@
+# admin.yml
+
+rgs_admin_index:
+    path:     /
+    defaults: { _controller: 'RgsAdminModule:AdminController:index' }
+
+rgs_admin_login:
+    path:     /login
+    defaults:
+        _controller: 'UserModule:SecurityController:login'
+        _redirect: rgs_admin_index
+        view: 'file:[RgsAdminModule]Security/login.php'
+
+rgs_admin_logout:
+    path:     /logout
+    defaults:
+        _controller: 'UserModule:SecurityController:logout'
+        _redirect: rgs_admin_index
+
+rgs_admin_gestion_categorie:
+    path:     /categories/
+    defaults: { _controller: 'RgsAdminModule:AdminController:gestionCategorie' }
+    #requirements:
+    #    page: \d+
+
+rgs_admin_gestion_media:
+    path:     /gestion_media
+    defaults: { _controller: 'RgsAdminModule:AdminController:gestionMedia' }
+
+rgs_admin_categories_add:
+    path:     /categories/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editCategorie'
+
+rgs_admin_categories_edit:
+    path:     /categories/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editCategorie'
+    requirements:
+        id: \d+
+
+rgs_admin_categories_edit_2:
+    path:     /categories/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editCategorie'
+    requirements:
+        id: \d+
+
+rgs_admin_gestion_article:
+    path:     /articles
+    defaults: { _controller: 'RgsAdminModule:AdminController:gestionArticle' }
+
+rgs_admin_articles_add:
+    path:     /articles/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+
+rgs_admin_articles_edit:
+    path:     /articles/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+    requirements:
+        id: \d+
+
+rgs_admin_articles_edit_2:
+    path:     /articles/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+    requirements:
+        id: \d+
+
+rgs_admin_gestion_marque:
+    path:     /marques
+    defaults: { _controller: 'RgsAdminModule:AdminController:gestionMarque' }
+
+rgs_admin_marques_add:
+    path:     /marques/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editMarque'
+
+rgs_admin_marques_edit:
+    path:     /marques/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editMarque'
+    requirements:
+        id: \d+
+
+rgs_admin_marques_edit_2:
+    path:     /marques/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editMarque'
+    requirements:
+        id: \d+
+
+rgs_admin_gestion_etat:
+    path:     /etats
+    defaults: { _controller: 'RgsAdminModule:AdminController:gestionEtat' }
+
+rgs_admin_etats_add:
+    path:     /etats/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editEtat'
+
+rgs_admin_etats_edit:
+    path:     /etats/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editEtat'
+    requirements:
+        id: \d+
+
+rgs_admin_etats_edit_2:
+    path:     /etats/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editEtat'
+    requirements:
+        id: \d+
+
+rgs_admin_gestion_users:
+    path:     /users/
+    defaults:
+        _controller: 'RgsAdminModule:UserManagerController:gestionUser'
+
+rgs_admin_users_add:
+    path:     /users/edit
+    defaults:
+        _controller: 'RgsAdminModule:UserManagerController:editUser'
+
+rgs_admin_users_edit:
+    path:     /users/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:UserManagerController:editUser'
+    requirements:
+        id: \d+
+
+rgs_admin_gestion_groups:
+    path:     /groups/
+    defaults:
+        _controller: 'RgsAdminModule:GroupManagerController:gestionGroup'
+
+rgs_admin_gestion_reservations:
+    path:     /reservations/
+    defaults:
+        _controller: 'RgsAdminModule:ReservationManagerController:gestionReservation'
+
+rgs_admin_gestion_expired_reservations:
+    path:     /expired/
+    defaults:
+        _controller: 'RgsAdminModule:ReservationManagerController:gestionExpiredReservation'
+
+rgs_admin_reservations_details:
+    path:     /{state}/details/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:ReservationManagerController:detailsReservation'
+        state: reservations
+    requirements:
+        id: \d+
+        state: reservations|expired

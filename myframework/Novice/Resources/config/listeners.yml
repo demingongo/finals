@@ -1,0 +1,38 @@
+parameters:
+    novice.controller_middleware.class: Novice\Middleware\EventSubscriber\ControllerMiddleware
+    novice.assign_controller_middleware.class: Novice\Middleware\EventSubscriber\AssignControllerMiddleware
+    novice.property_controller_middleware.class: Novice\Middleware\EventSubscriber\PropertyAnnotControllerMiddleware
+    novice.template_middleware.class: Novice\Middleware\EventSubscriber\TemplateListener
+    novice.attribute_converter_middleware.class: Novice\Middleware\EventSubscriber\AttributeConverterListener
+    novice.response_provider.class: Novice\Middleware\EventSubscriber\ResponseProviderMiddleware
+
+services:
+    novice.controller_middleware:
+        class: %novice.controller_middleware.class%
+        arguments: [@framework.cached.annotation_reader]
+        tags:
+            - { name: app.event_subscriber }
+    novice.assign_controller_middleware:
+        class: %novice.assign_controller_middleware.class%
+        arguments: [@framework.cached.annotation_reader, @service_container]
+        tags:
+            - { name: app.event_subscriber }
+    novice.property_controller_middleware:
+        class: %novice.property_controller_middleware.class%
+        arguments: [@framework.cached.annotation_reader, @service_container]
+        tags:
+            - { name: app.event_subscriber }
+    novice.template_middleware:
+        class: %novice.template_middleware.class%
+        arguments: [@service_container]
+        tags:
+            - { name: app.event_subscriber }
+    novice.attribute_converter_middleware:
+        class: %novice.attribute_converter_middleware.class%
+        arguments: [@service_container, @novice.property_editor.registry]
+        tags:
+            - { name: app.event_subscriber }
+    novice.response_provider:
+        class: %novice.response_provider.class%
+        tags:
+            - { name: app.event_subscriber }

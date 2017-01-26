@@ -1,0 +1,29 @@
+# Group
+group:
+    edit:
+        submit: Mettre à jour le groupe
+    show:
+        name: Nom du groupe
+    new:
+        submit: Créer le groupe
+    flash:
+        updated: Le groupe a été mis à jour
+        created: Le groupe a été créé
+        deleted: Le groupe a été supprimé
+
+# Global strings
+layout:
+    categories: Catégories
+    articles: Articles
+    states: Etats
+    brands: Marques
+
+# Form field labels
+form:
+    title: "Titre"
+    description: "Description"
+    image: "Image"
+    created_at: "Date de creation"
+    updated_at: "Date de modification"
+    status: "Statut"
+    slug: "Alias"

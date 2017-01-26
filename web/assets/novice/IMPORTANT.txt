@@ -1,0 +1,9 @@
+﻿THE SCRIPT FILE TO LINK IS 'novice.js'
+
+
+IMPORTANT!!! THIS LIBRARY USES VENDOR LIBRARIES :	
+
+- 'JQuery' version '1.11.2' or more // ref: https://jquery.com/
+- 'JQueryUI' //ref: 'https://jqueryui.com/'
+- 'Select2' version '4.0.1' ('select2-4.0.1') // ref: 'https://select2.github.io/'
+- 'Chosen' version '1.4.2' ('chosen_v1.4.2') // ref: 'https://harvesthq.github.io/chosen/'

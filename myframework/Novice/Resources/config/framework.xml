@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="router.class">Novice\Routing\Router</parameter>
+		<!--<parameter key="framework.http_request.class">Novice\HTTPRequest</parameter>
+		<parameter key="framework.http_response.class">Novice\HTTPResponser</parameter>-->
+		<parameter key="router.request_context.class">Symfony\Component\Routing\RequestContext</parameter>
+		<parameter key="app.user.class">Novice\User\User</parameter>
+
+		<parameter key="templating.class">Novice\Templating\SmartyTemplating</parameter>
+
+		<parameter key="middlewares.class">Novice\Middleware\MiddlewareRegistry</parameter>
+		<parameter key="event_dispatcher.class">Novice\Middleware\ContainerAwareMiddlewareDispatcher</parameter>
+		<parameter key="framework.file_locator.class">Novice\Config\FileLocator</parameter>
+		<parameter key="novice.property_editor.registry.class">Novice\Annotation\Editor\PropertyEditorRegistry</parameter>
+		<parameter key="request_stack.class">Symfony\Component\HttpFoundation\RequestStack</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="framework.router" class="%router.class%"  abstract="true" />
+
+		<!--<service id="http_request" class="%framework.http_request.class%" />-->
+		
+		<service id="router.loader.abstract" class="Symfony\Component\Config\Loader\DelegatingLoader" public="false" abstract="true" />
+
+
+		<service id="framework.templating" class="%templating.class%" abstract="true">
+            <argument type="service" id="service_container" />
+        </service>
+
+		<service id="app.user" class="%app.user.class%" />
+		
+		<service id="novice.property_editor.registry" class="%novice.property_editor.registry.class%"  public="false" />
+		
+		<service id="request_stack" class="%request_stack.class%" />
+		
+		<service id="service_container" synthetic="true"></service>
+
+    </services>
+</container>

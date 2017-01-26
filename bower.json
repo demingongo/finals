@@ -1,0 +1,28 @@
+{
+  "name": "retrogames-system",
+  "description": "Project for my finals.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "finals",
+    "retrogames",
+    "management"
+  ],
+  "authors": [
+    "demingongo"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7",
+    "jquery-ui": "^1.12.1",
+    "jquery.easing": "^1.3.1",
+    "bootstrap-validator": "^0.11.9",
+    "bootstrap-filestyle": "^1.2.1",
+    "jquery.observe_field": "*",
+    "select2": "^4.0.3",
+    "select2-bootstrap-theme": "^0.1.0-beta.9",
+    "fancybox": "^2.1.6",
+    "chosen": "^1.6.2"
+  }
+}

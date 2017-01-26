@@ -1,0 +1,47 @@
+# routing.yml
+
+collection:
+    resource: @AcmeModule/Resources/config/routes.yml
+    host: "{domain}"
+    prefix:   /
+    defaults:
+        domain: localhost
+    requirements:
+        domain: localhost|127.0.0.1
+
+collection2:
+    resource: @HerenomoreModule/Resources/config/routes.xml
+    host:  "kisiwu.local"
+    prefix:   /
+
+collection3:
+    resource: @Cdf1FormationModule/Resources/config/routes.xml
+    prefix:   /cdf1_formation
+
+route1:
+    path:     /foo
+    defaults: { _controller: 'MyController::fooAction' }
+
+route2:
+    path:     /foo/bar/{number}/{somelse}
+    defaults:
+        _controller: 'AcmeModule:MyController:foobarAction'
+        somelse: %app.environment%
+    requirements:
+        number: \d+
+
+route246:
+    path:     /foo/bar/{locale}
+    defaults:
+        _controller: 'MyController::foobarAction'
+        locale: kg
+    requirements:
+        locale: en|fr
+
+route22:
+    path:     /foo/bar/{gz}/4/4
+    defaults:
+        _controller: 'MyController::foobarAction'
+        gz: %app.environment%
+    requirements:
+        gz: "[a-z]+"
