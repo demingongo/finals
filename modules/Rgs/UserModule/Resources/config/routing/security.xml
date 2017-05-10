@@ -11,5 +11,13 @@
     <route id="user_security_logout" path="/logout">
         <default key="_controller">UserModule:SecurityController:logout</default>
     </route>
+	
+	<route id="user_security_lostpassword" path="/lostpassword">
+        <default key="_controller">UserModule:SecurityController:lostPassword</default>
+    </route>
+	
+	<route id="user_security_resetpassword" path="/resetpassword/{token}/{slug}">
+        <default key="_controller">UserModule:SecurityController:resetPassword</default>
+    </route>
 
 </routes>

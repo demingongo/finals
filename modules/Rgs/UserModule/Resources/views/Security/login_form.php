@@ -1,4 +1,11 @@
-<form action="{path id='user_security_login' absolute=true}" data-toggle="validator" method="post" enctype="multipart/form-data" {*accept="image/gif"*} >
+{* used for login form in the modal *}
+
+<form 
+	action="{path id='user_security_login' absolute=true}" 
+    data-toggle="validator" 
+    method="post" 
+    enctype="multipart/form-data" 
+    {*accept="image/gif"*} >
 
 {* begin login *}
 <div class="row form-group center-block">

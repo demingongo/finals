@@ -14,7 +14,8 @@ use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group,
 	Rgs\UserModule\Entity\AuthToken,
 	Rgs\UserModule\Form\LoginFormBuilder,
-	Rgs\UserModule\Form\RegisterFormBuilder;
+	Rgs\UserModule\Form\LostPasswordFormBuilder,
+	Rgs\UserModule\Form\ResetPasswordFormBuilder;
 
 class SecurityController extends \Novice\BackController
 {
@@ -111,7 +112,7 @@ class SecurityController extends \Novice\BackController
 				}
 			}
 		}
-		catch(\Novice\Form\Extension\Csrf\CsrfSecurityException $e){ //\Novice\Form\Exception\SecurityException
+		catch(\Novice\Form\Extension\Csrf\CsrfSecurityException $e){ 
 			$session->getFlashBag()->set('notice', '<b>Failure occured</b>, <a href="'.$this->generateUrl('user_security_login', array(), true).
 				'" class="alert-link">fill in the form</a> and try submitting again.');
 		}
@@ -159,6 +160,142 @@ class SecurityController extends \Novice\BackController
         }
 		
 		return $response;
+	}
+	
+	public function executeLostPassword(Request $request)
+	{
+
+		$this->setView("file:[UserModule]Security/lostPassword.php");
+
+		$session = $this->get('session');
+
+		if($session->isAuthenticated()){
+			return $this->redirect($this->generateUrl('rgs_catalog_index'));
+		}
+
+		$user = new User();
+
+		$generator = new SecureRandom();
+		$csrfExtension = new CsrfExtension($session, $generator->nextBytes(32), 15*60);
+
+		$formBuilder = new LostPasswordFormBuilder($user);
+		$formBuilder->setContainer($this->container);
+		$formBuilder->form()->setName('lost_password');
+		$formBuilder->addExtension($csrfExtension)->addExtension(new SecurimageExtension())->build();  
+		$form = $formBuilder->form();
+
+		$form->handleRequest($request);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->getConnection()->beginTransaction();
+		try{	
+
+			if($form->isValid()) {
+				$result = $this->getDoctrine()->getManager()->getRepository('UserModule:User')->findOneByLogin($user->getLogin());
+				if(null == $result){
+					$session->getFlashBag()->set('notice', $this->get('translator')->trans("Bad credentials", array(), "UserModule"));
+				}
+				else{
+					$confirmationToken = bin2hex($generator->nextBytes(32));
+					$result->setConfirmationToken(Password::hash($confirmationToken));
+					$em->persist($result);
+					$em->flush();
+					
+					$this->get('rgs.mailer')->sendLostPasswordConfirm($result, 
+							$this->generateUrl('user_security_resetpassword',array(
+							'token' => $confirmationToken,
+							'slug' => $result->getSlug(),
+					), true));
+
+					$em->getConnection()->commit();
+
+					$session->getFlashBag()
+						->set('success','A mail has been send. Check your email inbox and follow the link to pursue the request.');
+					return $this->redirect($this->generateUrl('rgs_catalog_index',array()));
+				}
+			}
+		}
+		catch(\Exception $e){
+			$em->close();
+			$em->getConnection()->rollback();
+			if($e instanceof \Novice\Form\Exception\SecurityException){
+				$session->getFlashBag()->set('notice', '<b>Failure occured</b>, <a href="'.$this->generateUrl('user_security_lostpassword', array(), true).'" class="alert-link">fill in the form</a> and try submitting again.');
+			}
+			else{
+				throw $e;
+			}
+		}
+
+		$this->assign('form', $form->createView());
+	}
+	
+	
+	public function executeResetPassword(Request $request)
+	{
+
+		$slug = $request->attributes->get('slug');
+		$token = $request->attributes->get('token');
+
+		$this->setView("file:[UserModule]Security/lostPassword.php");
+
+		$session = $this->get('session');
+
+		if($session->isAuthenticated()){
+			return $this->redirect($this->generateUrl('rgs_catalog_index'));
+		}
+
+		$user = new User();
+
+		$generator = new SecureRandom();
+		$csrfExtension = new CsrfExtension($session, $generator->nextBytes(32), 15*60);
+
+		$formBuilder = new ResetPasswordFormBuilder($user);
+		$formBuilder->setContainer($this->container);
+		$formBuilder->form()->setName('lost_password');
+		$formBuilder->addExtension($csrfExtension)->build();  
+		$form = $formBuilder->form();
+
+		$form->handleRequest($request);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->getConnection()->beginTransaction();
+		try{	
+
+			if($form->isValid()) {
+				if($this->registerConfirmPassword($form, 'password', 'confirm')){
+					$result = $this->getDoctrine()->getManager()->getRepository('UserModule:User')->findOneBySlug($slug);
+					if( null == $result || !Password::verify($token, $result->getConfirmationToken()) ){
+						$session->getFlashBag()->set('notice', $this->get('translator')->trans("Unknown", array(), "UserModule"));
+					}
+					else{
+						// set new password and confirmationToken
+						$result->setPassword(Password::hash($user->getPassword()));
+						$result->setConfirmationToken("reset");
+						$em->persist($result);
+						$em->flush();
+	
+						$em->getConnection()->commit();
+	
+						$session->getFlashBag()
+							->set('success','Thanks! Your new password has been set. You can now log in.');
+						return $this->redirect($this->generateUrl('rgs_catalog_index',array()));
+					}
+				}
+			}
+		}
+		catch(\Exception $e){
+			$em->close();
+			$em->getConnection()->rollback();
+			if($e instanceof \Novice\Form\Exception\SecurityException){
+				$session->getFlashBag()->set('notice', '<b>Failure occured</b>, <a href="'.$this->generateUrl('user_security_resetpassword', 
+				array('slug' => $slug, 'token' => $token), true).'" class="alert-link">fill in the form</a> and try submitting again.');
+			}
+			else{
+				throw $e;
+			}
+		}
+
+		$this->assign('form', $form->createView());
 	}
 
 	private function registerConfirmPassword(\Novice\Form\Form $form, $fieldName1, $fieldName2)

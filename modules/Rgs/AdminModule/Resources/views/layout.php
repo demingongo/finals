@@ -7,12 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="{asset url='/img/retro_favicon_admin_2.ico'}" />
 
-<!-- jquery theme -->
-<script src="{asset url='/startbootstrap-sb-admin-2-1.0.8/bower_components/jquery/dist/jquery.min.js' package='theme'}"></script>
-
-<!-- bootstrap JS theme -->
-<script src="{asset url='/startbootstrap-sb-admin-2-1.0.8/bower_components/bootstrap/dist/js/bootstrap.min.js' package='theme'}"></script>
-
 {block name=bowercomponents}
 {include file='file:includes/bower_components.tpl'}
 {/block}
@@ -1026,6 +1020,11 @@
     <!-- /#wrapper -->
 
 {block name=javascript}
+
+
+<!-- bootstrap JS theme -->
+<script src="{asset url='/startbootstrap-sb-admin-2-1.0.8/bower_components/bootstrap/dist/js/bootstrap.min.js' package='theme'}"></script>
+
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{asset url='/startbootstrap-sb-admin-2-1.0.8/bower_components/metisMenu/dist/metisMenu.min.js' package='theme'}"></script>
 {***********************

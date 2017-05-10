@@ -13,6 +13,7 @@ group:
 
 # Security
 "Bad credentials": Nom d'utilisateur ou mot de passe incorrect
+"Unknown": Utilisateur inconnu
 
 security:
     login:
@@ -20,6 +21,8 @@ security:
         password: "Mot de passe"
         remember_me: Se souvenir de moi
         submit: Connexion
+    lostpassword:
+        submit: Envoyer
 
 # Profile
 profile:

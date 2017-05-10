@@ -82,4 +82,24 @@ Si vous avez besoin d'aide, veuillez contacter l'administrateur du site.";
 		$body = $this->templating->fetch($template);
 		$this->sendMessage($to, $subject, $body);
 	}
+	
+	public function sendLostPasswordConfirm(User $user, $link)
+	{
+		$this->setAssign();
+		$subject = $this->name." : reset password";
+		$template = 'file:[RgsCatalogModule]Mail/mail.php';
+		$to = $user->getEmail();
+		$msg = "Hello,<br /><br />
+
+There was a request to reset password for ".$this->name.". Click on the link to confirm : <br /><br />
+
+<a href='".$link."'>".$link."</a><br /><br />
+
+Dans la plupart des logiciels de courriel, cette adresse est un lien actif qu'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d'adresse de votre navigateur web.<br /><br />
+
+Si vous avez besoin d'aide, veuillez contacter l'administrateur du site.";
+		$this->templating->assign(array('tpl_name' => $template, 'message' => $msg));
+		$body = $this->templating->fetch($template);
+		$this->sendMessage($to, $subject, $body);
+	}
 }
