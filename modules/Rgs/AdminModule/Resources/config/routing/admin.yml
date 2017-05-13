@@ -145,7 +145,8 @@ rgs_admin_gestion_reservations:
 rgs_admin_gestion_expired_reservations:
     path:     /expired/
     defaults:
-        _controller: 'RgsAdminModule:ReservationManagerController:gestionExpiredReservation'
+        _controller: 'RgsAdminModule:ReservationManagerController:gestionReservation'
+        state: expired
 
 rgs_admin_reservations_details:
     path:     /{state}/details/{id}/
