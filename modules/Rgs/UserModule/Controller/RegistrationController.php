@@ -16,6 +16,8 @@ use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Form\LoginFormBuilder,
 	Rgs\UserModule\Form\RegisterFormBuilder;
 
+use Rgs\UserModule\Util\UserModuleUtils;
+
 class RegistrationController extends \Novice\BackController
 {
 
@@ -64,11 +66,14 @@ class RegistrationController extends \Novice\BackController
 		try{	
 
 			if($form->isValid() && $user->isValid()) {
-				if($this->registerConfirmPassword($form, 'password', 'confirm'))
+				
+				$utils = new UserModuleUtils();
+				
+				if($utils->compareFormFields($form, 'password', 'confirm'))
 				{
 					try{
 						$user->setPassword(Password::hash($user->getPassword()));
-						$confirmationToken = bin2hex($generator->nextBytes(32));
+						$confirmationToken = $utils->createRandomToken($generator);
 						$user->setConfirmationToken(Password::hash($confirmationToken));
 						$group = $em->getRepository('UserModule:Group')->findOneByName('Client');
 						$user->setGroup($group);
@@ -146,15 +151,5 @@ class RegistrationController extends \Novice\BackController
 		
 		$session->getFlashBag()->set('notice', $message);
 		$this->assign('message', $message);
-	}
-
-	private function registerConfirmPassword(\Novice\Form\Form $form, $fieldName1, $fieldName2)
-	{
-		if( !($retour = StringUtils::equals($form->getField($fieldName1)->value(), $form->getField($fieldName2)->value())) ){
-			$form->getField($fieldName1)->setWarningMessage();
-			$form->getField($fieldName2)->setWarningMessage();
-		}
-
-		return $retour;
 	}
 }

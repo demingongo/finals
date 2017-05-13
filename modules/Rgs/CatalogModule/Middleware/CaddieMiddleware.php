@@ -24,7 +24,6 @@ class CaddieMiddleware implements EventSubscriberInterface
 	public static function getSubscribedEvents()
     {
         return array(
-            // must be registered before the default Locale listener
             Events::REQUEST => array(array('onRequest', 0, '^/')),
         );
     }

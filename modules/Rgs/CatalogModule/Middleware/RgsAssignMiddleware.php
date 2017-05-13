@@ -24,7 +24,6 @@ class RgsAssignMiddleware implements EventSubscriberInterface
 	public static function getSubscribedEvents()
     {
         return array(
-            // must be registered before the default Locale listener
             Events::RESPONSE => array(array('onResponse', 0, '^/')),
         );
     }

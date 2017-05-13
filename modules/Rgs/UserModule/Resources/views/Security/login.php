@@ -2,9 +2,8 @@
 
 {extends file='file:rgs_layout.php'}
 
-{block name=javascript}
-{$smarty.block.parent}
-<!--<script src="{asset url='/1000hz-bootstrap-validator/0.8.1/validator.min.js' package='cdnjs'}"></script>-->
+{block name="carousel"}
+{include file='file:includes/noCarousel.tpl'}
 {/block}
 
 

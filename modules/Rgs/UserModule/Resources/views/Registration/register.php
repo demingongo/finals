@@ -1,5 +1,9 @@
 {extends file='file:rgs_layout.php'}
 
+{block name="carousel"}
+{include file='file:includes/noCarousel.tpl'}
+{/block}
+
 {block  name=section}
 <div id="header" class="col-sm-11 col-xs-offset-1">
 	<h3>{'layout.register'|trans:[]:UserModule}</h3>

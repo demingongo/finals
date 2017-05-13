@@ -2,6 +2,8 @@
 
 namespace Rgs\CatalogModule\Entity\Repository;
 
+use Rgs\CatalogModule\Entity\ReservationArticle;
+
 /**
  * ReservationArticleRepository
  *
@@ -10,4 +12,36 @@ namespace Rgs\CatalogModule\Entity\Repository;
  */
 class ReservationArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function restockAndDelete(ReservationArticle $ra)
+	{
+
+		$this->getEntityManager()->createQuery('
+			UPDATE Rgs\CatalogModule\Entity\Article a
+			SET a.stock = a.stock + :quantity
+			WHERE a.id = :id')
+			->setParameter('id', $ra->getArticle()->getId())
+			->setParameter('quantity', $ra->getQuantite())
+			->execute();
+		
+		//delete the reservation_article
+		$this->deleteOneById($ra->getId());
+	}
+	
+	public function deleteOneById($id)
+	{
+		$qb = $this->createQueryBuilder('r');
+
+		return $qb->delete('RgsCatalogModule:ReservationArticle', 'r')
+			->where('r.id = :id')
+			->setParameter('id', $id)
+			->getQuery()
+			->execute();
+	}
+
+	public function deleteByIds(array $ids)
+	{
+		foreach($ids as $id){
+			$this->deleteOneById($ids);
+		}
+	}
 }

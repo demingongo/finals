@@ -1,5 +1,8 @@
 {extends file='file:rgs_layout.php'}
 
+{block name="carousel"}
+{include file='file:includes/noCarousel.tpl'}
+{/block}
 
 {block  name=section}
 {*$smarty.block.parent*}

@@ -141,6 +141,6 @@ class ReservationArticle extends Entity
 
 	public function isNew()
 	{
-		return isset($this->id);
+		return !isset($this->id);
 	}
 }

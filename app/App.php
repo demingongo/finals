@@ -22,6 +22,7 @@ class App extends Application
 			new Rgs\CatalogModule\RgsCatalogModule(),
 			new Rgs\AdminModule\RgsAdminModule(),
 			new Doctrine\NestedSetModule\NestedSetModule(),
+			new Api\CatalogModule\CatalogApiModule()
 
 			//new Cocur\Slugify\Bridge\Symfony\CocurSlugifyModule(),
         );

@@ -2,13 +2,7 @@
 
 namespace Rgs\UserModule\Middleware;
 
-use Novice\Event\GetResponseEvent,
-	Novice\Event\FilterResponseEvent;
-
-use Novice\Form\Extension\Csrf\CsrfExtension;
-
-use Symfony\Component\Security\Core\Util\SecureRandom,
-	Symfony\Component\Security\Core\Util\StringUtils;
+use Novice\Event\FilterResponseEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Rgs\UserModule\Form\LoginFormBuilder,
@@ -20,20 +14,21 @@ class AssignMiddleware
 		
 		$container = $dispatcher->getContainer();
 		if(!$container->get('session')->isAuthenticated()){
-
-			$generator = new SecureRandom();
-			$csrfExtension = new CsrfExtension($container->get('session'), /*$generator->nextBytes(32)*/ "login_modal", 25*60);
+			
 
 			$formBuilder = new LoginFormBuilder(new User());
 			$formBuilder->setContainer($container)
 						->build();
-			$form = $formBuilder->addExtension($csrfExtension)
-								->form();
+						
+			$csrfExtension = new \Novice\Form\Extension\Csrf\CsrfExtension($container->get('session'), "login_modal", 25*60);
+			$formBuilder->addExtension($csrfExtension);
+			
+			$form = $formBuilder->form();
 			
 			$container->get('templating')->assign('formModalLogin', $form->createView());
 
 		}
-		//exit(__METHOD__);
+
 		$container->get('templating')->assign(array('session' => $container->get('session')));
 		$container->get('templating')->assign(array('session_flash' => $container->get('session')->getFlashBag()));
 		$container->get('templating')->assign(array('app' => 

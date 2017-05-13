@@ -18,23 +18,14 @@ class RFMiddleware
 		$container = $dispatcher->getContainer();
 		if($container->get('session')->isAuthenticated()){
 			$user = $container->get('app.user')->getData();
-			/**
-			 *
-			 * Faire les vérifications (si le user est au moins gestionnaire)
-			 *
-			 * $_SESSION["RF"]["allow_acces"] = true;
-			 * return;
-			 *
-			 */
-			//dump($user);
-			//exit(__METHOD__);
+			//allow access if user has role ROLE_SUPER_ADMIN
 			if(!empty($user) && $user instanceof User && $user->hasRole(User::ROLE_SUPER_ADMIN)){
 				$_SESSION["RF"]["allow_acces"] = true;
 				return;
 			}
 		}
 		
-		//$_SESSION["RF"]["allow_acces"] = true;
+		//by default, don't allow access
 		$_SESSION["RF"]["allow_acces"] = false;
 	}
 }

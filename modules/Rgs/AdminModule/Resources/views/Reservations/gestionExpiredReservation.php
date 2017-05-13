@@ -18,9 +18,16 @@
 {/block}
 
 {block name=page-wrapper}
+
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Reservations expirées</h1>
+		<h1 class="page-header">
+        {if $expiredPage}
+        Reservations expirées
+        {else}
+        Reservations
+        {/if}
+        </h1>
     </div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -34,12 +41,16 @@
         </a>
 	</div>
 	<div id="collapse-tools" class="col-lg-8 collapse subhead-collapse">
-		{*********************
+    	<button type="submit" name="submit[]" class="btn btn-outline btn-primary itemAction to-xs" value="edit">
+		<span class="fa fa-edit"></span> Details
+		</button>
+    	<button type="submit" name="submit[]" class="btn btn-outline btn-warning itemAction to-xs" value="cancel">
+		 Cancel
+        </button>
         <button type="submit" name="submit[]" id="cancelAll" class="btn btn-outline btn-warning to-xs" data-novice-toggle="confirm" 
 		 data-toggle="tooltip" data-placement="top" data-original-title="Cancel all" value="cancelAll">
-		<span class="fa fa-trash"></span> Tout annuler
+		<span class="fa fa-trash"></span> Cancel all
 		</button>
-        *************}
 	</div>
 </div>
 <div class="col-md-4 pull-right subhead-collapse">
@@ -66,32 +77,25 @@
 <table id="tab" class="table table-striped table-hover ">
   <thead>
     <tr>
+      <th>
+      <input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
+      </th>
       <th>#</th>
-      <th>Date de réservation</th>
-      <th>Date d'expiration</th>
       <th>User</th>
       <th>Email user</th>
-      <th></th>
-      <th class="text-center">
-      	<button type="submit" name="submit[]" id="cancelAll" class="btn btn-outline btn-warning" data-novice-toggle="confirm" 
-		 data-toggle="tooltip" data-placement="top" data-original-title="Cancel all" value="cancelAll">
-		<span class="fa fa-trash"></span> Tout annuler
-		</button>
-      </th>
+      <th>Date de réservation</th>
+      <th>Date d'expiration</th>
     </tr>
   </thead>
   <tbody>
 	{foreach name=reservations from=$reservations item=resa}
     <tr>
+    <td>
+	  	<input type="checkbox" id="cb{$smarty.foreach.users.index}" name="cid[]" value="{$resa.id}" />
+	</td>
       <td>
-      	{$resa.id}
+      	<a href="{path id='rgs_admin_reservations_details' params=['id' => $resa.id, 'state' => $state] absolute=true}">{$resa.id}</a>
       </td>
-      <td>
-		{$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}
-	  </td>
-      <td>
-		{$resa.expires_at|date_format:"%Y-%m-%d %H:%M:%S"}
-	  </td>
       <td>
 		<a href="{path id='rgs_admin_users_edit' params=['id' => $resa.user.id] absolute=true}">{$resa.user.login}</a>
 	  </td>
@@ -99,15 +103,11 @@
 		<a href="{path id='rgs_admin_users_edit' params=['id' => $resa.user.id] absolute=true}">{$resa.user.email}</a>
 	  </td>
       <td>
-      	<a href="{path id='rgs_admin_reservations_details' params=['id' => $resa.id, 'state' => 'expired'] absolute=true}" class="btn btn-info">
-        	Details
-        </a>
-      </td>
-      <td class="text-center">
-      	<button type="submit" name="submit[]" id="deleteOne" class="btn btn-warning" data-placement="top" data-original-title="Delete" value="cancel">
-		 Annuler
-		</button>
-      </td>
+		{$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}
+	  </td>
+      <td>
+		{$resa.expires_at|date_format:"%Y-%m-%d %H:%M:%S"}
+	  </td>
     </tr>
 	{/foreach}
   </tbody>

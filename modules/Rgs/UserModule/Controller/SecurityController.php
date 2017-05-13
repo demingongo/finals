@@ -17,6 +17,8 @@ use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Form\LostPasswordFormBuilder,
 	Rgs\UserModule\Form\ResetPasswordFormBuilder;
 
+use Rgs\UserModule\Util\UserModuleUtils;
+
 class SecurityController extends \Novice\BackController
 {
 	public function executeLogin(Request $request)
@@ -57,11 +59,9 @@ class SecurityController extends \Novice\BackController
 
 		try{
 			if ($form->isValid())
-			{	
+			{		
 				$result = $this->getDoctrine()->getManager()->getRepository('UserModule:User')->findOneByLogin($user->getLogin());
 				if(null == $result || !Password::verify($user->getPassword(), $result->getPassword())){
-					//$form->getField('login')->setWarningMessage();
-					//$form->getField('password')->setWarningMessage();
 					$session->getFlashBag()->set('notice', $this->get('translator')->trans("Bad credentials", array(), "UserModule"));
 				}
 				else if(!$result->isActivated()){
@@ -80,13 +80,18 @@ class SecurityController extends \Novice\BackController
 					$result->setLastLogin(new \DateTime('now'));
 
 					if(null != $form->getField('remember_me') && $form->getField('remember_me')->value()){
+						$generator = new SecureRandom();
+						$utils = new UserModuleUtils();
+						
 						$auth = new AuthToken();
 						$auth->setUser($result);
+						
+						//expires in 2 days
 						$date = new \DateTime('now');
 						$date->add(new \DateInterval('P2D'));
+						
 						$auth->setExpiresAt($date);
-						$generator = new SecureRandom();
-						$token = bin2hex($generator->nextBytes(32));
+						$token = $utils->createRandomToken($generator);
 						$auth->setToken(Password::hash($token));
 						$em->persist($auth);
 						$em->flush();
@@ -196,7 +201,9 @@ class SecurityController extends \Novice\BackController
 					$session->getFlashBag()->set('notice', $this->get('translator')->trans("Bad credentials", array(), "UserModule"));
 				}
 				else{
-					$confirmationToken = bin2hex($generator->nextBytes(32));
+					$utils = new UserModuleUtils();
+					
+					$confirmationToken = $utils->createRandomToken($generator);
 					$result->setConfirmationToken(Password::hash($confirmationToken));
 					$em->persist($result);
 					$em->flush();
@@ -262,7 +269,10 @@ class SecurityController extends \Novice\BackController
 		try{	
 
 			if($form->isValid()) {
-				if($this->registerConfirmPassword($form, 'password', 'confirm')){
+				
+				$utils = new UserModuleUtils();
+				
+				if($utils->compareFormFields($form, 'password', 'confirm')){
 					$result = $this->getDoctrine()->getManager()->getRepository('UserModule:User')->findOneBySlug($slug);
 					if( null == $result || !Password::verify($token, $result->getConfirmationToken()) ){
 						$session->getFlashBag()->set('notice', $this->get('translator')->trans("Unknown", array(), "UserModule"));
@@ -296,15 +306,5 @@ class SecurityController extends \Novice\BackController
 		}
 
 		$this->assign('form', $form->createView());
-	}
-
-	private function registerConfirmPassword(\Novice\Form\Form $form, $fieldName1, $fieldName2)
-	{
-		if( !($retour = StringUtils::equals($form->getField($fieldName1)->value(), $form->getField($fieldName2)->value())) ){
-			$form->getField($fieldName1)->setWarningMessage();
-			$form->getField($fieldName2)->setWarningMessage();
-		}
-
-		return $retour;
 	}
 }

@@ -402,6 +402,6 @@ class Article extends Entity implements Model\PublishedInterface
 
 	public function isNew()
 	{
-		return isset($this->id);
+		return !isset($this->id);
 	}
 }

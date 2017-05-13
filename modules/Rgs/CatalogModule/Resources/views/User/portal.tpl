@@ -11,6 +11,10 @@ Multi line comment block with credits block
 **********************************************************}
 
 
+{block name="carousel"}
+{include file='file:includes/noCarousel.tpl'}
+{/block}
+
 
 
 {block  name=section}

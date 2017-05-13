@@ -2,6 +2,10 @@
 
 {extends file='file:rgs_layout.php'}
 
+{block name="carousel"}
+{include file='file:includes/noCarousel.tpl'}
+{/block}
+
 {block  name=section}
 <div class="col-sm-5 col-xs-offset-1">
 {if $session_flash->has('notice')}

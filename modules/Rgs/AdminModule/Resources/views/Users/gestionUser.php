@@ -151,29 +151,6 @@ Continue ?" value="delete">
 	</div>
 </div>
 
-<!--<div id="collapse-filter" class="col-md-3 collapse subhead-collapse pull-right">
-	<div class="">
-		<div data-toggle="tooltip" data-placement="left" data-original-title="User group :" style="display: block; padding: 1px;">
-		{$groupWidget}
-		</div>
-		<div data-toggle="tooltip" data-placement="left" data-original-title="Visibilité :" style="display: block; padding: 1px;">
-		{$visibilityWidget}
-		</div>
-		<div style="display: block; padding: 1px;">
-		{$activatedWidget}
-		</div>
-		<div style="display: block; padding: 1px;">
-		{$createdAtWidget}
-		</div>
-		<div class="col-xs-8" data-toggle="tooltip" data-placement="left" data-original-title="Tri par :" style="display: inline-block; padding: 1px;">
-		{$orderingWidget}
-		</div>
-		<div class="col-xs-4" data-toggle="tooltip" data-placement="top" data-original-title="number per page :" style="display: inline-block; padding: 1px;">
-		{$limitWidget}
-		</div>
-	</div>
-</div>-->
-
 </div>
 <div class="table-responsive">
 <table id="tab" class="table table-striped table-hover">
@@ -200,8 +177,6 @@ Continue ?" value="delete">
 	  </td>
 	  <td class="text-center"><a href="{path id='rgs_admin_users_edit' params=['id' => $usr.id] absolute=true}">{$usr.login}</a></td>
       <td class="text-center">
-		<!--<a href="javascript:void(0);" name="submit[]" onclick="formTache('cb{$smarty.foreach.items.index}')" value="publish">-->
-		<!--<input type="submit" class="btn btn-outline btn-default" name="submit[]" onclick="" value="publish" />-->
 		{if $usr.isLocked}
 			{$lockValue='unlock'}
 		{else}
