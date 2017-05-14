@@ -88,7 +88,7 @@ class Configuration implements ConfigurationInterface
 								->then(function($v) { return array($v); })
 							->end()
 							->prototype('scalar')
-								->info('event possible values are: "REQUEST", "VIEW", "CONTROLLER", "RESPONSE", "TERMINATE"')
+								->info('event possible values are: "NOT_FOUND", "REQUEST", "VIEW", "CONTROLLER", "RESPONSE", "TERMINATE"')
 									->validate()
 										->ifTrue(function ($v) use ($events) {
 											if (is_string($v)) {

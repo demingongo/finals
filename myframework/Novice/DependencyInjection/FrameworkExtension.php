@@ -453,7 +453,9 @@ class FrameworkExtension extends BaseExtension
 				$container->setParameter('framework.middleware_'.$method.'.'.$name.'.priority', $params['priority']);
 				$container->setParameter('framework.middleware_'.$method.'.'.$name.'.pattern', $params['pattern']);
 
-				$args[] = array('framework.middleware.'.$name, 'on'.ucfirst($method));
+				$methodToCall = $method == 'notfound' ? 'notFound' : $method;
+
+				$args[] = array('framework.middleware.'.$name, 'on'.ucfirst($methodToCall));
 				$args[] = '%framework.middleware_'.$method.'.'.$name.'.priority%';
 				$args[] = '%framework.middleware_'.$method.'.'.$name.'.pattern%';
 				//dump($args); exit;

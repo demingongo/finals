@@ -46,6 +46,14 @@ class SecurityController extends \Novice\BackController
 				$response = $this->redirect($request->headers->get('referer'));
 			}
 		}
+		
+		$roles = [];
+		if($request->attributes->has('_roles')){
+			$roles = $request->attributes->get('_roles');
+			if(!is_array($roles)){
+				$roles = [$roles];
+			}
+		}
 
 		$user = new User();
 
@@ -71,49 +79,66 @@ class SecurityController extends \Novice\BackController
 					$session->getFlashBag()->set('notice', sprintf('Le compte de l\'utilisateur "%s" est bloqué.', $result->getLogin()));
 				}
 				else{
-					$usm = new UserSessionManager($session);
-					$usm->login($result->getId());
+					
+					// check attribute _roles
+					$hasPermission = true;
+					foreach($roles as $role){
+						if(!$result->hasRole($role)){
+							$hasPermission = false;
+							break;
+						}
+					}
+					
+					if(!$hasPermission){
+						$session->getFlashBag()->set('notice', '403 Forbidden');
+					}
+					else{
+						$usm = new UserSessionManager($session);
+						$usm->login($result->getId());
 				
-					$this->get('app.user')->setData($result);
+						$this->get('app.user')->setData($result);
 					
-					$em = $this->getDoctrine()->getManager();
-					$result->setLastLogin(new \DateTime('now'));
+						$em = $this->getDoctrine()->getManager();
+						$result->setLastLogin(new \DateTime('now'));
+	
+						if(null != $form->getField('remember_me') && $form->getField('remember_me')->value()){
+							$generator = new SecureRandom();
+							$utils = new UserModuleUtils();
+						
+							$auth = new AuthToken();
+							$auth->setUser($result);
+						
+							//expires in 2 days
+							$date = new \DateTime('now');
+							$date->add(new \DateInterval('P2D'));
+						
+							$auth->setExpiresAt($date);
+							$token = $utils->createRandomToken($generator);
+							$auth->setToken(Password::hash($token));
+							$em->persist($auth);
+							$em->flush();
+							$usm->createLoginCookie($response, $auth->getId(), $token, $date);
+						}
 
-					if(null != $form->getField('remember_me') && $form->getField('remember_me')->value()){
-						$generator = new SecureRandom();
-						$utils = new UserModuleUtils();
-						
-						$auth = new AuthToken();
-						$auth->setUser($result);
-						
-						//expires in 2 days
-						$date = new \DateTime('now');
-						$date->add(new \DateInterval('P2D'));
-						
-						$auth->setExpiresAt($date);
-						$token = $utils->createRandomToken($generator);
-						$auth->setToken(Password::hash($token));
-						$em->persist($auth);
+						$em->persist($result);
 						$em->flush();
-						$usm->createLoginCookie($response, $auth->getId(), $token, $date);
-					}
-
-					$em->persist($result);
-					$em->flush();
 					
-					if( !$hasRedirect
-					&& $this->get('session')->has('security_login_redirect')  
-					&& !StringUtils::equals($this->get('session')->get('security_login_redirect'), $request->getUri())
-					&& $request->query->has('redirect') 
-					&& !StringUtils::equals($request->query->get('redirect'), $request->getUri())
-					&& StringUtils::equals($request->query->get('redirect'), $this->get('session')->get('security_login_redirect'))){
-						$response = $this->redirect($this->get('session')->get('security_login_redirect'));			
-					}
-					if($this->get('session')->has('security_login_redirect')){
-						$this->get('session')->remove('security_login_redirect');
-					}
+						if( !$hasRedirect
+						&& $this->get('session')->has('security_login_redirect')  
+						&& !StringUtils::equals($this->get('session')->get('security_login_redirect'), $request->getUri())
+						&& $request->query->has('redirect') 
+						&& !StringUtils::equals($request->query->get('redirect'), $request->getUri())
+						&& StringUtils::equals($request->query->get('redirect'), $this->get('session')->get('security_login_redirect'))){
+							$response = $this->redirect($this->get('session')->get('security_login_redirect'));			
+						}
+						if($this->get('session')->has('security_login_redirect')){
+							$this->get('session')->remove('security_login_redirect');
+						}
 
-					return $response;
+						return $response;
+					}
+					
+					
 				}
 			}
 		}

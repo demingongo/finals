@@ -86,8 +86,13 @@ class HttpApp //implements HttpKernelInterface, TerminableInterface
 	 $result = $router->match($request->getPathInfo());
 	}
 	catch(\Symfony\Component\Routing\Exception\ResourceNotFoundException $e) {
-		/*$this->dispatcher->getContainer()->get('templating')->setContentFile('file:[errors]404.tpl');
-		$rep = \Symfony\Component\HttpFoundation\StreamedResponse::create(array($this->dispatcher->getContainer()->get('templating'), "getGeneratedPage"),'404');*/
+		
+		// route not found
+    	$event = new \Novice\Event\GetResponseEvent($this, $request);
+	    $this->dispatcher->dispatchMiddlewares(Events::NOTFOUND, $event);
+	    if ($event->hasResponse()) {
+	        return $this->filterResponse($event->getResponse(), $request);
+	    }
 		$rep = StreamedErrorResponse::createResponse($this->dispatcher->getContainer()->get('templating')/*,'404'*/);
 		return $this->filterResponse($rep, $request);
 	}

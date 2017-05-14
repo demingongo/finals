@@ -106,14 +106,6 @@ class AnnotationController extends \Novice\BackController
      */
 	public function executeIndex($request)
 	{
-		
-		/*$this->get('templating')->assign(array('greetings' => 'Hello World !',
-							'saludos' => 'Buenos días',
-							'controller' => $this));
-
-		return "file:[RgsCatalogModule]articlesAll.tpl";*/
-
-		//$this->createToken();
 
 		return array('greetings' => 'Hello World !',
 							'saludos' => 'Buenos días',
@@ -135,6 +127,7 @@ class AnnotationController extends \Novice\BackController
 	 *			name="rgs_catalog_articles_all", 
 	 * 			defaults={"_page": 1, "article_name": "attr_conv"}, 
 	 * 			requirements={"_page": "\d+"})
+	 *
 	 *
 	 * @NOVICE\AttributeConverter("article_attr", 
 	 *						class="Rgs\CatalogModule\Entity\Article",

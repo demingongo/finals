@@ -50,18 +50,8 @@
       <ul class="nav navbar-nav">
         <li>
 		<a href="{path id='rgs_catalog_index' absolute=false}">{'nav.home'|trans}</a></li>
-		<li>
-		<a href="#somelink">Some link</a></li>
-        <li class="dropdown no-action">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{path id='rgs_catalog_articles_all'}">Tous les articles</a></li>
-            <li>
-            	<a href="#Categories">Categories</a>
-            </li>
-            <li><a href="#seh">Something else here</a></li>
-          </ul>
-        </li>
+        <li>
+		<a href="{path id='rgs_catalog_articles_all'}">Articles</a></li>
         <li>
 		<a href="#about">{'nav.about'|trans}</a></li>
         <li>
@@ -92,12 +82,14 @@
             <span class="badge">{$rgs.caddie->count()}</span>
             </a>
         </li>
+        {if $session->isAuthenticated() && $app.user.data->hasRole('ROLE_SUPER_ADMIN')}
 		<li class="no-action">
 			<a href="{path id='rgs_admin_index' absolute=true}" target="_blank">
 				Admin
 				<span class="glyphicon glyphicon-new-window"></span>
 			</a>
 		</li>
+        {/if}
         <li class="no-action">
         	<a href="{path id='rgs_catalog_language' _locale='en' absolute=true}">
         		<img alt="en" title="english" height="16" src="{asset url='/img/pictos/United-States-of-Americ-icon.png'}" />
@@ -166,18 +158,11 @@
 	<div class="row">
 	<div class="hidden-xs">
 		<ul class="list-inline">
-			<li><i class="glyphicon glyphicon-copyright-mark"></i> {#sitename#}</li>
+			<li><i class="glyphicon glyphicon-copyright-mark"></i> {#sitename#} 2017</li>
 			<li><a href="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</a></li>
-			<li><a href="#">Privacy Policy</a></li>
-			<li><a href="#">Terms of use</a></li>
-			<li><a href="#">Contact Us</a></li>
+            <li><a href="#about">{'nav.about'|trans}</a></li>
+            <li><a href="#contact">{'nav.contact'|trans}</a></li>
 		</ul>
-		{*************************
-		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-		</p>
-		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-		</p>
-		****************}
 	</div>
 	<div class="visible-xs form-group">
 		<ul class="list-inline">
@@ -186,9 +171,8 @@
 		<select class="form-control" id="footernav">
 			<option value="#">---</option>
 			<option value="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</option>
-			<option value="#">Privacy Policy</option>
-			<option value="#">Terms of use</option>
-			<option value="#">Contact Us</option>
+			<option value="#about">{'nav.about'|trans}</option>
+            <option value="#contact">{'nav.contact'|trans}</option>
 		</select>
 	</div>
 	</div>

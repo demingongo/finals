@@ -84,7 +84,6 @@ Multi line comment block with credits block
     	</div>
     </div>
         
-        <!--<div class="hidden-xs col-sm-8 col-md-8 col-sm-offset-1 col-md-offset-1">-->
         <div class="row text-center">
         {if !empty($a.teaser)}        
         	{$a.teaser|purify} 
@@ -95,50 +94,6 @@ Multi line comment block with credits block
         	
     	<!--<div class="clearfix visible-sm-block"></div>-->
     </div>
-   		<!--<div class="col-md-12">
-    		<div class="row">-->
-        		<!--<aside class="col-lg-12">-->
-                {*****************************
-            		<table class="table table-bordered table-condensed"> <!-- table-condensed-->
-                		<tbody>
-                    		<tr>
-                        		<th>Categorie</th><td title="{$a.categorie.name}">{$a.categorie.name|truncate:15:'...':true}</td>
-	                        </tr>
-                            <tr>
-        	                	<th>Etat</th><td>{$a.etat.name}</td>
-            	            </tr>
-    	                    <tr>
-        	                	<th>Prix</th>
-                                <td>
-                                	{if !empty($a.prix) && $a.prix gt 0}
-                                    	&euro;&nbsp;{$a.prix}
-                                    {else}
-                                    	<a href="#contact"><small>Contactez-nous</small></a>
-                                    {/if}
-                                </td>
-            	            </tr>
-                	        <tr>
-                    	    	<th>Stock</th>
-                                <td>
-                                	{if !empty($a.stock) && $a.stock gt 0}
-                                		{$a.stock}
-                                    {else}
-                                    	<small class="text-danger">Hors stock</small>
-                                    {/if}
-                                </td>
-                        	</tr>
-	                    </tbody>
-    	            </table>
-                    *******************}
-        	    <!--</aside>-->
-                <!--<aside class="col-lg-12">
-                	<form method="post">
-                    	<input type="hidden" name="id_article" value="{$a.id}" />
-                        <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>Reserver</button>
-                    </form>
-                </aside>-->
-	        <!--</div>
-    	</div>-->
         <div class="panel-footer">
         <table class="table table-bordered table-condensed"> <!-- table-condensed-->
                 		<tbody>
@@ -180,10 +135,6 @@ Multi line comment block with credits block
         </div>
 	</div>
 </article>
-{if $a@last}
-<!--&nbsp;
-<hr />-->
-{/if}
 {/foreach}
 </div>
 <div class="col-xs-12">

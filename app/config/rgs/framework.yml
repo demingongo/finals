@@ -5,7 +5,7 @@ framework:
             service:    asset.packages.version_strategy
         packages:
             urls:
-                cdnjs:  [ https://cdnjs.cloudflare.com/ajax/libs/ ] 
+                cdnjs:  [ https://cdnjs.cloudflare.com/ajax/libs/ ]
             paths:
                 novice: /assets/novice
                 bower: /assets/bower_components
@@ -16,7 +16,7 @@ framework:
                 img:   /img
                 upload:   /upload
                 plugins:   /plugins
-        
+
     router:
         resource: "%app.root_dir%/config/rgs/routing.yml"
         options:
@@ -25,7 +25,7 @@ framework:
 
     templating:
         debug:  false
-    
+
     translator: { fallbacks: [fr,en] }
 
     listeners:
@@ -34,6 +34,11 @@ framework:
             events: [REQUEST]
             pattern : ^/
             priority : 30
+        admin_app:
+            class: Rgs\UserModule\Middleware\AdminAppMiddleware
+            events: [NOTFOUND,REQUEST]
+            pattern : ^/admin
+            priority : 29
         assign_vars:
             class: Rgs\UserModule\Middleware\AssignMiddleware
             events: RESPONSE

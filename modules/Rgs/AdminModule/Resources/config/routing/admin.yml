@@ -9,13 +9,14 @@ rgs_admin_login:
     defaults:
         _controller: 'UserModule:SecurityController:login'
         _redirect: rgs_admin_index
+        _roles: [ROLE_SUPER_ADMIN]
         view: 'file:[RgsAdminModule]Security/login.php'
 
 rgs_admin_logout:
     path:     /logout
     defaults:
         _controller: 'UserModule:SecurityController:logout'
-        _redirect: rgs_admin_index
+        _redirect: rgs_admin_login
 
 rgs_admin_gestion_categorie:
     path:     /categories/

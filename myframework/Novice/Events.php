@@ -4,13 +4,30 @@ namespace Novice;
 
 final class Events
 {
+	
+	/**
+     * The NOT_FOUND event occurs at the very beginning of request
+     * dispatching
+     *
+     * This event allows you to create a response for a request before any
+     * other code in the framework is executed when the route requested was 
+	 * not found. The event listener method receives a Novice\Event\GetResponseEvent
+     * instance.
+     *
+     * @var string
+     *
+     * @api
+     */
+    const NOTFOUND = 'app.notfound';
+	
+	
     /**
-     * The REQUEST event occurs at the very beginning of request
+     * The REQUEST event occurs at the beginning of request
      * dispatching
      *
      * This event allows you to create a response for a request before any
      * other code in the framework is executed. The event listener method
-     * receives a Symfony\Component\HttpKernel\Event\GetResponseEvent
+     * receives a Novice\Event\GetResponseEvent
      * instance.
      *
      * @var string
@@ -24,7 +41,7 @@ final class Events
      *
      * This event allows you to create a response for a thrown exception or
      * to modify the thrown exception. The event listener method receives
-     * a Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent
+     * a Novice\Event\GetResponseForExceptionEvent
      * instance.
      *
      * @var string
@@ -39,7 +56,7 @@ final class Events
      *
      * This event allows you to create a response for the return value of the
      * controller. The event listener method receives a
-     * Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent
+     * Novice\Event\GetResponseForControllerResultEvent
      * instance.
      *
      * @var string
@@ -54,7 +71,7 @@ final class Events
      *
      * This event allows you to change the controller that will handle the
      * request. The event listener method receives a
-     * Symfony\Component\HttpKernel\Event\FilterControllerEvent instance.
+     * Novice\Event\FilterControllerEvent instance.
      *
      * @var string
      *
@@ -68,7 +85,7 @@ final class Events
      *
      * This event allows you to modify or replace the response that will be
      * replied. The event listener method receives a
-     * Symfony\Component\HttpKernel\Event\FilterResponseEvent instance.
+     * Novice\Event\FilterResponseEvent instance.
      *
      * @var string
      *
@@ -81,7 +98,7 @@ final class Events
      *
      * This event allows you to run expensive post-response jobs.
      * The event listener method receives a
-     * Symfony\Component\HttpKernel\Event\PostResponseEvent instance.
+     * Novice\Event\PostResponseEvent instance.
      *
      * @var string
      */

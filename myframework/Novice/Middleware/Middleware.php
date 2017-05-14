@@ -25,6 +25,8 @@ abstract class Middleware extends ContainerAware
   }
 
   public function handle(Request $request){}
+  
+  public function onNotFound($event){}  //new GetResponseEvent($this, $request, $type)
 
   public function onRequest($event){}  //new GetResponseEvent($this, $request, $type)
 
