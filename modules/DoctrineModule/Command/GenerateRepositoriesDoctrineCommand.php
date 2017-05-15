@@ -1,6 +1,6 @@
 <?php
 
-namespace Novice\Console\Command;
+namespace DoctrineModule\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,8 +16,8 @@ class GenerateRepositoriesDoctrineCommand extends GenerateRepositoriesCommand
     {
 		parent::configure();
         $this
-        ->setName('dodo:generate-repositories')
-        ->setAliases(array('dodo:generate:repositories'))
+        ->setName('doctrine:generate-repositories')
+        ->setAliases(array('doctrine:generate:repositories'))
 		->setDefinition(array(
             new InputOption(
                 'filter', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,

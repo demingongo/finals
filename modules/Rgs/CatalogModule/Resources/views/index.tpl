@@ -18,8 +18,6 @@ Multi line comment block with credits block
 <p>{path id="rgs_catalog_index" referenceType=ABSOLUTE_URL}</p>
 *******************}
 
-<p>{$greetings}</p>
-
 <p>{$tinymce_base_url}</p>
 
 {************

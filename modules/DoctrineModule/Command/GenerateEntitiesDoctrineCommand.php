@@ -1,6 +1,6 @@
 <?php
 
-namespace Novice\Console\Command;
+namespace DoctrineModule\Command;
 
 use Doctrine\ORM\Tools\Console\Command\GenerateEntitiesCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,8 +14,8 @@ class GenerateEntitiesDoctrineCommand extends GenerateEntitiesCommand
     {
 		parent::configure();
         $this
-        ->setName('dodo:generate-entities')
-        ->setAliases(array('dodo:generate:entities'))
+        ->setName('doctrine:generate-entities')
+        ->setAliases(array('doctrine:generate:entities'))
         ;
     }
 

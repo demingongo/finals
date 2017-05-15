@@ -1,6 +1,6 @@
 <?php
 
-namespace Novice\Console\Command;
+namespace DoctrineModule\Command;
 
 use Doctrine\DBAL\Tools\Console\Command\ReservedWordsCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +14,7 @@ class ReservedWordsDoctrineCommand extends ReservedWordsCommand
     {
 		parent::configure();
         $this
-        ->setName('dodo:reserved-words')
+        ->setName('doctrine:reserved-words')
 		->addOption('connection', null, InputOption::VALUE_OPTIONAL, 'The connection to use for this command')
             ->setHelp(<<<EOT
 Checks if the current database contains tables and columns

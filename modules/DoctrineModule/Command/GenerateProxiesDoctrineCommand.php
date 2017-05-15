@@ -1,6 +1,6 @@
 <?php
 
-namespace Novice\Console\Command;
+namespace DoctrineModule\Command;
 
 use Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,8 +14,8 @@ class GenerateProxiesDoctrineCommand extends GenerateProxiesCommand
     {
 		parent::configure();
         $this
-        ->setName('dodo:generate-proxies')
-        ->setAliases(array('dodo:generate:proxies'))
+        ->setName('doctrine:generate-proxies')
+        ->setAliases(array('doctrine:generate:proxies'))
         ->setDescription('Generates proxy classes for entity classes.')
         /*->setDefinition(array(
             new InputOption(

@@ -84,33 +84,8 @@ class Application extends BaseApplication
     {
 		if (!$this->commandsRegistered) {
             $this->addCommands(array(
-				// Doctrine2 Commands
-				new \Doctrine\Bundle\DoctrineBundle\Command\CreateDatabaseDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\DropDatabaseDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\RunSqlDoctrineCommand(),
-				new \Novice\Console\Command\ReservedWordsDoctrineCommand(),
-	
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\ClearMetadataCacheDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\ClearResultCacheDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\ClearQueryCacheDoctrineCommand(),				
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\UpdateSchemaDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\DropSchemaDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\EnsureProductionSettingsDoctrineCommand(),
-				new \Doctrine\ORM\Tools\Console\Command\ConvertDoctrine1SchemaCommand(),
-				new \Novice\Console\Command\GenerateEntitiesDoctrineCommand(),
-				new \Novice\Console\Command\GenerateProxiesDoctrineCommand(),
-				new \Novice\Console\Command\GenerateRepositoriesDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\ConvertMappingDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\RunDqlDoctrineCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\ValidateSchemaCommand(),
-				new \Doctrine\Bundle\DoctrineBundle\Command\Proxy\InfoDoctrineCommand(),
-
 				// Novice Commands
-				new \Novice\Console\Command\GenerateModuleCommand(),
-
-				//new \Acme\Command\GreetingCommand(),
-				
+				new \Novice\Console\Command\GenerateModuleCommand()
 				));
 			$this->commandsRegistered = true;
 		}
