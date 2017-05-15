@@ -14,6 +14,7 @@
 {/if}
 <form action="" data-toggle="validator" method="post" role="form" {*class="form-inline"*}>
 
+<div class="col-sm-12">
 {form_build_widget form=$form}
 
 {* begin submit *}
@@ -21,6 +22,14 @@
 <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{'security.login.submit'|trans:[]:UserModule}" />
 </div>
 {* end submit *}
+</div>
+<div class="row form-group text-center col-sm-12">
+	<a href="{path id='user_security_lostpassword' absolute=true}">Forgot password ?</a>
+</div>
+
+<div class="row form-group text-center col-sm-12">
+	Not a memeber yet ? <a href="{path id='user_registration_register' absolute=true}">Register for free</a>
+</div>
 
 </form>
 </div>

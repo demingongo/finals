@@ -2,10 +2,13 @@
 <hr />
 
 {foreach $app.user.data.reservations as $resa}
+{if_not_expired from=$resa.expires_at}
 {$total=0}
 <div class="panel panel-default">
 	<div class="panel-heading">
-    	Reservation: {$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}
+    	<div>Code: {$resa.id}</div>
+    	<div>Reservation: {$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}</div>
+        <div>Expiration: {$resa.expires_at|date_format:"%Y-%m-%d %H:%M:%S"}</div>
 	</div>
     <div class="panel-body">
     	<div class="table-responsive">
@@ -56,4 +59,5 @@
     	<b class="">TOTAL: {$total} &euro;</b>
     </div>
 </div>
+{/if_not_expired}
 {/foreach}

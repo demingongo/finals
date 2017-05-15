@@ -41,7 +41,11 @@
 </div>
 {* end submit *}
 <div class="row form-group text-center top40">
-	Pas encore membre ? <a href="{path id='user_registration_register' absolute=true}">Inscrivez-vous gratuitement</a>
+	<a href="{path id='user_security_lostpassword' absolute=true}">Forgot password ?</a>
+</div>
+
+<div class="row form-group text-center top40">
+	Not a memeber yet ? <a href="{path id='user_registration_register' absolute=true}">Register for free</a>
 </div>
 
 
