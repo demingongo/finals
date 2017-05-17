@@ -15,6 +15,8 @@ use Novice\Form\Validator as N_Form_Validator;
 use Symfony\Component\Debug as Symfony_Debug;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
+use Utils\ToolFieldsUtils;
+
 class ReservationManagerController extends \Novice\BackController
 {
 	
@@ -120,80 +122,54 @@ class ReservationManagerController extends \Novice\BackController
 		$expiredOnes = $state == 'expired';
 		
 		$this->setView('file:[RgsAdminModule]Reservations/gestionReservation.php');
+
+		$fieldsUtils = new ToolFieldsUtils();
 		
 		$r = $this->processPostGestion($request, $state);
 		if(is_object($r) && $r instanceof Response)
 			return $r;
-
+		
+		// get page number
 		$page = null;
 		if($request->request->has('page'))
 			$page = $request->request->get('page');
 		if(!is_numeric($page))
 			$page = 1;
 
+		// default filter and sort values
 		$search = "";
 		$limit = 15;
 		$ordering = array("r.createdAt" => "DESC");
 		$orderingString = "r.createdAt DESC";
-
 		$where = array();
 		
-		$searchField = new InputField(array(
-			'name' => 'search',
-			'placeholder' => 'Search login',
-			'feedback' => false,
-		
-		));
+		//-- create filter & sort fields
+		$searchField = $fieldsUtils->createSearchField(
+			'Search (login or email)'
+		);
 
-		$orderingField = new SelectField(array(
-			'name' => 'ordering',
-			'empty_option' => false,
-			'options' => array( 
+		$limitField = $fieldsUtils->createLimitField();
+
+		$orderingField = $fieldsUtils->createOrderField(array( 
 				"r.createdAt DESC" => "Date descending",
 				"r.createdAt ASC" => "Date ascending",
 				"u.login ASC" => "User ascending",
 				"u.login DESC" => "User descending",
-			),
-			'feedback' => false,
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Order by',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
 		));
-
-		$limitField = new SelectField(array(
-			'name' => 'limit',
-			'empty_option' => false,
-			//'bootstrap' => false,
-			'options' => array( 
-				2 => '2',
-				5 => '5',
-				10 => '10',
-				15 => '15',
-				20 => '20',
-				25 => '25',
-				30 => '30',
-				50 => '50'),
-			'feedback' => false,
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Number per page',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		//-- create filter & sort fields --END
 		
+		//-- process POST request filter & sort
 		if($request->request->has('search')){
 			$req_search = $request->request->get('search');
 			if(!empty($req_search)){
 					$search = $req_search;
 			}
+		}
+		
+		if($request->request->has('limit')){
+			$req_limit = $request->request->get('limit');
+			if(!empty($req_limit))
+				$limit = $req_limit;
 		}
 
 		if($request->request->has('ordering')){
@@ -207,13 +183,9 @@ class ReservationManagerController extends \Novice\BackController
 				$orderingString	= $req_ordering;
 			}
 		}
+		//-- process POST request filter & sort --END
 		
-		if($request->request->has('limit')){
-			$req_limit = $request->request->get('limit');
-			if(!empty($req_limit))
-				$limit = $req_limit;
-		}
-		
+		//-- qb to show expired reservations or not
 		if($expiredOnes){
 			$expiredClosure = function($qb){
 			$dt = new \Datetime("now");
@@ -230,8 +202,9 @@ class ReservationManagerController extends \Novice\BackController
 			return $qb;
 			};
 		}
+		//-- qb to show expired reservations or not --END
 		
-		
+		//-- qb to search
 		$searchClosure = function($qb) use ($search){
 			if(!empty($search)){
 				$qb->andWhere($qb->expr()->orX('u.login LIKE :login', 'u.email LIKE :login'))
@@ -241,28 +214,31 @@ class ReservationManagerController extends \Novice\BackController
 			return $qb;
 		};
 
+		//build the query WITHOUT limit filter
 		$qb = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Reservation')
 			->getCountReservationsQB($where);
-
 		$qb = $expiredClosure($qb);	
 		$qb = $searchClosure($qb);
 
+		//get total of items
 		$totalItems = $qb->getQuery()->getSingleScalarResult();
 
+		//get number of pages and correct page number in case
 		$pagesCount = ceil($totalItems / $limit);
 		if($page > $pagesCount)
 			$page = $pagesCount;
 		if($page == 0)
 			$page = 1;
-			
+		
+		//build the query WITH filters
 		$qb = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Reservation')
 			->getFindReservationsQB($limit, $page, $where, $ordering);
-
 		$qb = $expiredClosure($qb);
 		$qb = $searchClosure($qb);
 
+		//get result from Paginator
 		$reservations = new Paginator($qb);
 		
 		$this->assign("expiredPage", $expiredOnes);
@@ -285,13 +261,51 @@ class ReservationManagerController extends \Novice\BackController
 	
 	public function executeDetailsReservation(Request $request)
 	{
+		$routeId = 'rgs_admin_gestion_reservations';
+		if($request->attributes->has('state') && $request->attributes->get('state') == 'expired'){
+			$routeId = 'rgs_admin_gestion_expired_reservations';
+		}
+		
 		$this->setView('file:[RgsAdminModule]Reservations/detailsReservation.php');
-		
-		$reservation = $this->getDoctrine()->getManager()
-			->getRepository('RgsCatalogModule:Reservation')->findOneById($request->attributes->get('id'));
-		
-		$this->assign("reservation", $reservation);
 
+		$em = $this->getDoctrine()->getManager();
+
+		$reservation = $em->getRepository('RgsCatalogModule:Reservation')->findOneById($request->attributes->get('id'));
+
+		if(!$reservation){
+			return $this->redirect($this->generateUrl($routeId));
+		}
+		
+		if($request->isMethod('POST'))
+		{
+			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
+				$submit = end($submit);
+
+
+				if($submit == "cancel"){
+						$result = $em->getRepository('RgsCatalogModule:Reservation')
+						->cancelOneById($reservation->getId());
+						return $this->redirect($this->generateUrl($routeId));
+				}
+				else if($submit == "valid"){
+					$em->getConnection()->beginTransaction();
+					try{
+						$em->remove($reservation);
+						$em->flush();
+						$em->getConnection()->commit();
+
+						return $this->redirect($this->generateUrl($routeId));
+					}
+					catch(\Exception $e){
+						$em->close();
+						$em->getConnection()->rollback();
+
+						$this->get('session')->getFlashBag()->set('error', 'An error occured');
+					}
+				}
+			}
+		}		
+		$this->assign("reservation", $reservation);
 	}
 	
 }

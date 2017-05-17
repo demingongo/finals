@@ -45,7 +45,7 @@ class Reservation extends Entity
      */
     private $user;
 
-	/** @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\ReservationArticle", mappedBy="reservation", cascade={"persist"}) */
+	/** @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\ReservationArticle", mappedBy="reservation", cascade={"persist","remove"}) */
     protected $reservationArticles;
 		
 	use Model\DateOnCreateTrait;

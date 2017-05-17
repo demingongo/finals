@@ -68,7 +68,12 @@
 
 		{* begin submit *}
 		<div class="row form-group col-md-12">
-			<input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="Annuler" />
+			<button type="submit" id="_submit" name="submit[]" class="btn btn-warning pull-right" value="cancel" title="Cancel the reservation" >
+                Cancel
+            </button>
+            <button type="submit" id="_submit" name="submit[]" class="btn btn-primary pull-right" value="valid" title="Confirm that reservation was paid" >
+                Paid
+            </button>
 		</div>
 		{* end submit *}
 	</form>
