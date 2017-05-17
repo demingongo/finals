@@ -17,6 +17,7 @@ class App extends Application
 			new DoctrineModule\DoctrineModule(),
 			new Novice\FrameworkModule(),
 			new Novice\Module\SwiftmailerModule\SwiftmailerModule(),
+			new Novice\Module\SmartyBootstrapModule\SmartyBootstrapModule(),
 			
 			new Rgs\UserModule\UserModule(),
 			new Rgs\CatalogModule\RgsCatalogModule(),

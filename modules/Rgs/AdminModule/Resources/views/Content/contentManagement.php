@@ -74,8 +74,6 @@ Continue ?" value="delete">
 </div>
 </div>
 <!--<form method="post" id="adminForm" name="adminForm">-->
-{sb_table columns=$columns items=$items}
-{**************
 <table id="tab" class="table table-striped table-hover ">
   <thead>
     <tr>
@@ -102,6 +100,7 @@ Continue ?" value="delete">
 			{$publishValue='publish'}
 		{/if}
 		<input type="image" src="{statut statut=$itm.isPublished srconly=true}" class="btn btn-outline btn-default" name="submit[]" onclick="formTache('{$publishValue}','cb{$smarty.foreach.items.index}')" value="{$publishValue}" />
+			{*statut statut=$itm.isPublished srconly=false*}
 	  </td>
       <td><a href="{path id='rgs_admin_articles_edit' params=['id' => $itm.id, 'slug' => $itm.slug] absolute=true}">{$itm.name}</a></td>
 	  <td class="hidden-xs"><a href="{path id='rgs_admin_categories_edit' params=['id' => $itm.categorie.id, 'slug' => $itm.categorie.slug] absolute=true}">{$itm.categorie.name}</a></td>
@@ -109,11 +108,7 @@ Continue ?" value="delete">
 	{/foreach}
   </tbody>
 </table>
-**************}
 {include file='file:[RgsAdminModule]includes/adminFormPagination.tpl'}
 </form>
 </div>
-
-{*sb_table columns=[['property'=> '[name]', 'name' => 'NaMe', 'route' => ['id' => 'rgs_admin_articles_edit', 'params'=> ['id' => 7, 'slug' => 'blabla']]], ['property' => '[other][name]']] items=[['id' => 23, 'name' => 'gogol', 'other'=>['name'=>'Father']]]*}
-
 {/block}

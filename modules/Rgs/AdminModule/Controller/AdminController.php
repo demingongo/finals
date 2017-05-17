@@ -15,6 +15,10 @@ use Novice\Form\Validator as N_Form_Validator;
 
 use Symfony\Component\Debug as Symfony_Debug;
 
+use Novice\Module\SmartyBootstrapModule\Util\ItemProperty;
+
+use Utils\ToolFieldsUtils;
+
 class AdminController extends \Novice\BackController
 {
 	
@@ -198,72 +202,26 @@ class AdminController extends \Novice\BackController
 		$ordering = "c.name ASC";
 		$allVisible = 7;
 		$visibility = $allVisible;
-
 		$where = array();
 
-		$visibilityField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'visibility',
-			'empty_option' => false,
-			'options' => array(
+		$fieldsUtils = new ToolFieldsUtils();
+
+		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
 				Categorie::PUBLISHED => "published",
 				Categorie::NOT_PUBLISHED => "not published",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'All',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$orderingField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'ordering',
-			'empty_option' => false,
-			'options' => array( 
+		$orderingField = $fieldsUtils->createVisibilityField(array( 
 				"c.name ASC" => "Title ascending",
 				"c.name DESC" => "Title descending",
 				"c.id ASC" => "Id ascending",
 				"c.id DESC" => "Id descending",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Order by',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$limitField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'limit',
-			'empty_option' => false,
-			'options' => array( 
-				1 => '1',
-				2 => '2',
-				5 => '5',
-				10 => '10',
-				15 => '15',
-				20 => '20',
-				25 => '25',
-				30 => '30',
-				50 => '50'),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Number per page',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		$limitField = $fieldsUtils->createLimitField();
 
+		
 		if($request->request->has('visibility')){
 			$visibility = $request->request->get('visibility');
 		}
@@ -393,87 +351,24 @@ class AdminController extends \Novice\BackController
 
 		$where = array();
 
-		$entityExt = new \Novice\Form\Extension\Entity\EntityExtension($this->getDoctrine(), array(
-		'class' => 'RgsCatalogModule:Categorie',
-		'choice_label' => function($cat){return $cat->getName();},
-		'query_builder' => function ($er) {
-				return $er->createQueryBuilder('c')
-					->orderBy('c.name', 'ASC');
-		},
-        'name' => 'categorie',
-		'feedback' => false,
-		'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'All Categories',
-			'data-allow-clear' => 'true',
-			'data-minimum-results-for-search' => 15,
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		$fieldsUtils = new ToolFieldsUtils();
 
-		$visibilityField = new SelectField(array(
-			'name' => 'visibility',
-			'empty_option' => false,
-			'options' => array(
+		$categoryField = $fieldsUtils->createCategoryEntityField($this->getDoctrine());
+
+		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
 				Article::PUBLISHED => "published",
 				Article::NOT_PUBLISHED => "not published",
-			),
-			'feedback' => false,
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'All',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$orderingField = new SelectField(array(
-			'name' => 'ordering',
-			'empty_option' => false,
-			'options' => array( 
+		$orderingField = $fieldsUtils->createOrderField(array( 
 				"a.name ASC" => "Title ascending",
 				"a.name DESC" => "Title descending",
 				"a.id ASC" => "Id ascending",
 				"a.id DESC" => "Id descending",
-			),
-			'feedback' => false,
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Order by',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$limitField = new SelectField(array(
-			'name' => 'limit',
-			'empty_option' => false,
-			//'bootstrap' => false,
-			'options' => array( 
-				2 => '2',
-				5 => '5',
-				10 => '10',
-				15 => '15',
-				20 => '20',
-				25 => '25',
-				30 => '30',
-				50 => '50'),
-			'feedback' => false,
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Number per page',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		$limitField = $fieldsUtils->createLimitField();
 
 		if($request->request->has('categorie')){
 			$req_byCategorie = $request->request->get('categorie');
@@ -517,6 +412,59 @@ class AdminController extends \Novice\BackController
 		$items = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Article')
 			->findArticles($limit, $page, $where, array($sort => $order));
+	
+		$columns = array(
+			[
+				'property' => 'published',
+				'label' => 'Status',
+				'filter' => function($propertyValue, $entity, $i, $smarty){
+					if($entity->isPublished()){
+						$publishValue='unpublish';
+						$src = $smarty->getAssets()->getUrl('/img/pictos/Ok-16.png', null);
+					}
+					else{
+						$publishValue='publish';
+						$src = $smarty->getAssets()->getUrl('/img/pictos/Cancel_2-16.png', null);
+					}
+
+					$result = '';
+					$result .= '<input type="image"';
+					$result .= 'src="'.$src.'"';
+					$result .= 'class="btn btn-outline btn-default" name="submit[]"';
+					$result .= 'onclick="formTache(\''.$publishValue.'\',\'cb'.$i.'\')"';
+					$result .= 'value="'.$publishValue.'" />';
+
+					return $result;
+				}
+			],
+			[
+				'property' => 'name',
+				'label' => 'Title',
+				'route' => [
+					'id' => 'rgs_admin_articles_edit',
+					'params' =>[
+						'id' => new ItemProperty('id'), 
+						'slug' => new ItemProperty('slug')
+					],
+					'absolute' => true
+				]
+			],
+			[
+				'property' => 'categorie.name',
+				'label' => 'Category',
+				'class' => 'hidden-xs',
+				'route' => [
+					'id' => 'rgs_admin_categories_edit',
+					'params' =>[
+						'id' => new ItemProperty('categorie.id'), 
+						'slug' => new ItemProperty('categorie.slug')
+					],
+					'absolute' => true
+				]
+			]
+		);
+
+		$this->assign("columns", $columns);
 
 		$this->assign("items", $items);
 
@@ -530,7 +478,7 @@ class AdminController extends \Novice\BackController
 		
 		$this->assign("visibilityWidget", $visibilityField->setValue($visibility)->buildWidget());
 
-		$this->assign("catWidget", $entityExt->createField()->setValue($byCategorie)->buildWidget());
+		$this->assign("catWidget", $categoryField->setValue($byCategorie)->buildWidget());
 	}
 	
 	
@@ -618,68 +566,22 @@ class AdminController extends \Novice\BackController
 
 		$where = array();
 
-		$visibilityField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'visibility',
-			'empty_option' => false,
-			'options' => array(
+		$fieldsUtils = new ToolFieldsUtils();
+
+		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
 				Marque::PUBLISHED => "published",
 				Marque::NOT_PUBLISHED => "not published",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'All',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$orderingField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'ordering',
-			'empty_option' => false,
-			'options' => array( 
+		$orderingField = $fieldsUtils->createOrderField(array( 
 				"m.name ASC" => "Title ascending",
 				"m.name DESC" => "Title descending",
 				"m.id ASC" => "Id ascending",
 				"m.id DESC" => "Id descending",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Order by',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$limitField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'limit',
-			'empty_option' => false,
-			'options' => array( 
-				1 => '1',
-				2 => '2',
-				5 => '5',
-				10 => '10',
-				15 => '15',
-				20 => '20',
-				25 => '25',
-				30 => '30',
-				50 => '50'),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Number per page',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		$limitField = $fieldsUtils->createLimitField();
 
 		if($request->request->has('visibility')){
 			$visibility = $request->request->get('visibility');
@@ -816,68 +718,22 @@ class AdminController extends \Novice\BackController
 
 		$where = array();
 
-		$visibilityField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'visibility',
-			'empty_option' => false,
-			'options' => array(
+		$fieldsUtils = new ToolFieldsUtils();
+
+		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
 				Etat::PUBLISHED => "published",
 				Etat::NOT_PUBLISHED => "not published",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'All',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$orderingField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'ordering',
-			'empty_option' => false,
-			'options' => array( 
+		$orderingField = $fieldsUtils->createOrderField(array( 
 				"e.name ASC" => "Title ascending",
 				"e.name DESC" => "Title descending",
 				"e.id ASC" => "Id ascending",
 				"e.id DESC" => "Id descending",
-			),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Order by',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+			));
 
-		$limitField = new SelectField(array(
-			'feedback' => false,
-			'name' => 'limit',
-			'empty_option' => false,
-			'options' => array( 
-				1 => '1',
-				2 => '2',
-				5 => '5',
-				10 => '10',
-				15 => '15',
-				20 => '20',
-				25 => '25',
-				30 => '30',
-				50 => '50'),
-			'attributes' => array(
-			'style' => 'width: 99%',
-			'data-placeholder' => 'Number per page',
-			'data-allow-clear' => 'false',
-			'data-minimum-results-for-search' => 'Infinity',
-			'class' => 'select2',
-			'onchange' => 'this.form.submit()',
-			),
-		));
+		$limitField = $fieldsUtils->createLimitField();
 
 		if($request->request->has('visibility')){
 			$visibility = $request->request->get('visibility');

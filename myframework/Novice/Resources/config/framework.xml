@@ -12,6 +12,7 @@
 		<parameter key="app.user.class">Novice\User\User</parameter>
 
 		<parameter key="templating.class">Novice\Templating\SmartyTemplating</parameter>
+		<parameter key="templating.route_function.class">Novice\Templating\Extension\RouteFunctionExtension</parameter>
 
 		<parameter key="middlewares.class">Novice\Middleware\MiddlewareRegistry</parameter>
 		<parameter key="event_dispatcher.class">Novice\Middleware\ContainerAwareMiddlewareDispatcher</parameter>
@@ -25,6 +26,10 @@
         <service id="framework.router" class="%router.class%"  abstract="true" />
 
 		<!--<service id="http_request" class="%framework.http_request.class%" />-->
+
+		<service id="templating.route_function" class="%templating.route_function.class%" >
+			<tag name="templating.extension" />
+		</service>
 		
 		<service id="router.loader.abstract" class="Symfony\Component\Config\Loader\DelegatingLoader" public="false" abstract="true" />
 
