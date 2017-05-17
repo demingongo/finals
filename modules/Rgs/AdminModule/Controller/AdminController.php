@@ -15,9 +15,8 @@ use Novice\Form\Validator as N_Form_Validator;
 
 use Symfony\Component\Debug as Symfony_Debug;
 
-use Novice\Module\SmartyBootstrapModule\Util\ItemProperty;
-
 use Utils\ToolFieldsUtils;
+use Rgs\AdminModule\Util\AdminModuleUtils;
 
 class AdminController extends \Novice\BackController
 {
@@ -186,7 +185,7 @@ class AdminController extends \Novice\BackController
 
 	public function executeGestionCategorie(Request $request)
 	{
-		$this->setView('file:[RgsAdminModule]Content/gestionCategorie.php');
+		$this->setView('file:[RgsAdminModule]Content/contentManagement.php');
 
 		$r = $this->processPostGestion($request, 'categorie');
 		if(is_object($r) && $r instanceof Response)
@@ -212,7 +211,7 @@ class AdminController extends \Novice\BackController
 				Categorie::NOT_PUBLISHED => "not published",
 			));
 
-		$orderingField = $fieldsUtils->createVisibilityField(array( 
+		$orderingField = $fieldsUtils->createOrderField(array( 
 				"c.name ASC" => "Title ascending",
 				"c.name DESC" => "Title descending",
 				"c.id ASC" => "Id ascending",
@@ -257,8 +256,13 @@ class AdminController extends \Novice\BackController
 			->getRepository('RgsCatalogModule:Categorie')
 			->findCategories($limit, $page, $where, array($sort => $order));
 
+		$adminModuleUtils = new AdminModuleUtils();
+		$columns = $adminModuleUtils->getCategoriesColumns();
 
-		$this->assign("categories", $categories);
+		$this->assign("columns", $columns);
+
+		$this->assign("items", $categories);
+
 
 		$this->assign("pagesCount", $pagesCount);
 
@@ -330,7 +334,7 @@ class AdminController extends \Novice\BackController
 
 	public function executeGestionArticle(Request $request)
 	{
-		$this->setView('file:[RgsAdminModule]Content/gestionArticle.php');
+		$this->setView('file:[RgsAdminModule]Content/contentManagement.php');
 
 		$r = $this->processPostGestion($request, 'article');
 		if(is_object($r) && $r instanceof Response)
@@ -412,61 +416,15 @@ class AdminController extends \Novice\BackController
 		$items = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Article')
 			->findArticles($limit, $page, $where, array($sort => $order));
-	
-		$columns = array(
-			[
-				'property' => 'published',
-				'label' => 'Status',
-				'filter' => function($propertyValue, $entity, $i, $smarty){
-					if($entity->isPublished()){
-						$publishValue='unpublish';
-						$src = $smarty->getAssets()->getUrl('/img/pictos/Ok-16.png', null);
-					}
-					else{
-						$publishValue='publish';
-						$src = $smarty->getAssets()->getUrl('/img/pictos/Cancel_2-16.png', null);
-					}
 
-					$result = '';
-					$result .= '<input type="image"';
-					$result .= 'src="'.$src.'"';
-					$result .= 'class="btn btn-outline btn-default" name="submit[]"';
-					$result .= 'onclick="formTache(\''.$publishValue.'\',\'cb'.$i.'\')"';
-					$result .= 'value="'.$publishValue.'" />';
-
-					return $result;
-				}
-			],
-			[
-				'property' => 'name',
-				'label' => 'Title',
-				'route' => [
-					'id' => 'rgs_admin_articles_edit',
-					'params' =>[
-						'id' => new ItemProperty('id'), 
-						'slug' => new ItemProperty('slug')
-					],
-					'absolute' => true
-				]
-			],
-			[
-				'property' => 'categorie.name',
-				'label' => 'Category',
-				'class' => 'hidden-xs',
-				'route' => [
-					'id' => 'rgs_admin_categories_edit',
-					'params' =>[
-						'id' => new ItemProperty('categorie.id'), 
-						'slug' => new ItemProperty('categorie.slug')
-					],
-					'absolute' => true
-				]
-			]
-		);
+		$adminModuleUtils = new AdminModuleUtils();	
+		$columns = $adminModuleUtils->getArticlesColumns();
 
 		$this->assign("columns", $columns);
 
 		$this->assign("items", $items);
+
+		$this->assign("title", 'Articles');
 
 		$this->assign("pagesCount", $pagesCount);
 
@@ -478,7 +436,7 @@ class AdminController extends \Novice\BackController
 		
 		$this->assign("visibilityWidget", $visibilityField->setValue($visibility)->buildWidget());
 
-		$this->assign("catWidget", $categoryField->setValue($byCategorie)->buildWidget());
+		$this->assign("categoriesWidget", $categoryField->setValue($byCategorie)->buildWidget());
 	}
 	
 	
@@ -547,7 +505,7 @@ class AdminController extends \Novice\BackController
 	
 	public function executeGestionMarque(Request $request)
 	{
-		$this->setView('file:[RgsAdminModule]Content/gestionMarque.php');
+		$this->setView('file:[RgsAdminModule]Content/contentManagement.php');
 
 		$r = $this->processPostGestion($request, 'marque');
 		if(is_object($r) && $r instanceof Response)
@@ -618,8 +576,14 @@ class AdminController extends \Novice\BackController
 			->getRepository('RgsCatalogModule:Marque')
 			->findMarques($limit, $page, $where, array($sort => $order));
 
+		$adminModuleUtils = new AdminModuleUtils();
+		$columns = $adminModuleUtils->getBrandsColumns();
 
-		$this->assign("marques", $marques);
+		$this->assign("columns", $columns);
+
+		$this->assign("items", $marques);
+
+		$this->assign("title", 'Brands');
 
 		$this->assign("pagesCount", $pagesCount);
 
@@ -699,7 +663,7 @@ class AdminController extends \Novice\BackController
 	
 	public function executeGestionEtat(Request $request)
 	{
-		$this->setView('file:[RgsAdminModule]Content/gestionEtat.php');
+		$this->setView('file:[RgsAdminModule]Content/contentManagement.php');
 
 		$r = $this->processPostGestion($request, 'etat');
 		if(is_object($r) && $r instanceof Response)
@@ -770,7 +734,14 @@ class AdminController extends \Novice\BackController
 			->getRepository('RgsCatalogModule:Etat')
 			->findEtats($limit, $page, $where, array($sort => $order));
 
-		$this->assign("etats", $etats);
+		$adminModuleUtils = new AdminModuleUtils();
+		$columns = $adminModuleUtils->getStatusColumns();
+
+		$this->assign("columns", $columns);
+
+		$this->assign("items", $etats);
+
+		$this->assign("title", 'Status');
 
 		$this->assign("pagesCount", $pagesCount);
 

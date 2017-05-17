@@ -71,38 +71,8 @@ Continue ?" data-toggle="tooltip" data-placement="top" data-original-title="Dele
 </div>
 </div>
 
-<table id="tab" class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>
-		<input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
-	  </th>
-      <th>Statut</th>
-      <th>Titre</th>
-    </tr>
-  </thead>
-  <tbody>
-	{foreach name=marques from=$marques item=marque}
-    <tr>
-      <td>{$marque.id}</td>
-      <td>
-		<input type="checkbox" id="cb{$smarty.foreach.marques.index}" name="cid[]" value="{$marque.id}" />
-	  </td>
-      <td>
-		{if $marque.isPublished}
-			{$publishValue='unpublish'}
-		{else}
-			{$publishValue='publish'}
-		{/if}
-		<input type="image" src="{statut statut=$marque.isPublished srconly=true}" class="btn btn-outline btn-default" name="submit[]" onclick="formTache('{$publishValue}','cb{$smarty.foreach.marques.index}')" value="{$publishValue}" />
-			{*statut statut=$marque.isPublished srconly=false*}
-	  </td>
-      <td><a href="{path id='rgs_admin_marques_edit' params=['id' => $marque.id, 'slug' => $marque.slug] absolute=true}">{$marque.name}</a></td>
-    </tr>
-	{/foreach}
-  </tbody>
-</table>
+{sb_table columns=$columns items=$items}
+
 {include file='file:[RgsAdminModule]includes/adminFormPagination.tpl'}
 </form>
 </div>

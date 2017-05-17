@@ -74,38 +74,9 @@ Continue ?" data-toggle="tooltip" data-placement="top" data-original-title="Dele
 </div>
 </div>
 <!--<form method="post" id="adminForm" name="adminForm">-->
-<table id="tab" class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>
-		<input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
-	  </th>
-      <th>Statut</th>
-      <th>Titre</th>
-    </tr>
-  </thead>
-  <tbody>
-	{foreach name=categories from=$categories item=cat}
-    <tr>
-      <td>{$cat.id}</td>
-      <td>
-		<input type="checkbox" id="cb{$smarty.foreach.categories.index}" name="cid[]" value="{$cat.id}" />
-	  </td>
-      <td>
-		{if $cat.isPublished}
-			{$publishValue='unpublish'}
-		{else}
-			{$publishValue='publish'}
-		{/if}
-		<input type="image" src="{statut statut=$cat.isPublished srconly=true}" class="btn btn-outline btn-default" name="submit[]" onclick="formTache('{$publishValue}','cb{$smarty.foreach.categories.index}')" value="{$publishValue}" />
-			{*statut statut=$cat.isPublished srconly=false*}
-	  </td>
-      <td><a href="{path id='rgs_admin_categories_edit' params=['id' => $cat.id, 'slug' => $cat.slug] absolute=true}">{$cat.name}</a></td>
-    </tr>
-	{/foreach}
-  </tbody>
-</table>
+
+{sb_table columns=$columns items=$items}
+
 {include file='file:[RgsAdminModule]includes/adminFormPagination.tpl'}
 </form>
 </div>
