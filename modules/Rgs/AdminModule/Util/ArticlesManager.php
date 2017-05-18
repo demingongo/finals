@@ -12,7 +12,7 @@ class ArticlesManager extends ContentManager {
     }
 
     public function getTitle(){
-        return 'Articles mofos';
+        return 'Articles';
     }
 
     public function getDefaultOrder(){

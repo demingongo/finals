@@ -85,7 +85,7 @@ class AdminModuleUtils {
 		);
     }
 
-    public function getStatusColumns(){
+    public function getStatesColumns(){
         return array(
 			$this->getPublishedColumn(),
 			[

@@ -18,15 +18,46 @@ rgs_admin_logout:
         _controller: 'UserModule:SecurityController:logout'
         _redirect: rgs_admin_login
 
+# content management
+rgs_admin_gestion_article:
+    path:     /articles
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
+
 rgs_admin_gestion_categorie:
     path:     /categories/
     defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
-    #requirements:
-    #    page: \d+
+
+rgs_admin_gestion_etat:
+    path:     /etats
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\StatesManager'}
+
+rgs_admin_gestion_marque:
+    path:     /marques
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
 
 rgs_admin_gestion_media:
     path:     /gestion_media
     defaults: { _controller: 'RgsAdminModule:AdminController:gestionMedia' }
+
+# content forms
+rgs_admin_articles_add:
+    path:     /articles/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+
+rgs_admin_articles_edit:
+    path:     /articles/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+    requirements:
+        id: \d+
+
+rgs_admin_articles_edit_2:
+    path:     /articles/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editArticle'
+    requirements:
+        id: \d+
 
 rgs_admin_categories_add:
     path:     /categories/edit
@@ -47,32 +78,24 @@ rgs_admin_categories_edit_2:
     requirements:
         id: \d+
 
-rgs_admin_gestion_article:
-    path:     /articles
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
-
-rgs_admin_articles_add:
-    path:     /articles/edit
+rgs_admin_etats_add:
+    path:     /etats/edit
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editArticle'
+        _controller: 'RgsAdminModule:AdminController:editEtat'
 
-rgs_admin_articles_edit:
-    path:     /articles/edit/{id}/{slug}
+rgs_admin_etats_edit:
+    path:     /etats/edit/{id}/{slug}
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editArticle'
+        _controller: 'RgsAdminModule:AdminController:editEtat'
     requirements:
         id: \d+
 
-rgs_admin_articles_edit_2:
-    path:     /articles/edit/{id}/
+rgs_admin_etats_edit_2:
+    path:     /etats/edit/{id}/
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editArticle'
+        _controller: 'RgsAdminModule:AdminController:editEtat'
     requirements:
         id: \d+
-
-rgs_admin_gestion_marque:
-    path:     /marques
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
 
 rgs_admin_marques_add:
     path:     /marques/edit
@@ -93,34 +116,18 @@ rgs_admin_marques_edit_2:
     requirements:
         id: \d+
 
-rgs_admin_gestion_etat:
-    path:     /etats
-    defaults: { _controller: 'RgsAdminModule:AdminController:gestionEtat' }
-
-rgs_admin_etats_add:
-    path:     /etats/edit
-    defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
-
-rgs_admin_etats_edit:
-    path:     /etats/edit/{id}/{slug}
-    defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
-    requirements:
-        id: \d+
-
-rgs_admin_etats_edit_2:
-    path:     /etats/edit/{id}/
-    defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
-    requirements:
-        id: \d+
-
+# users management
 rgs_admin_gestion_users:
     path:     /users/
     defaults:
         _controller: 'RgsAdminModule:UserManagerController:gestionUser'
 
+rgs_admin_gestion_groups:
+    path:     /groups/
+    defaults:
+        _controller: 'RgsAdminModule:GroupManagerController:gestionGroup'
+
+# users forms
 rgs_admin_users_add:
     path:     /users/edit
     defaults:
@@ -133,11 +140,7 @@ rgs_admin_users_edit:
     requirements:
         id: \d+
 
-rgs_admin_gestion_groups:
-    path:     /groups/
-    defaults:
-        _controller: 'RgsAdminModule:GroupManagerController:gestionGroup'
-
+# reservations management
 rgs_admin_gestion_reservations:
     path:     /reservations/
     defaults:
@@ -149,6 +152,7 @@ rgs_admin_gestion_expired_reservations:
         _controller: 'RgsAdminModule:ReservationManagerController:gestionReservation'
         state: expired
 
+# reservations forms
 rgs_admin_reservations_details:
     path:     /{state}/details/{id}/
     defaults:

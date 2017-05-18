@@ -3,10 +3,10 @@
 {if $pagesCount neq 1 && $page gt 0 && $pagesCount gt 1}
 {if $page eq 1}
 	<li class="disabled">
-	<a><span class="glyphicon glyphicon-backward"></span></a>
+	<a><span class="glyphicon glyphicon-fast-backward"></span></a>
 	</li>
 	<li class="disabled">
-	<a><span class="glyphicon glyphicon-fast-backward"></span></a>
+	<a><span class="glyphicon glyphicon-backward"></span></a>
 	</li>
 {else}
 	<li>
