@@ -60,11 +60,11 @@ Warning: This action cannot be undone." value="delete">
         </a>
 	</div>
 	<div id="collapse-sort" class="col-lg-6 collapse subhead-collapse pull-right">
-        {if isset($categoriesWidget)}
-		<div data-toggle="tooltip" data-placement="left" data-original-title="Category :" style="display: block; padding: 1px;">
-		{$categoriesWidget}
+        {foreach $customWidgets as $customWidget}
+		<div data-toggle="tooltip" data-placement="left" data-original-title="{$customWidget@key} :" style="display: block; padding: 1px;">
+		{$customWidget}
 		</div>
-        {/if}
+        {/foreach}
         {if isset($visibilityWidget)}
 		<div data-toggle="tooltip" data-placement="left" data-original-title="Visibility :" style="display: block; padding: 1px;">
 		{$visibilityWidget}

@@ -4,10 +4,10 @@ namespace Rgs\AdminModule\Util;
 
 abstract class ContentManager {
 
-    protected $service_container;
+    protected $container;
 
-    public function __construct($service_container){
-        $this->service_container = $service_container;
+    public function __construct($container){
+        $this->container = $container;
     }
 
     public function getName(){

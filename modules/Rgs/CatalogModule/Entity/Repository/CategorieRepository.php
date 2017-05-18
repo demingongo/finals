@@ -155,7 +155,6 @@ class CategorieRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('c');
 
 		$qb->select('count(c.id)');
-		//->from('RgsCatalogModule:Categorie', 'c');
 
 		$i = 1;
 		foreach($where as $k => $v){
@@ -165,5 +164,15 @@ class CategorieRepository extends EntityRepository
 		}
 
 		return $qb->getQuery()->getSingleScalarResult();
+	}
+
+	public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
+	{
+		return $this->findCategories($limit, $page, $where, $orderBy);
+	}
+
+	public function countItems($where = array())
+	{
+		return $this->countCategories($where);
 	}
 }

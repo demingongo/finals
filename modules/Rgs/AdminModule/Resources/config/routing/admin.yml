@@ -20,7 +20,7 @@ rgs_admin_logout:
 
 rgs_admin_gestion_categorie:
     path:     /categories/
-    defaults: { _controller: 'RgsAdminModule:AdminController:gestionCategorie' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
     #requirements:
     #    page: \d+
 
@@ -49,7 +49,7 @@ rgs_admin_categories_edit_2:
 
 rgs_admin_gestion_article:
     path:     /articles
-    defaults: { _controller: 'RgsAdminModule:AdminController:gestionArticle' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
 
 rgs_admin_articles_add:
     path:     /articles/edit
@@ -72,7 +72,7 @@ rgs_admin_articles_edit_2:
 
 rgs_admin_gestion_marque:
     path:     /marques
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandManager' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
 
 rgs_admin_marques_add:
     path:     /marques/edit

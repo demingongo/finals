@@ -257,8 +257,10 @@ class AdminController extends \Novice\BackController
 
 		//if(isset($customFields) && is_array($customFields) && !empty($customFields))
 		foreach($customFields as $widgetName => $field){
-			$this->assign($widgetName."Widget", $field->buildWidget());
+			$customFields[$widgetName] = $field->buildWidget();
 		}
+
+		$this->assign("customWidgets", $customFields);
 
 	}
 	

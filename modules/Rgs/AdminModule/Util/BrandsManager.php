@@ -2,7 +2,7 @@
 
 namespace Rgs\AdminModule\Util;
 
-class BrandManager extends ContentManager {
+class BrandsManager extends ContentManager {
 
     private $utils;
 
