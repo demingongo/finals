@@ -158,11 +158,14 @@ class AdminController extends \Novice\BackController
 
 	public function executeContentManagement(Request $request)
 	{
+
+		$this->setView('file:[RgsAdminModule]Content/contentManagement.php');
+
 		$attributes = $request->attributes->all();
 
 		//get content manager class from content_manager attribute 
 		$contentManagerClass = $attributes['content_manager'];
-		$cm = new $contentManagerClass($this->getContainer());
+		$cm = new $contentManagerClass($this->container);
 
 		$r = $this->processPostManagement($request, $cm);
 		if(is_object($r) && $r instanceof Response)
@@ -182,7 +185,7 @@ class AdminController extends \Novice\BackController
 
 		$fieldsUtils = new ToolFieldsUtils();
 
-		$customFields = $cm->getCustomFields($this->getContainer());
+		$customFields = $cm->getCustomFields();
 
 		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
@@ -194,7 +197,9 @@ class AdminController extends \Novice\BackController
 
 		$limitField = $fieldsUtils->createLimitField();
 
-		$where = $cm->processCustomFields($request, $where, $customFields, $this->getContainer());
+		$newWhere = $cm->processCustomFields($request, $where, $customFields);
+
+		$where = isset($newWhere) && is_array($newWhere) ? $newWhere : $where;
 		
 		if($request->request->has('visibility')){
 			$visibility = $request->request->get('visibility');
@@ -250,6 +255,7 @@ class AdminController extends \Novice\BackController
 		
 		$this->assign("visibilityWidget", $visibilityField->setValue($visibility)->buildWidget());
 
+		//if(isset($customFields) && is_array($customFields) && !empty($customFields))
 		foreach($customFields as $widgetName => $field){
 			$this->assign($widgetName."Widget", $field->buildWidget());
 		}

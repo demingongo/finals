@@ -7,7 +7,7 @@ abstract class ContentManager {
     protected $service_container;
 
     public function __construct($service_container){
-        $this->$service_container = $service_container;
+        $this->service_container = $service_container;
     }
 
     public function getName(){

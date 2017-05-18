@@ -72,7 +72,7 @@ rgs_admin_articles_edit_2:
 
 rgs_admin_gestion_marque:
     path:     /marques
-    defaults: { _controller: 'RgsAdminModule:AdminController:gestionMarque' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandManager' }
 
 rgs_admin_marques_add:
     path:     /marques/edit

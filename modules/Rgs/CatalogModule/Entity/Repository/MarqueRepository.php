@@ -101,4 +101,14 @@ class MarqueRepository extends EntityRepository
 
 		return $qb->getQuery()->getSingleScalarResult();
 	}
+
+	public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
+	{
+		return $this->findMarques($limit, $page, $where, $orderBy);
+	}
+
+	public function countItems($where = array())
+	{
+		return $this->countMarques($where);
+	}
 }

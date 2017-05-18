@@ -4,6 +4,17 @@ namespace Rgs\AdminModule\Util;
 
 class BrandManager extends ContentManager {
 
+    private $utils;
+
+    public function __construct($container){
+        parent::__construct($container);
+        $this->utils = new AdminModuleUtils();
+    }
+
+    public function getTitle(){
+        return 'Brands';
+    }
+
     public function getDefaultOrder(){
       return  'm.name ASC';
     }
@@ -31,5 +42,9 @@ class BrandManager extends ContentManager {
 
     public function getEditRouteId(){
         return 'rgs_admin_marques_edit_2';
+    }
+
+    public function getColumns(){
+        return $this->utils->getBrandsColumns();
     }
 }
