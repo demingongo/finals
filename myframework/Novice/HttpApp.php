@@ -115,17 +115,6 @@ class HttpApp //implements HttpKernelInterface, TerminableInterface
     $this->dispatcher->dispatchMiddlewares(Events::CONTROLLER, $event);
     $controller = $event->getController();
 	
-	
-	//test
-	//dump(__METHOD__);
-	
-	/*
-	$test = new Annotation\AnnotationLoader();
-	$test->setContainer($this->dispatcher->getContainer());
-	$test->setTemplating($this->dispatcher->getContainer()->get('templating'));
-	$test->load($controller[0]);
-	*/
-	
 	$arguments = $this->getArguments($request, $controller);
 
 	// call controller
@@ -164,8 +153,14 @@ class HttpApp //implements HttpKernelInterface, TerminableInterface
 
   public function getController(Request $request)
     {
+		// if no controller was set
         if (!$controller = $request->attributes->get('_controller')) {
-            throw new \RuntimeException(sprintf('Unable to find the controller for path "%s".', $request->getPathInfo())); //see HttpException
+			// if not even a template set, throw error
+			if(!$request->attributes->get('_template')){
+				throw new \RuntimeException(sprintf('Unable to find the controller for path "%s".', $request->getPathInfo())); //see HttpException
+			}
+			// or else, send empty closure as default controller
+			return function(){};
         }
 
         if (is_array($controller) || (is_object($controller) && method_exists($controller, '__invoke'))) {

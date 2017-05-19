@@ -21,23 +21,23 @@ rgs_admin_logout:
 # content management
 rgs_admin_gestion_article:
     path:     /articles
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManager', content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
 
 rgs_admin_gestion_categorie:
     path:     /categories/
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManager', content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
 
 rgs_admin_gestion_etat:
     path:     /etats
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\StatesManager'}
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManager', content_manager: 'Rgs\AdminModule\Util\StatesManager'}
 
 rgs_admin_gestion_marque:
     path:     /marques
-    defaults: { _controller: 'RgsAdminModule:AdminController:contentManagement', content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
+    defaults: { _controller: 'RgsAdminModule:AdminController:contentManager', content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
 
 rgs_admin_gestion_media:
     path:     /gestion_media
-    defaults: { _controller: 'RgsAdminModule:AdminController:gestionMedia' }
+    defaults: { _template: 'file:[RgsAdminModule]Content/mediaManager.php' }
 
 # content forms
 rgs_admin_articles_add:
