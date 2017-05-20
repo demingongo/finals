@@ -26,10 +26,10 @@ class AdminModuleUtils {
 
 					$result = '';
 					$result .= '<input type="image"';
-					$result .= 'src="'.$src.'"';
-					$result .= 'class="btn btn-outline btn-default" name="submit[]"';
-					$result .= 'onclick="formTache(\''.$publishValue.'\',\'cb'.$i.'\')"';
-					$result .= 'value="'.$publishValue.'" />';
+					$result .= ' src="'.$src.'"';
+					$result .= ' class="btn btn-outline btn-default" name="submit[]"';
+					$result .= ' data-check-id="cb'.$i.'"';
+					$result .= ' value="'.$publishValue.'" />';
 
 					return $result;
 				}

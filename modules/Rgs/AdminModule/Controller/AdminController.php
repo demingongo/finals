@@ -111,6 +111,9 @@ class AdminController extends \Novice\BackController
 
 		$customFields = $cm->getCustomFields();
 
+		$toolButtons = $cm->getToolsButtons();
+		$toolButtons = isset($toolButtons) && is_array($toolButtons) ? $toolButtons : array();
+
 		$visibilityField = $fieldsUtils->createVisibilityField(array(
 				$allVisible => "All",
 				PublishedInterface::PUBLISHED => "published",
@@ -184,6 +187,11 @@ class AdminController extends \Novice\BackController
 		}
 
 		$this->assign("customWidgets", $customFields);
+
+		foreach($toolButtons as $key => $field){
+			$toolButtons[$key] = $field->buildWidget();
+		}
+		$this->assign("toolButtons", $toolButtons);
 
 	}
 	

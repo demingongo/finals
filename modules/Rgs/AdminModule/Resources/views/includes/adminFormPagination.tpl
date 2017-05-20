@@ -1,4 +1,4 @@
-<input type="hidden" name="page" value="{$page}">
+<input type="hidden" name="page" value="{$page}" />
 <ul class="pagination pagination-sm">
 {if $pagesCount neq 1 && $page gt 0 && $pagesCount gt 1}
 {if $page eq 1}

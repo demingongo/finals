@@ -2,6 +2,8 @@
 
 namespace Rgs\AdminModule\Util;
 
+use Rgs\AdminModule\Util\ContentManager\Tools as CMTools;
+
 abstract class ContentManager {
 
     protected $container;
@@ -28,6 +30,16 @@ abstract class ContentManager {
 
     public function getColumns(){
         return array();
+    }
+
+    public function getToolsButtons(){
+        return [
+            new CMTools\AddButton(),
+            new CMTools\EditButton(),
+            new CMTools\PublishButton(),
+            new CMTools\UnpublishButton(),
+            new CMTools\DeleteButton()
+        ];
     }
 
     abstract public function getDefaultOrder();

@@ -11,7 +11,7 @@
 <!-- Novice subhead-collapse JS -->
 <script type="text/javascript" src="{asset url='js/subhead-collapse.js' package='novice'}"></script>
 
-{include file='file:[RgsAdminModule]includes/adminFormJavaScript.tpl'}
+{include file='file:[RgsAdminModule]includes/managerFormJavascript.html'}
 {/block}
 
 {block name=page-wrapper}
@@ -25,7 +25,7 @@
     </div>
 </div>
 <div class="row">
-<form method="post" id="adminForm" name="adminForm" data-novice='form-control'>
+<form method="post" id="adminForm" name="adminForm" data-novice='form-control' class="managerForm">
 <div class="row">
 
 <div class="col-lg-8">
@@ -34,6 +34,7 @@
         </a>
 	</div>
 	<div id="collapse-tools" class="col-lg-8 collapse subhead-collapse">
+		{*****************************************
 		<button type="submit" name="submit[]" class="btn btn-outline btn-success to-xs" value="add.new">
         <span class="fa fa-plus-circle"></span> Add
         </button>
@@ -46,11 +47,15 @@
 		<button type="submit" name="submit[]" class="btn btn-outline btn-default itemAction to-xs" value="unpublish">
         <span class="fa fa-times-circle text-danger"></span> Unpublish
         </button>
-		<button type="submit" name="submit[]" id="delete" class="btn btn-outline btn-danger itemAction to-xs" data-novice-toggle="confirm" 
+		<button type="submit" name="submit[]" class="btn btn-outline btn-danger itemAction to-xs" data-novice-toggle="confirm" 
 			data-novice-text="Delete selected items ?
 Warning: This action cannot be undone." value="delete">
 		<span class="fa fa-trash"></span> Delete
 		</button>
+		*********************************************}
+		{foreach $toolButtons as $toolButton}
+		{$toolButton}
+        {/foreach}
 	</div>
 </div>
 <div class="col-md-4 pull-right subhead-collapse">
@@ -88,7 +93,7 @@ Warning: This action cannot be undone." value="delete">
 {* plugin Novice - SmartyBootstrapModule : sb_table *}
 {sb_table columns=$columns items=$items management=true}
 
-{include file='file:[RgsAdminModule]includes/adminFormPagination.tpl'}
+{include file='file:[RgsAdminModule]includes/managerFormPagination.html'}
 </form>
 </div>
 {/block}

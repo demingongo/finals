@@ -1,0 +1,47 @@
+<script>
+	$(function () {
+
+		$(".managerForm").each(function (index) {
+			var managerForm = $(this);
+			toggleItemAction(checkboxChecked());
+
+			// when status of a checkbox changes
+			managerForm.find(":checkbox").on("change", function () {
+				toggleItemAction(checkboxChecked());
+			});
+
+			// when click on element with attribute 'check-id'
+			managerForm.find("[data-check-id]").on("click", function (e) {
+				managerForm.find('input[type=checkbox][name="cid[]"]').each(function () {
+					$(this).prop("checked", false);
+				});
+				var cbId = $(this).attr('data-check-id');
+				managerForm.find('[type=checkbox][id=' + cbId + ']').prop("checked", true);
+			});
+
+			// when click on element with attribute 'data-set-page'
+			managerForm.find("[data-set-page]").on("click", function (e) {
+				var page = $(this).attr('data-set-page');
+				managerForm.find("[name='page']").val(page);
+				managerForm.find("[name='submit[]']").prop("disabled", true);
+				managerForm.submit();
+				return false;
+			});
+
+
+			function checkboxChecked() {
+				return managerForm.find('input[name="cid[]"]:checked').length > 0;
+			}
+
+			function toggleItemAction(bool) {
+				if (!bool) {
+					managerForm.find('.itemAction').disable(true);
+				}
+				else {
+					managerForm.find('.itemAction').disable(false);
+				}
+			}
+		});
+	});
+
+</script>
