@@ -1,0 +1,12 @@
+parameters:
+    content_manager.default.controller: RgsAdminModule:AdminController:contentManager
+    content_manager.default.template: file:[RgsAdminModule]Content/contentManager.php
+    content_manager.middleware.class: Rgs\AdminModule\Middleware\ContentManagerMiddleware
+
+services:
+   #MIDDLEWARES
+   content_manager.middleware:
+    class: %content_manager.middleware.class%
+    arguments: [%content_manager.default.controller%, %content_manager.default.template%]
+    tags:
+            - { name: app.event_subscriber }

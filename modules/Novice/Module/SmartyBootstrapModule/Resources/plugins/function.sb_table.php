@@ -27,15 +27,21 @@ function smarty_function_sb_table($params, &$smarty)
 
     $accessor = \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor();
 
+    $isManagement = isset($params['management']) && $params['management'] === true;
+
     $table = '';
 
     $table = '<table id="tab" class="table table-striped table-hover ">';
 
-    $table .= '<thead><tr>
-      <th>#</th>
-      <th>
-		<input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
-	  </th>';
+    $table .= '<thead><tr>';
+
+
+    if($isManagement){
+        $table .= '<th>#</th>
+        <th>
+            <input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
+        </th>';
+    }
 
     foreach($params['columns'] as $column){
         $table .= ('<th class="'.(isset($column['class']) ? $column['class'] : '').'">'.(isset($column['label']) ? $column['label'] : $column['property']).'</th>');
@@ -47,11 +53,14 @@ function smarty_function_sb_table($params, &$smarty)
 
     $i = 0;
     foreach($params['items'] as $entity){
-        $table .= '<tr>
-      <td>'.$entity['id'].'</td>
-      <td>
-		<input type="checkbox" id="cb'.$i.'" name="cid[]" value="'.$entity['id'].'" />
-	  </td>';
+        $table .= '<tr>';
+
+        if($isManagement){
+            $table .= '<td>'.$entity['id'].'</td>
+            <td>
+                <input type="checkbox" id="cb'.$i.'" name="cid[]" value="'.$entity['id'].'" />
+            </td>';
+        }
 
         foreach($params['columns'] as $column){
             $prop = $column['property'];

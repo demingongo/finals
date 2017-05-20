@@ -85,9 +85,6 @@ class AdminController extends \Novice\BackController
 
 	public function executeContentManager(Request $request)
 	{
-
-		$this->setView('file:[RgsAdminModule]Content/contentManager.php');
-
 		$attributes = $request->attributes->all();
 
 		//get content manager class from content_manager attribute 
@@ -189,29 +186,6 @@ class AdminController extends \Novice\BackController
 		$this->assign("customWidgets", $customFields);
 
 	}
-	
-	
-	/*******************************MEDIA*************************************/
-	
-
-	public function executeMediaManager(Request $request)
-	{
-		//$this->setView('file:[RgsAdminModule]Content/mediaManager.php');
-
-		$options = array(
-			'filemanager_path' => '/plugins/filemanager/filemanager',
-			'base_url' => $request->getBaseUrl(),
-
-			'akey' => md5('one'),
-		);
-
-		$path = \Novice\Form\Extension\Filemanager\Filemanager::getPath($options);
-
-
-		$this->assign("filemanagerPath", $path);
-	}
-	
-	
 	
 	/*******************************CATEGORIES*************************************/
 		

@@ -86,7 +86,7 @@ Warning: This action cannot be undone." value="delete">
 </div>
 
 {* plugin Novice - SmartyBootstrapModule : sb_table *}
-{sb_table columns=$columns items=$items}
+{sb_table columns=$columns items=$items management=true}
 
 {include file='file:[RgsAdminModule]includes/adminFormPagination.tpl'}
 </form>
