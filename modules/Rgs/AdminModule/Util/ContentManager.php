@@ -2,14 +2,21 @@
 
 namespace Rgs\AdminModule\Util;
 
-use Rgs\AdminModule\Util\ContentManager\Tools as CMTools;
+use Novice\Form\Field;
+use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 
-abstract class ContentManager {
+use Rgs\AdminModule\Util\ContentManager\Tools as CMTools;
+use Utils\ToolFieldsUtils;
+
+abstract class ContentManager 
+{
 
     protected $container;
+    protected $fieldCreator;
 
     public function __construct($container){
         $this->container = $container;
+        $this->fieldCreator = new ToolFieldsUtils();
     }
 
     public function getName(){
@@ -20,12 +27,28 @@ abstract class ContentManager {
         return '';
     }
 
+    // must return an array of \Novice\Form\Field\Field
     public function getCustomFields(){
-        return array();
+        return [
+            'visibility' => $this->fieldCreator->createVisibilityField(array(
+				'all' => "All",
+				PublishedInterface::PUBLISHED => "published",
+				PublishedInterface::NOT_PUBLISHED => "not published",
+			))
+        ];
     }
 
+    // return the new array 'where'. if not, the 'where' will stay as it was before the method call
     public function processCustomFields($request, array $where, $customFields){
-        return;
+        $visibility = 'all';
+        if($request->request->has('visibility')){
+			$visibility = $request->request->get('visibility');
+		}
+        if($visibility != 'all'){
+			$where[$this->getVisibilityKey()] = (bool) $visibility;
+		}
+        $customFields['visibility']->setValue($visibility);
+        return $where;
     }
 
     public function getColumns(){

@@ -251,7 +251,16 @@ class SelectField extends Field
 	  }
 	  else{
 		  $closure = function($value) use ($postValue){
+				if((is_numeric($value) && is_numeric($postValue)) || 
+					(is_string($value) && is_string($postValue))){
+					return $value == $postValue;
+				}
+				
+				if($value == 0 || $postValue == 0){
+					return false;
+				}
 				return $value == $postValue;
+				
 		  };
 	  }
 		

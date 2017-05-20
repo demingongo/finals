@@ -49,6 +49,8 @@ class ArticlesManager extends ContentManager {
     }
 
     public function getCustomFields(){
+        $customFields = parent::getCustomFields();
+
         $formFieldExtension =  new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
 		'class' => 'RgsCatalogModule:Categorie',
 		'choice_label' => function($cat){return $cat->getName();},
@@ -68,13 +70,12 @@ class ArticlesManager extends ContentManager {
 			),
 		));
 
-		$categoriesField = $formFieldExtension->createField();
-        return [
-            'categories' => $categoriesField
-        ];
+		$customFields = ['categories' => $formFieldExtension->createField()] + $customFields;
+        return $customFields;
     }
 
     public function processCustomFields($request, array $where, $customFields){
+        $where = parent::processCustomFields($request, $where, $customFields);
         $byCategorie = null;
         if($request->request->has('categorie')){
 			$req_byCategorie = $request->request->get('categorie');

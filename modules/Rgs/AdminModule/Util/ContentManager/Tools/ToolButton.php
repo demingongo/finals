@@ -48,7 +48,7 @@ class ToolButton extends Field
         $widget .= '>';
 
         if(!empty($this->icon)){
-            $widget .= '<span class="'.htmlspecialchars($this->icon).'"></span>';
+            $widget .= '<span class="'.htmlspecialchars($this->icon).'"></span> ';
         }
         $widget .= ($this->label ? $this->label : '').'</button>';
 
