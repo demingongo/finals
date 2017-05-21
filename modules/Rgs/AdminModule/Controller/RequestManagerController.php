@@ -29,7 +29,7 @@ class RequestManagerController extends \Novice\BackController
 					$repositoryName = 'RgsCatalogModule:Request';
 					break;
 				default:
-					throw new \InvalidArgumentException('The second argument in '.__METHOD__.' must be string: \'expired\' or \'reservations\'');
+					throw new \InvalidArgumentException('The second argument in '.__METHOD__.' must be string: \'userrequest\' ');
 					return;
 			}
 		if($request->isMethod('POST'))
@@ -57,11 +57,11 @@ class RequestManagerController extends \Novice\BackController
 		}
 	}
 	
-	public function executeGestionReservation(Request $request){
+	public function executeGestionRequest(Request $request){
 		
-		$this->setView('file:[RgsAdminModule]UserRequests/gestionUserRequest.php');
+		$this->setView('file:[RgsAdminModule]Requests/gestionRequest.php');
 		
-		$r = $this->processPostGestion($request, $state);
+		$r = $this->processPostGestion($request, 'userrequest');
 		if(is_object($r) && $r instanceof Response)
 			return $r;
 
@@ -166,7 +166,7 @@ class RequestManagerController extends \Novice\BackController
 
 		$qb = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Request')
-			->getCountReservationsQB($where);
+			->getCountRequestsQB($where);
 
 		$qb = $searchClosure($qb);
 
@@ -180,11 +180,11 @@ class RequestManagerController extends \Novice\BackController
 			
 		$qb = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:Request')
-			->getFindReservationsQB($limit, $page, $where, $ordering);
+			->getFindRequestsQB($limit, $page, $where, $ordering);
 
 		$qb = $searchClosure($qb);
 
-		$reservations = new Paginator($qb);
+		$requests = new Paginator($qb);
 
 		$this->assign("requests", $requests);
 
@@ -200,7 +200,7 @@ class RequestManagerController extends \Novice\BackController
 	}
 	
 	
-	public function executeDetailsReservation(Request $request)
+	public function executeDetailsRequest(Request $request)
 	{
 		$this->setView('file:[RgsAdminModule]Reservations/detailsUserRequest.php');
 		

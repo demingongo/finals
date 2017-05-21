@@ -12,4 +12,49 @@ use Rgs\CatalogModule\Entity\Request;
  */
 class RequestRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getFindRequestsQB($limit = 20, $page = 1, $where = array(), $orderBy = array(), $groupBy = array())
+	{
+		$qb = $this->createQueryBuilder('r');
+
+		$qb->join ('r.user ','u');
+		
+		$i = 1;
+		foreach($where as $k => $v){
+			$qb->andWhere($qb->expr()->eq($k, '?'.$i))
+				->setParameter($i, $v);
+			$i++;
+		}
+
+		if(empty($orderBy))
+			$orderBy = array('r.id' => 'DESC');
+
+		foreach($orderBy as $k => $v){
+			$qb	->addOrderBy($k, $v);
+		}
+		
+		foreach($groupBy as $v){
+			$qb	->addGroupBy($v);
+		}
+		
+		return $qb ->setFirstResult(($page-1) * $limit)
+			->setMaxResults($limit);
+	}
+	
+	public function getCountRequestsQB($where = array())
+	{
+		$qb = $this->createQueryBuilder('r');
+
+		$qb->join ('r.user ','u');
+
+		$qb->select('count(r.id)');
+
+		$i = 1;
+		foreach($where as $k => $v){
+			$qb->andWhere($qb->expr()->eq($k, '?'.$i))
+				->setParameter($i, $v);
+			$i++;
+		}
+
+		return $qb;
+	}
 }

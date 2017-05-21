@@ -103,8 +103,7 @@ class AdminController extends \Novice\BackController
 
 		$limit = 15;
 		$ordering = $cm->getDefaultOrder();
-		/*$allVisible = 'all';
-		$visibility = $allVisible;*/
+
 		$where = array();
 
 		$fieldsUtils = new ToolFieldsUtils();
@@ -114,12 +113,6 @@ class AdminController extends \Novice\BackController
 		$toolButtons = $cm->getToolsButtons();
 		$toolButtons = isset($toolButtons) && is_array($toolButtons) ? $toolButtons : array();
 
-		/*$visibilityField = $fieldsUtils->createVisibilityField(array(
-				$allVisible => "All",
-				PublishedInterface::PUBLISHED => "published",
-				PublishedInterface::NOT_PUBLISHED => "not published",
-			));*/
-
 		$orderingField = $fieldsUtils->createOrderField($cm->getOrderOptions());
 
 		$limitField = $fieldsUtils->createLimitField();
@@ -127,10 +120,6 @@ class AdminController extends \Novice\BackController
 		$newWhere = $cm->processCustomFields($request, $where, $customFields);
 
 		$where = isset($newWhere) && is_array($newWhere) ? $newWhere : $where;
-		
-		/*if($request->request->has('visibility')){
-			$visibility = $request->request->get('visibility');
-		}*/
 
 		if($request->request->has('ordering')){
 			$req_ordering = $request->request->get('ordering');
@@ -143,10 +132,6 @@ class AdminController extends \Novice\BackController
 			if(!empty($req_limit))
 				$limit = $req_limit;
 		}
-
-		/*if($visibility != $allVisible){
-			$where[$cm->getVisibilityKey()] = (bool) $visibility;
-		}*/
 
 		list($sort, $order) = explode(" ",$ordering);
 
@@ -179,8 +164,6 @@ class AdminController extends \Novice\BackController
 		$this->assign("limitWidget", $limitField->setValue($limit)->buildWidget());
 
 		$this->assign("orderingWidget", $orderingField->setValue($ordering)->buildWidget());
-
-		//$this->assign("visibilityWidget", $visibilityField->setValue($visibility)->buildWidget());
 
 		foreach($customFields as $widgetName => $field){
 			$customFields[$widgetName] = $field->buildWidget();

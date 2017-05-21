@@ -324,7 +324,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{path id='rgs_admin_gestion_reservations'}"><i class="fa fa-gamepad"></i> Users requests</a>
+                            <a href="{path id='rgs_admin_gestion_requests'}"><i class="fa fa-gamepad"></i> Users requests</a>
                         </li>
 						<li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>

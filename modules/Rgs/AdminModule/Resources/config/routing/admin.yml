@@ -161,3 +161,9 @@ rgs_admin_reservations_details:
     requirements:
         id: \d+
         state: reservations|expired
+
+# user requests management
+rgs_admin_gestion_requests:
+    path:     /requests/
+    defaults:
+        _controller: 'RgsAdminModule:RequestManagerController:gestionRequest'
