@@ -6,6 +6,8 @@ use Novice\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+use Rgs\UserModule\Entity\User;
+
 /**
  * Request
  *
@@ -63,8 +65,6 @@ class Request extends Entity implements Model\PublishedInterface
      */
     public function __construct($name = null)
     {
-		$this->setStock(1);
-		$this->setPrix(0);
         $this->setPublished(self::PUBLISHED);
 
 		if(!empty($name)){

@@ -66,6 +66,7 @@
                 <i class="caret"></i></a>
                 <ul id="g-account-menu" class="dropdown-menu">
                 	<li> <a href="{path id='rgs_catalog_user_profile' params=['tab'=>'myreservations'] absolute=true}"> My reservations</a></li>
+                    <li> <a href="{path id='rgs_catalog_user_requestform' absolute=true}"> Send a request</a></li>
                     <li class="divider"></li>
                     <li> <a href="{path id='user_security_logout' absolute=true}"><i class="glyphicon glyphicon-log-out"></i> {'layout.logout'|trans:[]:UserModule}</a></li>
                 </ul>
@@ -142,7 +143,9 @@
 {/if}
 
 <SECTION class="row">
+<div class="col-sm-12">
 {block name=section}Cette page ne contient rien{/block}
+</div>
 </SECTION>
 
 <a href="#top" class="hidden scroll-to-top fade-in-scroll well well-sm" title="back to top">

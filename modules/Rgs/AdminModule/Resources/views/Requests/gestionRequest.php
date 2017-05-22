@@ -79,30 +79,26 @@
       <th>#</th>
       <th>User</th>
       <th>Email user</th>
-      <th>Date de réservation</th>
-      <th>Date d'expiration</th>
+      <th>Created at</th>
     </tr>
   </thead>
   <tbody>
-	{foreach name=requests from=$requests item=resa}
+	{foreach name=requests from=$requests item=ureq}
     <tr>
     <td>
-	  	<input type="checkbox" id="cb{$smarty.foreach.users.index}" name="cid[]" value="{$resa.id}" />
+	  	<input type="checkbox" id="cb{$smarty.foreach.users.index}" name="cid[]" value="{$ureq.id}" />
 	</td>
       <td>
-      	<a href="{path id='rgs_admin_reservations_details' params=['id' => $resa.id, 'state' => $state] absolute=true}">{$resa.id}</a>
+      	<a href="">{$ureq.id}</a>
       </td>
       <td>
-		<a href="{path id='rgs_admin_users_edit' params=['id' => $resa.user.id] absolute=true}">{$resa.user.login}</a>
+		<a href="{path id='rgs_admin_users_edit' params=['id' => $ureq.user.id] absolute=true}">{$ureq.user.login}</a>
 	  </td>
       <td>
-		<a href="{path id='rgs_admin_users_edit' params=['id' => $resa.user.id] absolute=true}">{$resa.user.email}</a>
+		<a href="{path id='rgs_admin_users_edit' params=['id' => $ureq.user.id] absolute=true}">{$ureq.user.email}</a>
 	  </td>
       <td>
-		{$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}
-	  </td>
-      <td>
-		{$resa.expires_at|date_format:"%Y-%m-%d %H:%M:%S"}
+		{$ureq.created_at|date_format:"%Y-%m-%d %H:%M:%S"}
 	  </td>
     </tr>
 	{/foreach}

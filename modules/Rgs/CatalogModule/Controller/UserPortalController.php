@@ -5,7 +5,8 @@ use Symfony\Component\HttpFoundation\Request,
 	Symfony\Component\Security\Core\Util\StringUtils;
 use Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Categorie,
-	Rgs\CatalogModule\Entity\Reservation;
+	Rgs\CatalogModule\Entity\Reservation,
+	Rgs\CatalogModule\Entity\Request as UserRequest;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;
 use Novice\Form\Extension\Entity\EntityExtension;
@@ -13,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route; //pour annotation
 
 use Novice\Annotation as NOVICE; //pour annotations de Novice (Template, Service, Assign, AttributeConverter, ...)
 use Novice\Password;
+
+use Novice\Templating\Assignor\ErrorMessages;
+use Rgs\CatalogModule\Validator\UserRequestValidator;
 
 /**
  * @Route("/user")
@@ -134,6 +138,47 @@ class UserPortalController extends \Novice\BackController
 		
 		$this->caddie->removeAll();
 		return $this->redirect($this->generateUrl("rgs_catalog_user_profile", array("tab"=>"myreservations")));		
+	}
+
+
+	/**
+     * @Route("/requestform", name="rgs_catalog_user_requestform")
+	 * @NOVICE\Template("file:[RgsCatalogModule]User/requestform.php")
+	 * @NOVICE\AttributeConverter("user_request", 
+	 *						class="Rgs\CatalogModule\Entity\Request",
+	 * 						from=NOVICE\AttributeConverter::REQUEST)
+     */
+	public function executeRequestForm(UserRequest $user_request, Request $request)
+	{	
+
+		$formError = new ErrorMessages();	
+		$validator = new UserRequestValidator();
+			
+		// s'il n'y a pas de messages d'erreurs
+		if($validator->validateRequest($request, $user_request, $formError) && !$formError->hasError()){
+			// traitement + redirect
+			$em = $this->getDoctrine()->getManager();
+			$em->getConnection()->beginTransaction();
+			try{
+				$user_request->setUser($this->get('app.user')->getData());
+				$em->persist($user_request);
+				$em->flush();
+				$em->getConnection()->commit();
+
+				$this->session->getFlashBag()->set('success', '<b>Thank you !</b> You\'ll be notified by email of your request progression');
+
+				return $this->redirect($this->generateUrl('rgs_catalog_index'));
+			}catch(\Exception $e){
+				$em->close();
+				$em->getConnection()->rollback();
+				$this->session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl($request->attributes->get('_route'))
+					.'" class="alert-link">fill in the form</a> and try submitting again.('.$e->getMessage().')');
+			}
+		}
+		$this->assign($formError);
+
+		$this->assign("user_request", $user_request);
+		//return $this->redirect($this->generateUrl("rgs_catalog_user_profile", array("tab"=>"myreservations")));		
 	}
 	
 }
