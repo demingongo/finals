@@ -17,6 +17,8 @@ class AttributeConverter extends ConfigurationAnnotation
 
 	const ATTRIBUTES = "attributes";
 
+	const FORMDATA = "form-data";
+
     private $name;
 
 	private $from;

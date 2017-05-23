@@ -73,10 +73,11 @@
 <table id="tab" class="table table-striped table-hover ">
   <thead>
     <tr>
+	  <th>#</th>
       <th>
       <input type="checkbox" id="checkAll" name="checkall-toggle" data-novice-toggle="checkall" title="check all" />
       </th>
-      <th>#</th>
+	  <th>Subject</th>
       <th>User</th>
       <th>Email user</th>
       <th>Created at</th>
@@ -85,11 +86,14 @@
   <tbody>
 	{foreach name=requests from=$requests item=ureq}
     <tr>
+	<td>
+      	{$ureq.id}
+      </td>
     <td>
 	  	<input type="checkbox" id="cb{$smarty.foreach.users.index}" name="cid[]" value="{$ureq.id}" />
 	</td>
-      <td>
-      	<a href="">{$ureq.id}</a>
+	<td>
+      	<a href="">{$ureq.subject}</a>
       </td>
       <td>
 		<a href="{path id='rgs_admin_users_edit' params=['id' => $ureq.user.id] absolute=true}">{$ureq.user.login}</a>

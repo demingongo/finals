@@ -36,18 +36,51 @@ class RequestManagerController extends \Novice\BackController
 		{
 			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
 				$submit = end($submit);
+
+				$em = $this->getDoctrine()->getManager();
 				
 				if($submit == "cancelAll"){
-					return $result = $this->getDoctrine()->getManager()->getRepository($repositoryName)
-						->$cancelAllFn();
+					$em->getConnection()->beginTransaction();
+					try{
+						$result = $this->getDoctrine()->getManager()->getRepository($repositoryName)->findAll();
+						foreach($result as $entity){
+								$em->remove($entity);
+						}
+						$em->flush();
+						$em->getConnection()->commit();
+
+						$this->get('session')->getFlashBag()->set('success', 'Successfully deleted');
+					}
+					catch(\Exception $e){
+						$em->close();
+						$em->getConnection()->rollback();
+						$this->get('session')->getFlashBag()->set('error', '<b>Failure occured</b>');
+					}
+
+					return;
 				}
 
 				if($request->request->has('cid')){
 					$ids = $request->request->get('cid');
 					$firstId = $ids[0];
 					if($submit == "cancel"){
-						$result = $this->getDoctrine()->getManager()->getRepository($repositoryName)
-						->cancelByIds($ids);
+						$em->getConnection()->beginTransaction();
+						try{
+							foreach($ids as $id){
+								$result = $this->getDoctrine()->getManager()->getRepository($repositoryName)
+											->findOneById($id);
+								$em->remove($result);
+							}
+							$em->flush();
+							$em->getConnection()->commit();
+
+							$this->get('session')->getFlashBag()->set('success', 'Successfully deleted');
+						}
+						catch(\Exception $e){
+							$em->close();
+							$em->getConnection()->rollback();
+							$this->get('session')->getFlashBag()->set('error', '<b>Failure occured</b>');
+						}
 					}
 					else if($submit == "edit"){
 						return $this->redirect($this->generateUrl($editRouteId, array('id'=>$firstId, 'state' => $itemType)));

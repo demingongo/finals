@@ -153,6 +153,10 @@ class AttributeConverterListener implements EventSubscriberInterface
 			else if($from == AttributeConverter::ATTRIBUTES){
 				$properties = $request->attributes->all();
 			}
+			else if($from == AttributeConverter::FORMDATA){
+				$properties = $request->request->all();
+				$properties += $request->files->all();
+			}
 			
 			$prefix = $annot->getPrefix();
 			if($prefix === null){

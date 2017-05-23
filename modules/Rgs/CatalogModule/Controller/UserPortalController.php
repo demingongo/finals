@@ -146,7 +146,7 @@ class UserPortalController extends \Novice\BackController
 	 * @NOVICE\Template("file:[RgsCatalogModule]User/requestform.php")
 	 * @NOVICE\AttributeConverter("user_request", 
 	 *						class="Rgs\CatalogModule\Entity\Request",
-	 * 						from=NOVICE\AttributeConverter::REQUEST)
+	 * 						from=NOVICE\AttributeConverter::FORMDATA)
      */
 	public function executeRequestForm(UserRequest $user_request, Request $request)
 	{	
@@ -156,6 +156,13 @@ class UserPortalController extends \Novice\BackController
 			
 		// s'il n'y a pas de messages d'erreurs
 		if($validator->validateRequest($request, $user_request, $formError) && !$formError->hasError()){
+
+			$file = $user_request->getImage();
+			if($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile){
+				$fileName = $this->get('rgs.file_uploader')->upload($file);
+				$user_request->setImage($this->get('rgs.file_uploader')->getSubDir().'/'.$fileName);
+			}
+
 			// traitement + redirect
 			$em = $this->getDoctrine()->getManager();
 			$em->getConnection()->beginTransaction();
@@ -174,11 +181,13 @@ class UserPortalController extends \Novice\BackController
 				$this->session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl($request->attributes->get('_route'))
 					.'" class="alert-link">fill in the form</a> and try submitting again.('.$e->getMessage().')');
 			}
+			
 		}
 		$this->assign($formError);
 
-		$this->assign("user_request", $user_request);
-		//return $this->redirect($this->generateUrl("rgs_catalog_user_profile", array("tab"=>"myreservations")));		
+		return array(
+			"user_request" => $user_request
+		);		
 	}
 	
 }

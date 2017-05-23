@@ -1,6 +1,8 @@
 parameters:
     rgs.mailer.class: Rgs\CatalogModule\Services\Mailer
     rgs.locale_middleware.class: Rgs\CatalogModule\Middleware\LocaleMiddleware
+    rgs.file_uploader.class: Rgs\CatalogModule\Services\FileUploader
+    file_uploader.dir: %web.upload_dir%
     default_locale: fr
     rgs.user_portal_middleware.class: Rgs\CatalogModule\Middleware\UserPortalMiddleware
     rgs.caddie.class: Rgs\CatalogModule\Services\Caddie
@@ -22,6 +24,10 @@ services:
     public: false
     tags:
             - { name: novice.property_editor, alias: article_name_editor }
+
+   rgs.file_uploader:
+    class: %rgs.file_uploader.class%
+    arguments: [%file_uploader.dir%, users]
 
    #MIDDLEWARES
 

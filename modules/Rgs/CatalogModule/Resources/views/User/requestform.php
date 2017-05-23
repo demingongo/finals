@@ -28,6 +28,10 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
     {/form_textarea}
     </div>
     <div class="form-group">
+    {form_input type="file" path="image" class="form-control" placeholder="Image" accept=".png,.jpg,.jpeg,.bmp"}
+    {/form_input}
+    </div>
+    <div class="form-group">
     {form_submit class="form-control btn-success"}
     </div>
 {/form}
