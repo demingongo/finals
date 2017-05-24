@@ -16,6 +16,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 use Utils\ToolFieldsUtils;
 
+use Novice\Module\SmartyBootstrapModule\Util\ItemProperty;
+
 class RequestManagerController extends \Novice\BackController
 {
 	
@@ -84,6 +86,36 @@ class RequestManagerController extends \Novice\BackController
 					}
 					else if($submit == "edit"){
 						return $this->redirect($this->generateUrl($editRouteId, array('id'=>$firstId, 'state' => $itemType)));
+					}
+					else if($submit == "valid"){
+						$allRequests = array();
+						$em->getConnection()->beginTransaction();
+						try{
+							foreach($ids as $id){
+								$result = $this->getDoctrine()->getManager()->getRepository($repositoryName)
+											->findOneById($id);
+								if($result->isPublished()){
+									continue;
+								}
+								$result->setPublished($result::PUBLISHED);
+								$em->persist($result);
+								$allRequests[] = $result;
+							}
+							$em->flush();
+							$em->getConnection()->commit();
+
+							$this->get('session')->getFlashBag()->set('success', 'Success');
+						}
+						catch(\Exception $e){
+							$em->close();
+							$em->getConnection()->rollback();
+							$this->get('session')->getFlashBag()->set('error', '<b>Fail</b>');
+							return;
+						}
+						foreach($allRequests as $r){
+							$this->get('rgs.mailer')->sendRequestConfirm($r);
+						}
+						
 					}
 				}
 			}

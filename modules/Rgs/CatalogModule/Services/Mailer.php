@@ -102,4 +102,18 @@ Si vous avez besoin d'aide, veuillez contacter l'administrateur du site.";
 		$body = $this->templating->fetch($template);
 		$this->sendMessage($to, $subject, $body);
 	}
+
+	public function sendRequestConfirm(\Rgs\CatalogModule\Entity\Request $userRequest)
+	{
+		$this->setAssign();
+		$subject = $this->name." : RE - ".$userRequest->getSubject();
+		$template = 'file:[RgsCatalogModule]Mail/mail.php';
+		$to = $userRequest->getUser()->getEmail();
+		$msg = "Hello,<br /><br />
+
+We read your request and we'll be grateful to receive you during our open hours with your product so we can continue further the negociations.";
+		$this->templating->assign(array('tpl_name' => $template, 'message' => $msg));
+		$body = $this->templating->fetch($template);
+		$this->sendMessage($to, $subject, $body);
+	}
 }

@@ -65,7 +65,7 @@ class Request extends Entity implements Model\PublishedInterface
      */
     public function __construct($name = null)
     {
-        $this->setPublished(self::PUBLISHED);
+        $this->setPublished(self::NOT_PUBLISHED);
 
 		if(!empty($name)){
 			$this->setName($name);
