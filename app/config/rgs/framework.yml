@@ -39,6 +39,11 @@ framework:
             events: [NOTFOUND,REQUEST]
             pattern : ^/admin
             priority : 29
+        permissions:
+            class: Rgs\UserModule\Middleware\PermissionsMiddleware
+            events: [REQUEST]
+            pattern : ^/
+            priority : 29
         assign_vars:
             class: Rgs\UserModule\Middleware\AssignMiddleware
             events: RESPONSE

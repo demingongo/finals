@@ -127,9 +127,9 @@ Multi line comment block with credits block
     	            </table>
         <form method="post" action="{path id='rgs_catalog_caddie_add'}">
         	<input type="hidden" name="id" value="{$a.id}" />
-            {if $session->isAuthenticated() && $app.user.data->hasRole("ROLE_SUPER_ADMIN")}
+            {auth permissions=ROLE_ADMIN}
         	<a class="btn btn-xs btn-warning" href="#"> edit </a>
-    		{/if}
+    		{/auth}
             <button type="submit" class="btn btn-xs btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</button>
         </form>
         </div>

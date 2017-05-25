@@ -9,7 +9,7 @@ rgs_admin_login:
     defaults:
         _controller: 'UserModule:SecurityController:login'
         _redirect: rgs_admin_index
-        _roles: [ROLE_SUPER_ADMIN]
+        _roles: [ROLE_ADMIN]
         view: 'file:[RgsAdminModule]Security/login.php'
 
 rgs_admin_logout:
@@ -121,22 +121,26 @@ rgs_admin_gestion_users:
     path:     /users/
     defaults:
         _controller: 'RgsAdminModule:UserManagerController:gestionUser'
+        _permissions: ['ROLE_SUPER_ADMIN']
 
 rgs_admin_gestion_groups:
     path:     /groups/
     defaults:
         _controller: 'RgsAdminModule:GroupManagerController:gestionGroup'
+        _permissions: ['ROLE_SUPER_ADMIN']
 
 # users forms
 rgs_admin_users_add:
     path:     /users/edit
     defaults:
         _controller: 'RgsAdminModule:UserManagerController:editUser'
+        _permissions: ROLE_SUPER_ADMIN
 
 rgs_admin_users_edit:
     path:     /users/edit/{id}/
     defaults:
         _controller: 'RgsAdminModule:UserManagerController:editUser'
+        _permissions: ROLE_SUPER_ADMIN
     requirements:
         id: \d+
 

@@ -17,6 +17,7 @@ use Rgs\CatalogModule\Entity\Model\DateOnCreateUpdateTrait;
 class User extends Entity implements Model\LockedInterface
 {
 	const ROLE_DEFAULT = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
 	const ACTIVATED = 1;
@@ -559,6 +560,15 @@ class User extends Entity implements Model\LockedInterface
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+
+    /**
+     * inherit 
+     */
+    public function isLocked()
+    {
+        return ($this->locked == self::LOCKED || $this->locked == true) || (isset($this->group) && $this->group->isLocked());
     }
 
 	public function isNew()

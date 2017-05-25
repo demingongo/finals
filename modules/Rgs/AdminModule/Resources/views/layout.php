@@ -260,13 +260,13 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-					{if $session->isAuthenticated()}
+					{auth}
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> {$app.user.data.login|escape:'htmlall'}</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> {'layout.edit'|trans:[]:UserModule}</a>
                         </li>
                         <li class="divider"></li>
-					{/if}
+					{/auth}
                         <li><a href="{path id='rgs_admin_logout' absolute=true}"><i class="fa fa-sign-out fa-fw"></i> {'layout.logout'|trans:[]:UserModule}</a>
                         </li>
                     </ul>
@@ -300,6 +300,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        {auth permissions=ROLE_SUPER_ADMIN}
 						<li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -312,6 +313,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        {/auth}
                         <li>
                         	<a href="#"><i class="fa fa-cubes"></i> Reservations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -58,7 +58,7 @@
 		<a href="#contact">{'nav.contact'|trans}</a></li>
       </ul>
 	  <ul class="nav navbar-nav navbar-right">
-		{if $session->isAuthenticated()}
+		{auth}
 		<li style="background-color: green;"><a href="{path id='rgs_catalog_user_profile' referenceType=ABSOLUTE_URL}"
 		title="{'layout.logged_in_as'|trans:['%username%' => $app.user.data.login|escape]:UserModule}"><span class="glyphicon glyphicon-user"></span> {$app.user.data.login|escape:'htmlall'}</a></li>
         <li class="dropdown">
@@ -71,26 +71,27 @@
                     <li> <a href="{path id='user_security_logout' absolute=true}"><i class="glyphicon glyphicon-log-out"></i> {'layout.logout'|trans:[]:UserModule}</a></li>
                 </ul>
         </li>
-		{else}
+		{/auth}
+        {anonymous}
         {*****************************************************************************************************************
         <li><a href="{path id='user_registration_register' absolute=true}"><span class="glyphicon glyphicon-pencil"></span> {'layout.register'|trans:[]:UserModule}</a></li>
         *****************************************************************************************************************}
 		<li class="no-action" style=""><a href="#connexion" data-toggle="modal" data-target="#connexionModal" ><span class="glyphicon glyphicon-log-in"></span> {"layout.login"|trans:[]:UserModule}</a></li>
-        {/if}
+        {/anonymous}
         <li>
         	<a href="{path id='rgs_catalog_caddie' referenceType=ABSOLUTE_URL}">
             <i class="glyphicon glyphicon-shopping-cart"></i>
             <span class="badge">{$rgs.caddie->count()}</span>
             </a>
         </li>
-        {if $session->isAuthenticated() && $app.user.data->hasRole('ROLE_SUPER_ADMIN')}
+        {auth permissions=ROLE_SUPER_ADMIN}
 		<li class="no-action">
 			<a href="{path id='rgs_admin_index' absolute=true}" target="_blank">
 				Admin
 				<span class="glyphicon glyphicon-new-window"></span>
 			</a>
 		</li>
-        {/if}
+        {/auth}
         <li class="no-action">
         	<a href="{path id='rgs_catalog_language' _locale='en' absolute=true}">
         		<img alt="en" title="english" height="16" src="{asset url='/img/pictos/United-States-of-Americ-icon.png'}" />

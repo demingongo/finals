@@ -18,8 +18,8 @@ class RFMiddleware
 		$container = $dispatcher->getContainer();
 		if($container->get('session')->isAuthenticated()){
 			$user = $container->get('app.user')->getData();
-			//allow access if user has role ROLE_SUPER_ADMIN
-			if(!empty($user) && $user instanceof User && $user->hasRole(User::ROLE_SUPER_ADMIN)){
+			//allow access if user has role ROLE_ADMIN
+			if(!empty($user) && $user instanceof User && $user->hasRole(User::ROLE_ADMIN)){
 				$_SESSION["RF"]["allow_acces"] = true;
 				return;
 			}
