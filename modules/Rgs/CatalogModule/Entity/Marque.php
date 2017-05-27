@@ -10,7 +10,7 @@ use DoctrineExtensions\NestedSet\MultipleRootNode;
 /**
  * Marque
  *
- * @ORM\Table(name="marque")
+ * @ORM\Table(name="brand")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\MarqueRepository")
  */
 class Marque extends Entity implements Model\PublishedInterface

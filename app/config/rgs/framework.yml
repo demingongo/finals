@@ -54,6 +54,11 @@ framework:
             events: [REQUEST]
             pattern : ^/
             priority : 0
+        exception_handler:
+            class: Rgs\CatalogModule\Middleware\ExceptionMiddleware
+            events: [EXCEPTION]
+            pattern : ^/
+            priority : 0
 
 services:
     asset.packages.version_strategy:

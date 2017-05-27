@@ -38,9 +38,9 @@ class ArticleNameEditor implements PropertyEditorInterface
 			return;
 		}
 		
-		$c = $this->container->get('managers')->getManager()->getRepository("RgsCatalogModule:Categorie")->findOneById($propertyValue);
+		$c = $this->container->get('managers')->getManager()->getRepository("RgsCatalogModule:Category")->findOneById($propertyValue);
 		
-		$attribute->setCategorie($c);
+		$attribute->setCategory($c);
 	}
 	
 	/**
@@ -65,6 +65,6 @@ class ArticleNameEditor implements PropertyEditorInterface
 	 */
 	public function editableProperties()
 	{
-		return array("categorie","name");
+		return array("category","name");
 	}
 }

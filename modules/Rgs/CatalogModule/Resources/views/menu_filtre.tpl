@@ -9,7 +9,7 @@
     <hr />
     <form method="get" id="filtre" name="filtre" data-novice='form-control'>
     	<div style="display: block; padding: 1px;">
-		{$categorieWidget}
+		{$categoryWidget}
 		</div>
         <br />
         <div style="display: block; padding: 1px;">

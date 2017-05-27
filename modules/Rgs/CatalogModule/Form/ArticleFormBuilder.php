@@ -75,31 +75,12 @@ class ArticleFormBuilder extends FormBuilder
     new MaxLengthValidator('Le nom spécifié est trop long (64 caractères maximum)', 64),
     new NotNullValidator('Spécifiez le titre'),)
 		)))
-		/*->add(new SelectField(array(
-        'label' => 'Categorie',
-        'name' => 'categorie',
-		'options' => $this->getCats(),
-		'validators' => array(
-    new NotNullValidator('Choisir la catégorie'),)
-		)))*/
-	   /*->add(new SelectField(array(
-        'label' => 'Marque',
-        'name' => 'marque',
-		'options' => $this->getMarques(),
-		)))
-	   ->add(new SelectField(array(
-        'label' => 'Etat',
-        'name' => 'etat',
-		'options' => $this->getEtats(),
-		'validators' => array(
-    new NotNullValidator('Choisir l\'état'),)
-		)))*/
 		->add(new TextareaField(array(
         'label' => $trans('form.description'),
         'name' => 'description',
 		'control_label' => true,
 		)))
-		->add(new Prototype(array('name' => 'categorie')))
+		->add(new Prototype(array('name' => 'category')))
 		->add(new Prototype(array('name' => 'marque')))
 		->add(new Prototype(array('name' => 'etat')))
 		->add(new Prototype(array('name' => 'image')))
@@ -180,19 +161,6 @@ class ArticleFormBuilder extends FormBuilder
 		);
 
 		$this->form->addExtension(new \Novice\Form\Extension\Filemanager\FilemanagerExtension('/plugins/filemanager/filemanager', $options));
-		
-		/*$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
-		'class' => 'RgsCatalogModule:Categorie',
-		'choice_label' => function($cat){return $cat->getName();},
-		'query_builder' => function ($er) {
-				return $er->createQueryBuilder('c')
-					->orderBy('c.name', 'ASC');
-		},
-        'label' => 'Categorie',
-        'name' => 'categorie',
-		'validators' => array(
-    new NotNullValidator('Choisir la catégorie'),)
-		)));*/
 
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
 		'class' => 'RgsCatalogModule:Marque',
@@ -238,12 +206,12 @@ class ArticleFormBuilder extends FormBuilder
     new NotNullValidator('Choisir l\'état'),)
 		)));
 
-		$nsm = $this->container->get('nested_set')->getManager('RgsCatalogModule:Categorie');
+		$nsm = $this->container->get('nested_set')->getManager('RgsCatalogModule:Category');
 		$options = array(
-			'class' => 'RgsCatalogModule:Categorie',
-			'label' => 'Categorie',
+			'class' => 'RgsCatalogModule:Category',
+			'label' => 'Category',
 			'control_label' => true,
-			'name' => 'categorie',
+			'name' => 'category',
 			'required' => true,
 		    'choice_label' => function($cat){return $cat->getName();},
 			'validators' => array(
@@ -278,7 +246,7 @@ class ArticleFormBuilder extends FormBuilder
 
 		$em = $this->container->get('managers')->getManager();
 
-		$repository = $em->getRepository('RgsCatalogModule:Categorie');
+		$repository = $em->getRepository('RgsCatalogModule:Category');
 
 		$cs = $repository->findBy(
 				array(),

@@ -26,7 +26,7 @@ Multi line comment block with credits block
     {/form_input}
     </div>
     <div class="form-group">
-    {form_select path="categorie" class="form-control"}
+    {form_select path="category" class="form-control"}
     	{form_options items=$categories itemLabel="name" itemValue="id"}
     	{/form_options}
     {/form_select}
@@ -57,7 +57,7 @@ Multi line comment block with credits block
 
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$articles max="4" queryStrict=['categorie', 'etat'] noQuery=false}
+		{pagination paginator=$articles max="4" queryStrict=['category', 'etat'] noQuery=false}
     </div>
     
 </div>
@@ -98,7 +98,7 @@ Multi line comment block with credits block
         <table class="table table-bordered table-condensed"> <!-- table-condensed-->
                 		<tbody>
                     		<tr>
-                        		<th>Categorie</th><td title="{$a.categorie.name}">{$a.categorie.name|truncate:15:'...':true}</td>
+                        		<th>Category</th><td title="{$a.category.name}">{$a.category.name|truncate:15:'...':true}</td>
 	                        </tr>
                             <tr>
         	                	<th>Etat</th><td>{$a.etat.name}</td>
@@ -139,7 +139,7 @@ Multi line comment block with credits block
 </div>
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$articles max="4" queryStrict=['categorie', 'etat'] noQuery=false}
+		{pagination paginator=$articles max="4" queryStrict=['category', 'etat'] noQuery=false}
     </div>
     
 </div>

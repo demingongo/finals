@@ -4,9 +4,9 @@ namespace Rgs\CatalogModule\Controller;
 use Symfony\Component\HttpFoundation\Request,
 	Symfony\Component\Security\Core\Util\StringUtils;
 use Rgs\CatalogModule\Entity\Article,
-	Rgs\CatalogModule\Entity\Categorie,
+	Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Reservation,
-	Rgs\CatalogModule\Entity\Request as UserRequest;
+	Rgs\CatalogModule\Entity\UserRequest;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;
 use Novice\Form\Extension\Entity\EntityExtension;
@@ -145,7 +145,7 @@ class UserPortalController extends \Novice\BackController
      * @Route("/requestform", name="rgs_catalog_user_requestform")
 	 * @NOVICE\Template("file:[RgsCatalogModule]User/requestform.php")
 	 * @NOVICE\AttributeConverter("user_request", 
-	 *						class="Rgs\CatalogModule\Entity\Request",
+	 *						class="Rgs\CatalogModule\Entity\UserRequest",
 	 * 						from=NOVICE\AttributeConverter::FORMDATA)
      */
 	public function executeRequestForm(UserRequest $user_request, Request $request)

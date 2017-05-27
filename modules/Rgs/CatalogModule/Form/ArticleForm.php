@@ -26,7 +26,7 @@ class ArticleForm
 
     private $url;
 	
-    private $categorie;
+    private $category;
 
     private $etat;
 
@@ -248,26 +248,26 @@ class ArticleForm
     }
 
     /**
-     * Set categorie
+     * Set category
      *
-     * @param Rgs\CatalogModule\Entity\Categorie $categorie
+     * @param Rgs\CatalogModule\Entity\Category $category
      * @return Article
      */
-    public function setCategorie(ENTITY\Categorie $categorie)
+    public function setCategory(ENTITY\Category $category)
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get categorie
+     * Get category
      *
-     * @return Rgs\CatalogModule\Entity\Categorie 
+     * @return Rgs\CatalogModule\Entity\Category 
      */
-    public function getCategorie()
+    public function getCategory()
     {
-        return $this->categorie;
+        return $this->category;
     }
 
 	/**

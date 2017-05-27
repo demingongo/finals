@@ -8,12 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\NestedSet\MultipleRootNode;
 
 /**
- * Categorie
+ * Category
  *
- * @ORM\Table(name="Categorie")
- * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\CategorieRepository")
+ * @ORM\Table(name="Category")
+ * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\CategoryRepository")
  */
-class Categorie extends Entity implements MultipleRootNode, Model\PublishedInterface
+class Category extends Entity implements MultipleRootNode, Model\PublishedInterface
 {
 
 	//const PUBLISHED = 1;
@@ -75,7 +75,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
 	/**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="categorie")
+     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="category")
      */
     private $articles;
 
@@ -127,7 +127,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
      * Set name
      *
      * @param string $name
-     * @return Categorie
+     * @return Category
      */
     public function setName($name)
     {
@@ -150,7 +150,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
      * Set slug
      *
      * @param string $slug
-     * @return Categorie
+     * @return Category
      */
     public function setSlug($slug)
     {
@@ -173,7 +173,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
      * Set description
      *
      * @param string $description
-     * @return Categorie
+     * @return Category
      */
     public function setDescription($description)
     {
@@ -196,7 +196,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
      * Set image
      *
      * @param string $image
-     * @return Categorie
+     * @return Category
      */
     public function setImage($image)
     {
@@ -219,12 +219,12 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
      * Add article
      *
      * @param Rgs\CatalogModule\Entity\Article $article
-     * @return Categorie
+     * @return Category
      */
     public function addArticle(Article $article)
     {
         $this->articles[] = $article;
-		$article->setCategorie($this);
+		$article->setCategory($this);
 
         return $this;
     }
@@ -237,7 +237,7 @@ class Categorie extends Entity implements MultipleRootNode, Model\PublishedInter
     public function removeArticle(Article $article)
     {
         $this->articles->removeElement($article);
-		$article->setCategorie(null);
+		$article->setCategory(null);
     }
 
     /**

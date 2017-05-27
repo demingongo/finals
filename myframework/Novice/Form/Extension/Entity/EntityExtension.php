@@ -16,6 +16,7 @@ use Novice\Form\Event\Event,
 	Novice\Form\FormEvents;
 
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\AbstractQuery;
 
 class EntityExtension extends \Novice\Form\Extension\Extension implements EventSubscriberInterface
 {
@@ -260,8 +261,16 @@ class EntityExtension extends \Novice\Form\Extension\Extension implements EventS
 			$qb = $this->query_builder;
 			if($this->query_builder instanceof QueryBuilder)
 				$foreignEntities = $qb->getQuery()->execute();
-			else
-				$foreignEntities = $qb($repository)->getQuery()->execute();
+			else{
+				$cbResult = $qb($repository, $em);
+				if($cbResult instanceof AbstractQuery){
+					$foreignEntities = $cbResult->getResult();
+				}
+				else{
+					$foreignEntities = $cbResult->getQuery()->execute();
+				}
+			}
+				
 		}
 		else{
 			$foreignEntities = $repository->findBy(array(),array(),null,null);

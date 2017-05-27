@@ -23,7 +23,7 @@ rgs_admin_gestion_article:
     path:     /articles
     defaults: { content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
 
-rgs_admin_gestion_categorie:
+rgs_admin_gestion_category:
     path:     /categories/
     defaults: { content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
 
@@ -62,19 +62,19 @@ rgs_admin_articles_edit_2:
 rgs_admin_categories_add:
     path:     /categories/edit
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editCategorie'
+        _controller: 'RgsAdminModule:AdminController:editCategory'
 
 rgs_admin_categories_edit:
     path:     /categories/edit/{id}/{slug}
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editCategorie'
+        _controller: 'RgsAdminModule:AdminController:editCategory'
     requirements:
         id: \d+
 
 rgs_admin_categories_edit_2:
     path:     /categories/edit/{id}/
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editCategorie'
+        _controller: 'RgsAdminModule:AdminController:editCategory'
     requirements:
         id: \d+
 

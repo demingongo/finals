@@ -4,7 +4,7 @@ namespace Rgs\AdminModule\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Rgs\CatalogModule\Entity\Request as UserRequest;
+use Rgs\CatalogModule\Entity\UserRequest;
 
 use DoctrineModule\Form\Extension\EntityNode\EntityNodeExtension;
 
@@ -28,7 +28,7 @@ class RequestManagerController extends \Novice\BackController
 				case 'userrequest':
 					$addRouteId = '';
 					$editRouteId = 'rgs_admin_requests_details';
-					$repositoryName = 'RgsCatalogModule:Request';
+					$repositoryName = 'RgsCatalogModule:UserRequest';
 					break;
 				default:
 					throw new \InvalidArgumentException('The second argument in '.__METHOD__.' must be string: \'userrequest\' ');
@@ -230,7 +230,7 @@ class RequestManagerController extends \Novice\BackController
 		};
 
 		$qb = $this->getDoctrine()->getManager()
-			->getRepository('RgsCatalogModule:Request')
+			->getRepository('RgsCatalogModule:UserRequest')
 			->getCountRequestsQB($where);
 
 		$qb = $searchClosure($qb);
@@ -244,7 +244,7 @@ class RequestManagerController extends \Novice\BackController
 			$page = 1;
 			
 		$qb = $this->getDoctrine()->getManager()
-			->getRepository('RgsCatalogModule:Request')
+			->getRepository('RgsCatalogModule:UserRequest')
 			->getFindRequestsQB($limit, $page, $where, $ordering);
 
 		$qb = $searchClosure($qb);
@@ -270,7 +270,7 @@ class RequestManagerController extends \Novice\BackController
 		$this->setView('file:[RgsAdminModule]Reservations/detailsUserRequest.php');
 		
 		$reservation = $this->getDoctrine()->getManager()
-			->getRepository('RgsCatalogModule:Request')->findOneById($request->attributes->get('id'));
+			->getRepository('RgsCatalogModule:UserRequest')->findOneById($request->attributes->get('id'));
 		
 		$this->assign("request", $reservation);
 

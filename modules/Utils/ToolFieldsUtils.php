@@ -78,13 +78,13 @@ class ToolFieldsUtils {
 
 	public function createCategoryEntityField(\DoctrineModule\ManagerRegistry $doctrine){
         $formFieldExtension =  new \Novice\Form\Extension\Entity\EntityExtension($doctrine, array(
-		'class' => 'RgsCatalogModule:Categorie',
+		'class' => 'RgsCatalogModule:Category',
 		'choice_label' => function($cat){return $cat->getName();},
 		'query_builder' => function ($er) {
 				return $er->createQueryBuilder('c')
 					->orderBy('c.name', 'ASC');
 		},
-        'name' => 'categorie',
+        'name' => 'category',
 		'feedback' => false,
 		'attributes' => array(
 			'style' => 'width: 99%',

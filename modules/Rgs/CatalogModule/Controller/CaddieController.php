@@ -4,7 +4,7 @@ namespace Rgs\CatalogModule\Controller;
 use Symfony\Component\HttpFoundation\Request,
 	Symfony\Component\Security\Core\Util\StringUtils;
 use Rgs\CatalogModule\Entity\Article,
-	Rgs\CatalogModule\Entity\Categorie,
+	Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Etat;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;

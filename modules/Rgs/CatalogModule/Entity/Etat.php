@@ -10,7 +10,7 @@ use DoctrineExtensions\NestedSet\MultipleRootNode;
 /**
  * Etat
  *
- * @ORM\Table(name="etat")
+ * @ORM\Table(name="state")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\EtatRepository")
  */
 class Etat extends Entity implements Model\PublishedInterface

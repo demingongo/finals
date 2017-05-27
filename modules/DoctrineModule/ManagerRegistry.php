@@ -26,7 +26,10 @@ abstract class ManagerRegistry
 	$this->config = $config;
 	$this->event_manager = $evm;	
   }
-  
+
+	public function getDefaultConnectionName(){
+		return $this->default_connection;
+	}
 
   public function getManager($name = '')
   {

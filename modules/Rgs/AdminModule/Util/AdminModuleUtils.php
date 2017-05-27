@@ -52,14 +52,14 @@ class AdminModuleUtils {
 				]
 			],
 			[
-				'property' => 'categorie.name',
+				'property' => 'category.name',
 				'label' => 'Category',
 				'class' => 'hidden-xs',
 				'route' => [
 					'id' => 'rgs_admin_categories_edit',
 					'params' =>[
-						'id' => new ItemProperty('categorie.id'), 
-						'slug' => new ItemProperty('categorie.slug')
+						'id' => new ItemProperty('category.id'), 
+						'slug' => new ItemProperty('category.slug')
 					],
 					'absolute' => true
 				]

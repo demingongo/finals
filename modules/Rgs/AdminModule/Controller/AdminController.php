@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Rgs\CatalogModule\Entity\Model\PublishedInterface;
-use Rgs\CatalogModule\Entity\Categorie,
+use Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Marque,
 	Rgs\CatalogModule\Entity\Etat;
@@ -181,20 +181,20 @@ class AdminController extends \Novice\BackController
 	/*******************************CATEGORIES*************************************/
 		
 
-	public function executeEditCategorie(Request $request)
+	public function executeEditCategory(Request $request)
 	{	
-		$this->setView('file:[RgsAdminModule]Content/editCategorie.php');
+		$this->setView('file:[RgsAdminModule]Content/editCategory.php');
 
 		if($request->attributes->has('id')){
-			$categorie = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Categorie')
+			$category = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Category')
 							->findOneById($request->attributes->get('id'));
 		}
 		else{
-			$categorie = new Categorie();
+			$category = new Category();
 		}
 
 		try{
-			$form = $this->buildForm(new \Rgs\CatalogModule\Form\CategorieFormBuilder($categorie))
+			$form = $this->buildForm(new \Rgs\CatalogModule\Form\CategoryFormBuilder($category))
 						 ->form();
 		}
 		catch(\Exception $e){
@@ -211,7 +211,7 @@ class AdminController extends \Novice\BackController
 			if ($form->isValid())
 			{
 				$form->execute();
-				return $this->redirect($this->generateUrl('rgs_admin_gestion_categorie'));
+				return $this->redirect($this->generateUrl('rgs_admin_gestion_category'));
 			}
 		}
 		catch(\Exception $e){ //\Novice\Form\Exception\SecurityException

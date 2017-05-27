@@ -2,7 +2,7 @@
 namespace Rgs\CatalogModule\Validator;
 
 use Novice\Form\Validator\SimpleValidator;
-use Rgs\CatalogModule\Entity\Request as UserRequest;
+use Rgs\CatalogModule\Entity\UserRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Novice\Templating\Assignor\ErrorMessages;
 

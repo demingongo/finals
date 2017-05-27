@@ -3,7 +3,7 @@ namespace Rgs\CatalogModule\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Rgs\CatalogModule\Entity\Article,
-	Rgs\CatalogModule\Entity\Categorie,
+	Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Etat;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;
@@ -140,14 +140,7 @@ class AnnotationController extends \Novice\BackController
 	{
 		$request = $this->container->get('request_stack')->getCurrentRequest();
 		
-		$this->assign("categories", $this->getDoctrine()->getManager()->getRepository("RgsCatalogModule:Categorie")->findAll());
-		
-		/*$article_attr->setCategorie(
-			$this->getDoctrine()->getManager()->getRepository("RgsCatalogModule:Categorie")->findOneByName('some root')
-		);*/
-		
-		/*dump($request);
-		exit(__METHOD__);*/
+		$this->assign("categories", $this->getDoctrine()->getManager()->getRepository("RgsCatalogModule:Category")->findAll());
 		
 		$formError = new ErrorMessages();
 		
@@ -167,10 +160,10 @@ class AnnotationController extends \Novice\BackController
 		
 		$filtre = false;
 		
-		if($request->query->has('categorie')){
-			$req_byCategorie = $request->query->get('categorie');
-			if(!empty($req_byCategorie)){
-				$where['a.categorie'] = $req_byCategorie;
+		if($request->query->has('category')){
+			$req_byCategory = $request->query->get('category');
+			if(!empty($req_byCategory)){
+				$where['a.category'] = $req_byCategory;
 				$filtre = true;
 			}
 		}
@@ -201,27 +194,27 @@ class AnnotationController extends \Novice\BackController
 	}
 
 	/**
-	 * @NOVICE\Assign("categorieWidget", route_names={"rgs_catalog_articles_all"})
+	 * @NOVICE\Assign("categoryWidget", route_names={"rgs_catalog_articles_all"})
 	 */
-	public function getCategorieWidget(Request $request)
+	public function getCategoryWidget(Request $request)
 	{
-		$byCategorie = null;
+		$byCategory = null;
 		
-		if($request->query->has('categorie') && !empty($request->query->get('categorie'))){
-			$byCategorie = $request->query->get('categorie');
+		if($request->query->has('category') && !empty($request->query->get('category'))){
+			$byCategory = $request->query->get('category');
 		}
 
 		$entityExtCat = new EntityExtension($this->getDoctrine(), array(
-		'label' => 'Categorie',
-		'class' => 'RgsCatalogModule:Categorie',
+		'label' => 'Category',
+		'class' => 'RgsCatalogModule:Category',
 		'choice_label' => function($cat){return $cat->getName();},
-		'query_builder' => function ($er) {
-				return $er->createQueryBuilder('c')
-					->where('c.published = :p')
-					->orderBy('c.name', 'ASC')
-					->setParameter('p', Categorie::PUBLISHED);
+		'query_builder' => function ($repository) {
+				/*$rsm = new \Doctrine\ORM\Query\ResultSetMappingBuilder($em);
+				$sql = $repository->getSQLFrontCategories($rsm);*/
+				return $repository->getFrontCategoriesQB();
+				//return $em->createNativeQuery($sql, $rsm);
 		},
-        'name' => 'categorie',
+        'name' => 'category',
 		'feedback' => true,
 		'attributes' => array(
 			//'class' => 'selectmenu selectmenu-submit',
@@ -235,7 +228,7 @@ class AnnotationController extends \Novice\BackController
 			),
 		));
 
-		return $entityExtCat->createField()->setValue($byCategorie)->buildWidget();
+		return $entityExtCat->createField()->setValue($byCategory)->buildWidget();
 	}
 
 

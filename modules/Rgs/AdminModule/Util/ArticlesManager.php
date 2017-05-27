@@ -52,13 +52,13 @@ class ArticlesManager extends ContentManager {
         $customFields = parent::getCustomFields();
 
         $formFieldExtension =  new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
-		'class' => 'RgsCatalogModule:Categorie',
+		'class' => 'RgsCatalogModule:Category',
 		'choice_label' => function($cat){return $cat->getName();},
 		'query_builder' => function ($er) {
 				return $er->createQueryBuilder('c')
 					->orderBy('c.name', 'ASC');
 		},
-        'name' => 'categorie',
+        'name' => 'category',
 		'feedback' => false,
 		'attributes' => array(
 			'style' => 'width: 99%',
@@ -76,15 +76,15 @@ class ArticlesManager extends ContentManager {
 
     public function processCustomFields($request, array $where, $customFields){
         $where = parent::processCustomFields($request, $where, $customFields);
-        $byCategorie = null;
-        if($request->request->has('categorie')){
-			$req_byCategorie = $request->request->get('categorie');
-			if(!empty($req_byCategorie)){
-				$byCategorie = $req_byCategorie;
-				$where['a.categorie'] = $byCategorie;
+        $byCategory = null;
+        if($request->request->has('category')){
+			$req_byCategory = $request->request->get('category');
+			if(!empty($req_byCategory)){
+				$byCategory = $req_byCategory;
+				$where['a.category'] = $byCategory;
 			}
 		}
-        $customFields['categories']->setValue($byCategorie);
+        $customFields['categories']->setValue($byCategory);
         return $where;
     }
 }

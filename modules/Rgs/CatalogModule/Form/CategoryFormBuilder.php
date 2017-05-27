@@ -16,14 +16,14 @@ use Novice\Form\Validator\MaxLengthValidator,
 	Novice\Form\Validator\NonRequiredEmailValidator,
 	Novice\Form\Extension\Securimage\Validator\SecurimageValidator;
 
-use Rgs\CatalogModule\Entity\Categorie;
+use Rgs\CatalogModule\Entity\Category;
 
-class CategorieFormBuilder extends FormBuilder
+class CategoryFormBuilder extends FormBuilder
 {
 
 	public function getName()
 	{
-		return 'categorie_form';
+		return 'category_form';
 	}
   
   public function build()
@@ -72,14 +72,6 @@ class CategorieFormBuilder extends FormBuilder
     new MaxLengthValidator('Le nom spécifié est trop long (64 caractères maximum)', 64),
     new NotNullValidator('Spécifiez le titre'),)
 		)))
-		/*->add(new SelectField(array(
-        'label' => 'Parent Categorie',
-        'name' => 'parent_categorie',
-		'options' => $this->container->get('managers')->getManager()
-						->getRepository('RgsCatalogModule:Categorie')->getArrayForSelectField($this->container->get('nested_set'),null,$this->form->entity()->getId()),*/
-		/*'validators' => array(
-    new NotNullValidator('Choisir la catégorie'),)*/
-		//)))
 		->add(new TextareaField(array(
         'label' => $trans('form.description'),
         'name' => 'description',
@@ -93,8 +85,7 @@ class CategorieFormBuilder extends FormBuilder
 		'control_label' => true,
         'name' => 'published',
 		'inline' => 1,
-		//'required' => true,
-		'buttons' => array('Published' => Categorie::PUBLISHED , 'Unpublished' => Categorie::NOT_PUBLISHED),
+		'buttons' => array('Published' => Category::PUBLISHED , 'Unpublished' => Category::NOT_PUBLISHED),
 		'validators' => array(
     new NotNullValidator('Choisir le statut'),)
 		)))
@@ -160,16 +151,13 @@ class CategorieFormBuilder extends FormBuilder
 			array(
 				'data-placeholder' => 'Choisir un article',
 				'style' => 'width: 95%',
-				//'data-theme' => 'classic',
-				//'data-allow-clear' => 'true',
-				//'data-minimum-results-for-search' => 'Infinity',
 				'class' => 'select2',
 			),
 		)));
 		
 		$options = array(
-			'class' => 'RgsCatalogModule:Categorie',
-			'label' => 'Parent Categorie',
+			'class' => 'RgsCatalogModule:Category',
+			'label' => 'Parent Category',
 			'control_label' => true,
 			'name' => 'categories',
 		    //'choice_label' => function($cat){return $cat->getName();},
@@ -179,12 +167,10 @@ class CategorieFormBuilder extends FormBuilder
 				'data-theme' => 'classic',
 				'data-allow-clear' => 'true',
 				'style' => 'width: 95%',
-				//'data-minimum-results-for-search' => 'Infinity',
-				'class' => 'select2',//'chosen-select-deselect',
-				//'onchange' => 'this.form.submit()',
+				'class' => 'select2'
 			),
 			);
-		$nsm = $this->container->get('nested_set')->getManager('RgsCatalogModule:Categorie');
+		$nsm = $this->container->get('nested_set')->getManager('RgsCatalogModule:Category');
 		$this->form->addExtension(new \DoctrineModule\Form\Extension\EntityNode\EntityNodeExtension($nsm,$options));
   }
 }

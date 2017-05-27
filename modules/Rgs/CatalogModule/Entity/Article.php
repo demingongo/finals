@@ -85,14 +85,14 @@ class Article extends Entity implements Model\PublishedInterface
     private $url;
 	
 	/**
-     * @var Rgs\CatalogModule\Entity\Categorie
+     * @var Rgs\CatalogModule\Entity\Category
      *
-     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\Categorie", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="categorie_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      * })
      */
-    private $categorie;
+    private $category;
 
 	/**
      * @var Rgs\CatalogModule\Entity\Etat
@@ -332,26 +332,26 @@ class Article extends Entity implements Model\PublishedInterface
     }
 
     /**
-     * Set categorie
+     * Set category
      *
-     * @param Rgs\CatalogModule\Entity\Categorie $categorie
+     * @param Rgs\CatalogModule\Entity\Category $category
      * @return Article
      */
-    public function setCategorie(Categorie $categorie)
+    public function setCategory(Category $category)
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get categorie
+     * Get category
      *
-     * @return Rgs\CatalogModule\Entity\Categorie 
+     * @return Rgs\CatalogModule\Entity\Category 
      */
-    public function getCategorie()
+    public function getCategory()
     {
-        return $this->categorie;
+        return $this->category;
     }
 
 	/**

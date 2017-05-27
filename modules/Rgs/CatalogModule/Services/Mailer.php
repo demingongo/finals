@@ -103,7 +103,7 @@ Si vous avez besoin d'aide, veuillez contacter l'administrateur du site.";
 		$this->sendMessage($to, $subject, $body);
 	}
 
-	public function sendRequestConfirm(\Rgs\CatalogModule\Entity\Request $userRequest)
+	public function sendRequestConfirm(\Rgs\CatalogModule\Entity\UserRequest $userRequest)
 	{
 		$this->setAssign();
 		$subject = $this->name." : RE - ".$userRequest->getSubject();

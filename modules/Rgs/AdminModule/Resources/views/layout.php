@@ -286,7 +286,7 @@
 									<a href="{path id='rgs_admin_gestion_article' absolute=true}">Gestion des articles</a>
 								</li>
 								<li>
-									<a href="{path id='rgs_admin_gestion_categorie' absolute=true}">Gestion des catégories</a>
+									<a href="{path id='rgs_admin_gestion_category' absolute=true}">Gestion des catégories</a>
 								</li>
 								<li>
 									<a href="{path id='rgs_admin_gestion_etat' absolute=true}">Gestion des états</a>

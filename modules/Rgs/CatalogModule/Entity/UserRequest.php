@@ -11,10 +11,10 @@ use Rgs\UserModule\Entity\User;
 /**
  * Request
  *
- * @ORM\Table(name="request")
- * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\RequestRepository")
+ * @ORM\Table(name="user_request")
+ * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\UserRequestRepository")
  */
-class Request extends Entity implements Model\PublishedInterface
+class UserRequest extends Entity implements Model\PublishedInterface
 {
 
     /**

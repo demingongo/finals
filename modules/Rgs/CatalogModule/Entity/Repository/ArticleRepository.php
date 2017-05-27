@@ -143,9 +143,9 @@ class ArticleRepository extends EntityRepository
 		
 		$qb = $this->createQueryBuilder('a');
 		
-		// On fait une jointure avec l'entité Categorie avec pour alias « c »
+		// On fait une jointure avec l'entité Category avec pour alias « c »
     	$qb
-      		->join('a.categorie', 'c')
+      		->join('a.category', 'c')
       		->addSelect('c');
 		
 		// On fait une jointure avec l'entité Etat avec pour alias « e »	

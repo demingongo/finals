@@ -38,7 +38,7 @@ class Group extends Entity implements Model\LockedInterface
 	/**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Rgs\UserModule\Entity\User", mappedBy="group")
+     * @ORM\OneToMany(targetEntity="Rgs\UserModule\Entity\User", mappedBy="group", cascade={"persist"})
      */
     private $users;
 
@@ -51,10 +51,11 @@ class Group extends Entity implements Model\LockedInterface
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name = '', array $roles = array())
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->roles = array();
+        $this->setName($name);
+        $this->setRoles($roles);
 		$this->setLocked(self::NOT_LOCKED);
     }
 
@@ -172,12 +173,12 @@ class Group extends Entity implements Model\LockedInterface
      * Add user
      *
      * @param Rgs\UserModule\Entity\User $user
-     * @return Categorie
+     * @return Category
      */
     public function addUser(User $user)
     {
         $this->users[] = $user;
-		$article->setGroup($this);
+		$user->setGroup($this);
 
         return $this;
     }

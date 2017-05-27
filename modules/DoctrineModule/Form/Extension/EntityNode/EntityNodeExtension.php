@@ -97,40 +97,14 @@ class EntityNodeExtension extends \Novice\Form\Extension\Extension implements Ev
 					$value = $formValues[$this->name];
 					if(get_class($event->getForm()->entity()) != $this->nsm->getConfiguration()->getClassname())
 					{
-					$foreignEntity = $em->find($this->entity_class, $value);
-					/*dump($value);
-					dump($foreignEntity);
-					exit(__METHOD__);*/
-					if(!empty($foreignEntity)){
-						$entity[$this->name] = $foreignEntity;
-						//$parent = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Categorie')->findOneById($p_c);
-						//$parent_node = $nsm->wrapNode($parent);
-						/*$entity->setLeftValue($foreignEntity->getLeftValue()+1);
-						
-						if($rootField !== null){
-							$entity->setRootValue($foreignEntity->getRootValue());
-						}*/
-
-						/*if($categorie->getId() == null){
-							$parent_node->addChild($categorie);
+						$foreignEntity = $em->find($this->entity_class, $value);
+						if(!empty($foreignEntity)){
+							$entity[$this->name] = $foreignEntity;
 						}
-						else{
-							$cat_node = $nsm->wrapNode($categorie);
-							$cat_node->moveAsLastChildOf($parent_node);
-						}*/
 					}
-					else{
-						//$entity->setRootValue(0);
-					}
-					//dump($entity);
-					//exit(__METHOD__);
-						//$entity[$this->name] = $foreignEntity;
-				}
 				}
 			}
 		}
-
-		//$rep = $em->getRepository($this->entity_class);
 		
 		if(!$this->created){
 			$this->create($event);

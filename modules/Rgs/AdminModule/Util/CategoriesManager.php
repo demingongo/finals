@@ -33,7 +33,7 @@ class CategoriesManager extends ContentManager {
     }
 
     public function getRepositoryName(){
-        return 'RgsCatalogModule:Categorie';
+        return 'RgsCatalogModule:Category';
     }
 
     public function getAddRouteId(){
