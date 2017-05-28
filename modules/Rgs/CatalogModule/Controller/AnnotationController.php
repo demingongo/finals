@@ -181,6 +181,14 @@ class AnnotationController extends \Novice\BackController
 		
 		$em = $this->getDoctrine()->getManager();
 		$articles = $em->getRepository('RgsCatalogModule:Article')->getFrontArticles($limit, $page, $where);
+
+		/*dump($articles);
+		foreach($articles as $a){
+			dump($a->getName());
+			dump($a->getCategory()->getName());
+			dump($a->getEtat());
+		}
+		exit(__METHOD__);*/
 		
 		$this->assign("articles", $articles);
 		

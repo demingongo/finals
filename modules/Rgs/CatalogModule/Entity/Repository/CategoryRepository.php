@@ -4,6 +4,7 @@ namespace Rgs\CatalogModule\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
 
 use Rgs\CatalogModule\Entity\Category;
 
@@ -189,37 +190,86 @@ class CategoryRepository extends EntityRepository
 	}
 
 	public function getFrontCategoriesQB(){
-				$qb2 = $this->createQueryBuilder('c2');
-				$qb3 = $this->createQueryBuilder('c3');
-				$qb4 = $this->createQueryBuilder('c4');
-				$qb5 = $this->createQueryBuilder('c5');
+				$c = 'category';
+				$c2 = 'cat';
+				$c3 = 'categ';
+				$c4 = 'catego';
+				$c5 = 'categor';
 
-				$qb5->select('c5.root')
-				->andWhere('c5.id = c.id');
-				$qb4->select('c4.rgt')
-				->andWhere('c4.id = c.id');
-				$qb3->select('c3.lft')
-				->andWhere('c3.id = c.id');
+				$qb2 = $this->createQueryBuilder($c2);
+				$qb3 = $this->createQueryBuilder($c3);
+				$qb4 = $this->createQueryBuilder($c4);
+				$qb5 = $this->createQueryBuilder($c5);
+
+				$qb5->select($c5.'.root')
+				->andWhere($c5.'.id = '.$c.'.id');
+				$qb4->select($c4.'.rgt')
+				->andWhere($c4.'.id = '.$c.'.id');
+				$qb3->select($c3.'.lft')
+				->andWhere($c3.'.id = '.$c.'.id');
 				
 				$andModule2 = $qb2->expr()->andX();
-				$andModule2->add($qb2->expr()->lt('c2.lft', "(".$qb3->getDQL().")"));
-				$andModule2->add($qb2->expr()->gt('c2.rgt', "(". $qb4->getDQL() .")" ));
-				$andModule2->add($qb2->expr()->eq('c2.root', "(". $qb5->getDQL() .")" ));
-				$andModule2->add($qb2->expr()->eq('c2.published', ':np'));
+				$andModule2->add($qb2->expr()->lt($c2.'.lft', "(".$qb3->getDQL().")"));
+				$andModule2->add($qb2->expr()->gt($c2.'.rgt', "(". $qb4->getDQL() .")" ));
+				$andModule2->add($qb2->expr()->eq($c2.'.root', "(". $qb5->getDQL() .")" ));
+				$andModule2->add($qb2->expr()->eq($c2.'.published', ':cnp'));
 
-				$qb2->select('count(c2.id)')
+				$qb2->select('count('.$c2.'.id)')
 				->andWhere($andModule2);
 
-				$qb = $this->createQueryBuilder('c');
+				$qb = $this->createQueryBuilder($c);
 
 				$andModule = $qb->expr()->andX();
 				$andModule->add($qb2->expr()->eq(0, "(". $qb2->getDQL() . ")"));
-				$andModule->add($qb2->expr()->eq('c.published', ':p'));
+				$andModule->add($qb2->expr()->eq($c.'.published', ':cp'));
 
 				$qb->andWhere($andModule)
-				->setParameter('np', Category::NOT_PUBLISHED)
-				->setParameter('p', Category::PUBLISHED)
-				->orderBy('c.name','ASC');
+				->setParameter('cnp', Category::NOT_PUBLISHED)
+				->setParameter('cp', Category::PUBLISHED)
+				->orderBy($c.'.name','ASC');
+
+				return $qb;
+	}
+
+	public function getFrontIdsQB(){
+				$c = 'category';
+				$c2 = 'cat';
+				$c3 = 'categ';
+				$c4 = 'catego';
+				$c5 = 'categor';
+
+				$qb2 = $this->createQueryBuilder($c2);
+				$qb3 = $this->createQueryBuilder($c3);
+				$qb4 = $this->createQueryBuilder($c4);
+				$qb5 = $this->createQueryBuilder($c5);
+
+				$qb5->select($c5.'.root')
+				->andWhere($c5.'.id = '.$c.'.id');
+				$qb4->select($c4.'.rgt')
+				->andWhere($c4.'.id = '.$c.'.id');
+				$qb3->select($c3.'.lft')
+				->andWhere($c3.'.id = '.$c.'.id');
+				
+				$andModule2 = $qb2->expr()->andX();
+				$andModule2->add($qb2->expr()->lt($c2.'.lft', "(".$qb3->getDQL().")"));
+				$andModule2->add($qb2->expr()->gt($c2.'.rgt', "(". $qb4->getDQL() .")" ));
+				$andModule2->add($qb2->expr()->eq($c2.'.root', "(". $qb5->getDQL() .")" ));
+				$andModule2->add($qb2->expr()->eq($c2.'.published', ':cnp'));
+
+				$qb2->select('count('.$c2.'.id)')
+				->andWhere($andModule2);
+
+				$qb = $this->createQueryBuilder($c);
+				$qb->select($c.'.id');
+
+				$andModule = $qb->expr()->andX();
+				$andModule->add($qb2->expr()->eq(0, "(". $qb2->getDQL() . ")"));
+				$andModule->add($qb2->expr()->eq($c.'.published', ':cp'));
+
+				$qb->andWhere($andModule)
+				->setParameter('cnp', Category::NOT_PUBLISHED)
+				->setParameter('cp', Category::PUBLISHED)
+				->orderBy($c.'.name','ASC');
 
 				return $qb;
 	}

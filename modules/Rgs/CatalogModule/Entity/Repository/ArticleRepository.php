@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 use Rgs\CatalogModule\Entity\Article;
+use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 
 /**
  * ArticleRepository
@@ -141,6 +142,7 @@ class ArticleRepository extends EntityRepository
 	
 	private function getFrontArticlesQueryBuilder(){
 		
+		
 		$qb = $this->createQueryBuilder('a');
 		
 		// On fait une jointure avec l'entité Category avec pour alias « c »
@@ -152,6 +154,8 @@ class ArticleRepository extends EntityRepository
 		$qb
       		->join('a.etat', 'e')
       		->addSelect('e');
+
+		/** OLD Query Builder conditions
 			
 		$qb->andWhere($qb->expr()->eq('a.published', ':article_published'))
 				->setParameter('article_published', true)
@@ -159,6 +163,30 @@ class ArticleRepository extends EntityRepository
 				->setParameter('category_published', true)
 				->andWhere($qb->expr()->eq('e.published', ':etat_published'))
 				->setParameter('etat_published', true);
+		
+		*/
+
+		
+		// get qb for front visible categories (complicated because of hierarchy in category class ...)
+		$fcQB = $this->getEntityManager()->getRepository('RgsCatalogModule:Category')->getFrontIdsQB();
+
+		$andModule = $qb->expr()->andX();
+		$andModule->add( $qb->expr()->eq('a.published', ':article_published') );
+		$andModule->add( $qb->expr()->eq('c.published', ':category_published') );
+		$andModule->add( $qb->expr()->eq('e.published', ':etat_published') );
+		$andModule->add( $fcQB->expr()->in('c.id', $fcQB->getDQL()) );
+
+		$qb->andWhere( $andModule )
+		->setParameter('article_published', true)
+		->setParameter('category_published', true)
+		->setParameter('etat_published', true)
+		->setParameter('cnp', PublishedInterface::NOT_PUBLISHED)
+		->setParameter('cp', PublishedInterface::PUBLISHED);
+
+		//$res = $qb->getQuery()->execute();
+
+		/*dump($res);
+		exit(__METHOD__);*/
 		
 		return $qb;
 	}
@@ -177,11 +205,11 @@ class ArticleRepository extends EntityRepository
 			$i++;
 		}
 
-		if(empty($orderBy))
+		if(empty($orderBy)){
 			$orderBy = array('a.name' => 'ASC');
-
+		}
 		foreach($orderBy as $k => $v){
-			$qb	->addOrderBy($k, $v);
+			//$qb->addOrderBy($k, $v);
 		}
 		
 		$paginator = new Paginator($qb);
@@ -196,6 +224,8 @@ class ArticleRepository extends EntityRepository
 		$paginator->getQuery()
 					->setFirstResult(($page-1) * $limit)
 					->setMaxResults($limit);
+
+		//exit(__METHOD__);
 
 		return $paginator;
 	}
