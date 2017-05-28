@@ -180,7 +180,9 @@ class AnnotationController extends \Novice\BackController
 		$page = $_page;//$request->attributes->get('_page');
 		
 		$em = $this->getDoctrine()->getManager();
-		$articles = $em->getRepository('RgsCatalogModule:Article')->getFrontArticles($limit, $page, $where);
+		$paginator = $em->getRepository('RgsCatalogModule:Article')->getFrontArticles($limit, $page, $where);
+
+		$articles = $paginator->getQuery()->getResult();
 
 		/*dump($articles);
 		foreach($articles as $a){
@@ -189,6 +191,8 @@ class AnnotationController extends \Novice\BackController
 			dump($a->getEtat());
 		}
 		exit(__METHOD__);*/
+
+		$this->assign("paginator", $paginator);
 		
 		$this->assign("articles", $articles);
 		

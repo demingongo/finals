@@ -144,16 +144,18 @@ class ArticleRepository extends EntityRepository
 		
 		
 		$qb = $this->createQueryBuilder('a');
+
+		// On fait une jointure avec l'entité Etat avec pour alias « e »	
+		$qb
+      		->join('a.etat', 'e');
+      		//->addSelect('e');
 		
 		// On fait une jointure avec l'entité Category avec pour alias « c »
     	$qb
-      		->join('a.category', 'c')
-      		->addSelect('c');
+      		->join('a.category', 'c');
+      		//->addSelect('c');
 		
-		// On fait une jointure avec l'entité Etat avec pour alias « e »	
-		$qb
-      		->join('a.etat', 'e')
-      		->addSelect('e');
+		
 
 		/** OLD Query Builder conditions
 			
@@ -171,15 +173,15 @@ class ArticleRepository extends EntityRepository
 		$fcQB = $this->getEntityManager()->getRepository('RgsCatalogModule:Category')->getFrontIdsQB();
 
 		$andModule = $qb->expr()->andX();
-		$andModule->add( $qb->expr()->eq('a.published', ':article_published') );
-		$andModule->add( $qb->expr()->eq('c.published', ':category_published') );
+		$andModule->add( $qb->expr()->eq('a.published', ':article_published') );	
 		$andModule->add( $qb->expr()->eq('e.published', ':etat_published') );
+		$andModule->add( $qb->expr()->eq('c.published', ':category_published') );
 		$andModule->add( $fcQB->expr()->in('c.id', $fcQB->getDQL()) );
 
 		$qb->andWhere( $andModule )
-		->setParameter('article_published', true)
-		->setParameter('category_published', true)
+		->setParameter('article_published', true)		
 		->setParameter('etat_published', true)
+		->setParameter('category_published', true)
 		->setParameter('cnp', PublishedInterface::NOT_PUBLISHED)
 		->setParameter('cp', PublishedInterface::PUBLISHED);
 
@@ -209,8 +211,28 @@ class ArticleRepository extends EntityRepository
 			$orderBy = array('a.name' => 'ASC');
 		}
 		foreach($orderBy as $k => $v){
-			//$qb->addOrderBy($k, $v);
+			$qb->addOrderBy($k, $v);
 		}
+
+		/*$res = $qb->getQuery()->getResult();
+		$totalItems = count($res);
+		$pagesCount = ceil($totalItems / $limit);
+		if($page > $pagesCount)
+			$page = $pagesCount;
+		if($page == 0)
+			$page = 1;
+		
+		$qb->getQuery()
+					->setFirstResult(($page-1) * $limit)
+					->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
+
+		dump(count($res));
+
+		dump($qb->getQuery()->getResult());
+
+		exit(__METHOD__);*/
 		
 		$paginator = new Paginator($qb);
 		
@@ -224,8 +246,9 @@ class ArticleRepository extends EntityRepository
 		$paginator->getQuery()
 					->setFirstResult(($page-1) * $limit)
 					->setMaxResults($limit);
-
-		//exit(__METHOD__);
+		
+		/*dump($paginator->getQuery()->getResult());
+		exit(__METHOD__);*/
 
 		return $paginator;
 	}

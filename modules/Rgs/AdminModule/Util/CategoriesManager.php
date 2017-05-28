@@ -11,6 +11,10 @@ class CategoriesManager extends ContentManager {
         $this->utils = new AdminModuleUtils();
     }
 
+    public function getName(){
+        return 'category';
+    }
+
     public function getTitle(){
         return 'Categories';
     }

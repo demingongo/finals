@@ -44,10 +44,10 @@ Multi line comment block with credits block
 </div>
 <div class="col-sm-9">
 	<div class="col-xs-12 hidden-xs">
-    <h3 class="text-nowrap"><b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($articles)})</span></b></h3>
+    <h3 class="text-nowrap"><b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($paginator)})</span></b></h3>
 	</div>
     <h3 class="text-nowrap visible-xs">
-    	<b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($articles)})</span></b>
+    	<b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($paginator)})</span></b>
     </h3>
 </div>
 
@@ -57,7 +57,7 @@ Multi line comment block with credits block
 
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$articles max="4" queryStrict=['category', 'etat'] noQuery=false}
+		{pagination paginator=$paginator max="4" queryStrict=['category', 'etat'] noQuery=false}
     </div>
     
 </div>
@@ -139,7 +139,7 @@ Multi line comment block with credits block
 </div>
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$articles max="4" queryStrict=['category', 'etat'] noQuery=false}
+		{pagination paginator=$paginator max="4" queryStrict=['category', 'etat'] noQuery=false}
     </div>
     
 </div>

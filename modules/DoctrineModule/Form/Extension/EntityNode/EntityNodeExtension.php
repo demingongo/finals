@@ -136,6 +136,8 @@ class EntityNodeExtension extends \Novice\Form\Extension\Extension implements Ev
 		$em->getConnection()->beginTransaction();
 		try {		
 			if($id === null){
+				//if new entity
+
 				if($node === null){
 					$this->nsm->createRoot($entity);
 				}
@@ -148,8 +150,16 @@ class EntityNodeExtension extends \Novice\Form\Extension\Extension implements Ev
 				}
 			}
 			else{
+				// if it's an update
+
 				if($node === null){
-					//do nothing, we can't move it if no parent has been chosen
+					//if no parent has been chosen
+					/*$entityN = $this->nsm->wrapNode($entity);
+
+					// TODO : if it wasn't already a root node, move it as root, otherwise do nothing
+					if(!$entityN->isRoot()){
+
+					}*/
 				}
 				else{
 					$parent = $this->nsm->wrapNode($node);
