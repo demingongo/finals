@@ -67,6 +67,24 @@ class AdminModuleUtils {
 		);
     }
 
+	public function getAdvertisementsColumns(){
+        return array(
+			$this->getPublishedColumn(),
+			[
+				'property' => 'name',
+				'label' => 'Title',
+				'route' => [
+					'id' => 'rgs_admin_advertisements_edit',
+					'params' =>[
+						'id' => new ItemProperty('id'), 
+						'slug' => new ItemProperty('slug')
+					],
+					'absolute' => true
+				]
+			]
+		);
+    }
+
     public function getCategoriesColumns(){
         return array(
 			$this->getPublishedColumn(),

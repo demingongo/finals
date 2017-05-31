@@ -1,6 +1,5 @@
 <?php
 namespace Rgs\CatalogModule\Form;
-
 use Novice\Form\FormBuilder;
 use Novice\Form\Field\InputField,
 	Novice\Form\Field\RadioField,
@@ -15,12 +14,9 @@ use Novice\Form\Validator\MaxLengthValidator,
 	Novice\Form\Validator\EmailValidator,
 	Novice\Form\Validator\NonRequiredEmailValidator,
 	Novice\Form\Extension\Securimage\Validator\SecurimageValidator;
-
 use Rgs\CatalogModule\Entity\Article;
-
 class ArticleFormBuilder extends FormBuilder
 {
-
 	public function getName()
 	{
 		return 'article_form';
@@ -36,7 +32,6 @@ class ArticleFormBuilder extends FormBuilder
           <li role="separator" class="divider"></li>
           <li><a href="#">Separated link</a></li>
         </ul><!-- /btn-group -->';
-
 	$dropdown2 = '<button type="button" class="btn btn-default">Action </button>
 	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	<span class="caret"></span>
@@ -48,14 +43,11 @@ class ArticleFormBuilder extends FormBuilder
           <li role="separator" class="divider"></li>
           <li><a href="#">Separated link</a></li>
         </ul><!-- /btn-group -->';
-
 	$translator = $this->container->get('translator');
 	$domain = "RgsCatalogModule";
-
 	$trans = function($string, array $array = array(), $lang = null) use ($translator, $domain){
 		return $translator->trans($string, $array, $domain, $lang);
 	};
-
     $this->form->add(new InputField(array(
         'label' => $trans('form.title'),
 		'type' => 'text',
@@ -150,7 +142,6 @@ class ArticleFormBuilder extends FormBuilder
 		'attributes' => array(
 			'disabled' => 'disabled'),
 		)));
-
 		$options = array(
 			'name' => 'image',
 			'type' => 1,
@@ -159,9 +150,7 @@ class ArticleFormBuilder extends FormBuilder
 			'text_remove_btn' => '&times;',
 			'akeys' => array(md5('one'), md5('gfk'), md5('theodore')),
 		);
-
 		$this->form->addExtension(new \Novice\Form\Extension\Filemanager\FilemanagerExtension('/plugins/filemanager/filemanager', $options));
-
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
 		'class' => 'RgsCatalogModule:Marque',
 		'choice_label' => 'name',
@@ -179,7 +168,6 @@ class ArticleFormBuilder extends FormBuilder
 			),
 		//'options' => $this->getMarques(),
 		)));
-
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
 		'class' => 'RgsCatalogModule:Etat',
 		'choice_label' => 'name',
@@ -205,7 +193,6 @@ class ArticleFormBuilder extends FormBuilder
 		'validators' => array(
     new NotNullValidator('Choisir l\'état'),)
 		)));
-
 		$nsm = $this->container->get('nested_set')->getManager('RgsCatalogModule:Category');
 		$options = array(
 			'class' => 'RgsCatalogModule:Category',
@@ -239,22 +226,17 @@ class ArticleFormBuilder extends FormBuilder
 		)
 		)));*/
   }
-
   private function getCats()
 	{
 		$retour = array();
-
 		$em = $this->container->get('managers')->getManager();
-
 		$repository = $em->getRepository('RgsCatalogModule:Category');
-
 		$cs = $repository->findBy(
 				array(),
 				array('name' => 'ASC'),
 				null,
 				null
 			);
-
 		foreach($cs as $c){
 			$retour[$c->getId()] = $c->getName();
 		}
@@ -264,44 +246,34 @@ class ArticleFormBuilder extends FormBuilder
 		dump($retour);
 		exit(__METHOD__);
 	}
-
 	private function getMarques()
 	{
 		$retour = array();
-
 		$em = $this->container->get('managers')->getManager();
-
 		$repository = $em->getRepository('RgsCatalogModule:Marque');
-
 		$cs = $repository->findBy(
 				array(),
 				array('name' => 'ASC'),
 				null,
 				null
 			);
-
 		foreach($cs as $c){
 			$retour[$c->getId()] = $c->getName();
 		}
 		
 		return $retour;
 	}
-
 	private function getEtats()
 	{
 		$retour = array();
-
 		$em = $this->container->get('managers')->getManager();
-
 		$repository = $em->getRepository('RgsCatalogModule:Etat');
-
 		$cs = $repository->findBy(
 				array(),
 				array('name' => 'ASC'),
 				null,
 				null
 			);
-
 		foreach($cs as $c){
 			$retour[$c->getId()] = $c->getName();
 		}

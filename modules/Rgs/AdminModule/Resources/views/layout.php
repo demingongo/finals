@@ -283,6 +283,9 @@
                             <a href="#"><i class="fa fa-folder-open fa-fw"></i> {"nav.content"|trans}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
+									<a href="{path id='rgs_admin_gestion_advertisement' absolute=true}">Gestion des publicités</a>
+								</li>
+                                <li>
 									<a href="{path id='rgs_admin_gestion_article' absolute=true}">Gestion des articles</a>
 								</li>
 								<li>

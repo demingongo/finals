@@ -19,6 +19,10 @@ rgs_admin_logout:
         _redirect: rgs_admin_login
 
 # content management
+rgs_admin_gestion_advertisement:
+    path:     /advertisements
+    defaults: { content_manager: 'Rgs\AdminModule\Util\AdvertisementsManager' }
+
 rgs_admin_gestion_article:
     path:     /articles
     defaults: { content_manager: 'Rgs\AdminModule\Util\ArticlesManager' }
@@ -40,6 +44,25 @@ rgs_admin_gestion_media:
     defaults: { _template: 'file:[RgsAdminModule]Content/mediaManager.php' }
 
 # content forms
+rgs_admin_advertisements_add:
+    path:     /advertisements/edit
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editAdvertisement'
+
+rgs_admin_advertisements_edit:
+    path:     /advertisements/edit/{id}/{slug}
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editAdvertisement'
+    requirements:
+        id: \d+
+
+rgs_admin_advertisements_edit_2:
+    path:     /advertisements/edit/{id}/
+    defaults:
+        _controller: 'RgsAdminModule:AdminController:editAdvertisement'
+    requirements:
+        id: \d+
+
 rgs_admin_articles_add:
     path:     /articles/edit
     defaults:

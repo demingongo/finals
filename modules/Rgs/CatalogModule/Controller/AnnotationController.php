@@ -107,9 +107,17 @@ class AnnotationController extends \Novice\BackController
 	public function executeIndex($request)
 	{
 
-		return array('greetings' => 'Hello World !',
-							'saludos' => 'Buenos días',
-							'controller' => $this);
+		$em = $this->getDoctrine()->getManager();
+
+		$ads = $em->getRepository('RgsCatalogModule:Advertisement')->findBy(['published' => true], [ 'updatedAt' => 'DESC']);
+		
+		/*findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+
+		$persister = $this->_em->getUnitOfWork()->getEntityPersister($this->_entityName);
+
+        return $persister->loadAll($criteria, $orderBy, $limit, $offset);*/
+
+		return array('controller' => $this, 'ads' => $ads);
 	}
 	
 	/**
@@ -140,7 +148,7 @@ class AnnotationController extends \Novice\BackController
 	{
 		$request = $this->container->get('request_stack')->getCurrentRequest();
 		
-		$this->assign("categories", $this->getDoctrine()->getManager()->getRepository("RgsCatalogModule:Category")->findAll());
+		//$this->assign("categories", $this->getDoctrine()->getManager()->getRepository("RgsCatalogModule:Category")->findAll());
 		
 		$formError = new ErrorMessages();
 		

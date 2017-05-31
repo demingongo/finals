@@ -35,7 +35,7 @@ class GenerateRepositoriesDoctrineCommand extends GenerateRepositoriesCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-		DoctrineCommandHelper::setApplicationEntityManager($this->getApplication());
+		Proxy\DoctrineCommandHelper::setApplicationEntityManager($this->getApplication(), '');
 
         //parent::execute($input, $output);
 		$em = $this->getHelper('em')->getEntityManager();

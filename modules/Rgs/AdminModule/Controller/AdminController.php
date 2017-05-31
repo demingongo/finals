@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 use Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Article,
+	Rgs\CatalogModule\Entity\Advertisement,
 	Rgs\CatalogModule\Entity\Marque,
 	Rgs\CatalogModule\Entity\Etat;
 
@@ -269,6 +270,57 @@ class AdminController extends \Novice\BackController
 			$em->getConnection()->rollback();
 			if($e instanceof \Novice\Form\Exception\SecurityException){
 				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_articles_edit', array(
+					"id" => $article->getId(),
+					"slug" => $article->getSlug(),
+				), 
+				true).'" class="alert-link">fill in the form</a> and try submitting again.');
+			}
+			else{
+				throw $e;
+			}
+		}
+
+		$this->assign(array('title' => 'Edit',
+							'form' => $form->createView()));
+	}
+
+	/*******************************ADVERTISEMENTS*************************************/
+
+	public function executeEditAdvertisement(Request $request)
+	{	
+		$this->setView('file:[RgsAdminModule]Content/editArticle.php');
+
+		if($request->attributes->has('id')){
+			$article = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Advertisement')
+							->findOneById($request->attributes->get('id'));
+		}
+		else{
+			$article = new Advertisement();
+		}
+
+
+		$form = $this->buildForm(new \Rgs\CatalogModule\Form\AdvertisementFormBuilder($article))
+						 ->form();
+
+		$form->handleRequest($request);
+		
+		$em = $this->getDoctrine()->getManager();
+		$em->getConnection()->beginTransaction();
+		try{
+			if ($form->isValid())
+			{
+				$em->persist($article);
+				$em->flush();
+				$em->getConnection()->commit();
+
+				return $this->redirect($this->generateUrl('rgs_admin_gestion_advertisement'));
+			}
+		}
+		catch(\Exception $e){
+			$em->close();
+			$em->getConnection()->rollback();
+			if($e instanceof \Novice\Form\Exception\SecurityException){
+				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_advertisements_edit', array(
 					"id" => $article->getId(),
 					"slug" => $article->getSlug(),
 				), 

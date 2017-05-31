@@ -14,14 +14,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Advertisement extends Model\AssetEntity
 {
-
-	/**
-     * @var string
-     *
-     * @ORM\Column(name="teaser", type="text", nullable=true)
-     */
-    private $teaser;
-
 	/**
      * @var string
      *
@@ -54,29 +46,6 @@ class Advertisement extends Model\AssetEntity
 		if(!empty($name)){
 			$this->setName($name);
 		}
-    }
-	
-	/**
-     * Set teaser
-     *
-     * @param string $teaser
-     * @return Article
-     */
-    public function setTeaser($teaser)
-    {
-        $this->teaser = $teaser;
-
-        return $this;
-    }
-
-    /**
-     * Get teaser
-     *
-     * @return string 
-     */
-    public function getTeaser()
-    {
-        return $this->teaser;
     }
 
 	/**
