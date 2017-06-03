@@ -12,7 +12,7 @@ class StatesManager extends ContentManager {
     }
 
     public function getTitle(){
-        return 'Status';
+        return 'layout.states';
     }
 
     public function getDefaultOrder(){

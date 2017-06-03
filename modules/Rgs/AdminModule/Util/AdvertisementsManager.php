@@ -12,7 +12,7 @@ class AdvertisementsManager extends ContentManager {
     }
 
     public function getTitle(){
-        return 'Advertisements';
+        return 'layout.advertisements';
     }
 
     public function getDefaultOrder(){

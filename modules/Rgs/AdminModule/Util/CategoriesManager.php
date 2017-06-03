@@ -16,7 +16,7 @@ class CategoriesManager extends ContentManager {
     }
 
     public function getTitle(){
-        return 'Categories';
+        return 'layout.categories';
     }
 
     public function getDefaultOrder(){

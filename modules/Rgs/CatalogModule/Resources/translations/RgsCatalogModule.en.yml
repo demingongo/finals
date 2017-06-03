@@ -17,6 +17,12 @@ layout:
     articles: Articles
     states: States
     brands: Brands
+    advertisements: Advertisements
+    category: Category
+    article: Article
+    state: State
+    brand: Brand
+    advertisement: Advertisement
 
 # Form field labels
 form:

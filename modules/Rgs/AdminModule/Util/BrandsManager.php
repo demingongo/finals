@@ -12,7 +12,7 @@ class BrandsManager extends ContentManager {
     }
 
     public function getTitle(){
-        return 'Brands';
+        return 'layout.brands';
     }
 
     public function getDefaultOrder(){

@@ -17,6 +17,12 @@ layout:
     articles: Articles
     states: Etats
     brands: Marques
+    advertisements: Publicités
+    category: Catégorie
+    article: Article
+    state: Etat
+    brand: Marque
+    advertisement: Publicité
 
 # Form field labels
 form:
