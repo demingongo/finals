@@ -292,7 +292,7 @@
 									<a href="{path id='rgs_admin_gestion_category' absolute=true}">Gestion des catégories</a>
 								</li>
 								<li>
-									<a href="{path id='rgs_admin_gestion_etat' absolute=true}">Gestion des états</a>
+									<a href="{path id='rgs_admin_gestion_state' absolute=true}">Gestion des états</a>
 								</li>
 								<li>
 									<a href="{path id='rgs_admin_gestion_brand' absolute=true}">Gestion des marques</a>

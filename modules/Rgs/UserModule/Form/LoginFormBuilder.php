@@ -126,9 +126,9 @@ chiffres, lettres, tirets, underscores et apostrophes',
     new \library\NotNullValidator('Choisir la marque'),)
 		)))
 	   ->add(new \library\SelectField(array(
-        'label' => 'Etat',
-        'name' => 'Etat_ID',
-		'options' => $arraySelectEtat,
+        'label' => 'State',
+        'name' => 'State_ID',
+		'options' => $arraySelectState,
 		'validators' => array(
     new \library\NotNullValidator('Choisir l\'état'),)
 		)))

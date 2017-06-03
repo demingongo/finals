@@ -9,7 +9,7 @@ use Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Advertisement,
 	Rgs\CatalogModule\Entity\Brand,
-	Rgs\CatalogModule\Entity\Etat;
+	Rgs\CatalogModule\Entity\State;
 
 use DoctrineModule\Form\Extension\EntityNode\EntityNodeExtension;
 
@@ -398,23 +398,23 @@ class AdminController extends \Novice\BackController
 	}
 	
 	
-	/*******************************ETATS*************************************/
+	/*******************************STATES*************************************/
 	
 	
-	public function executeEditEtat(Request $request)
+	public function executeEditState(Request $request)
 	{	
-		$this->setView('file:[RgsAdminModule]Content/editEtat.php');
+		$this->setView('file:[RgsAdminModule]Content/editState.php');
 
 		if($request->attributes->has('id')){
-			$etat = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Etat')
+			$state = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:State')
 							->findOneById($request->attributes->get('id'));
 		}
 		else{
-			$etat = new Etat();
+			$state = new State();
 		}
 
 		try{
-			$form = $this->buildForm(new \Rgs\CatalogModule\Form\EtatFormBuilder($etat))
+			$form = $this->buildForm(new \Rgs\CatalogModule\Form\StateFormBuilder($state))
 						 ->form();
 		}
 		catch(\Exception $e){
@@ -433,18 +433,18 @@ class AdminController extends \Novice\BackController
 		try{
 			if ($form->isValid())
 			{
-				$em->persist($etat);
+				$em->persist($state);
 				$em->flush();
 				$em->getConnection()->commit();
 
-				return $this->redirect($this->generateUrl('rgs_admin_gestion_etat'));
+				return $this->redirect($this->generateUrl('rgs_admin_gestion_state'));
 			}
 		}
 		catch(\Exception $e){
 			$em->close();
 			$em->getConnection()->rollback();
 			if($e instanceof \Novice\Form\Exception\SecurityException){
-				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_etats_edit', array(
+				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_states_edit', array(
 					"id" => $article->getId(),
 					"slug" => $article->getSlug(),
 				), 

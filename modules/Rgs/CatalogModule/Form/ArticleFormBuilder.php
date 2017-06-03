@@ -73,7 +73,7 @@ class ArticleFormBuilder extends FormBuilder
 		'control_label' => true,
 		)))
 		->add(new Prototype(array('name' => 'category')))
-		->add(new Prototype(array('name' => 'etat')))
+		->add(new Prototype(array('name' => 'state')))
 		->add(new Prototype(array('name' => 'brand')))
 		->add(new Prototype(array('name' => 'image')))
 		->add(new InputField(array(
@@ -169,15 +169,15 @@ class ArticleFormBuilder extends FormBuilder
 		//'options' => $this->getBrands(),
 		)));
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
-		'class' => 'RgsCatalogModule:Etat',
+		'class' => 'RgsCatalogModule:State',
 		'choice_label' => 'name',
 		'query_builder' => function ($er) {
 				return $er->createQueryBuilder('e')
 					->orderBy('e.name', 'ASC');
 		},
 		'element_type' => 'SELECT_FIELD',
-        'label' => 'Etat',
-        'name' => 'etat',
+        'label' => 'State',
+        'name' => 'state',
 		'required' => true,
 		'control_label' => true,
 		'attributes' => 
@@ -263,11 +263,11 @@ class ArticleFormBuilder extends FormBuilder
 		
 		return $retour;
 	}
-	private function getEtats()
+	private function getStates()
 	{
 		$retour = array();
 		$em = $this->container->get('managers')->getManager();
-		$repository = $em->getRepository('RgsCatalogModule:Etat');
+		$repository = $em->getRepository('RgsCatalogModule:State');
 		$cs = $repository->findBy(
 				array(),
 				array('name' => 'ASC'),

@@ -13,7 +13,7 @@
 		</div>
         <br />
         <div style="display: block; padding: 1px;">
-		{$etatWidget}
+		{$stateWidget}
 		</div>
     </form>
     <div id="somelink" ></div>

@@ -31,8 +31,8 @@ rgs_admin_gestion_category:
     path:     /categories/
     defaults: { content_manager: 'Rgs\AdminModule\Util\CategoriesManager' }
 
-rgs_admin_gestion_etat:
-    path:     /etats
+rgs_admin_gestion_state:
+    path:     /states
     defaults: { content_manager: 'Rgs\AdminModule\Util\StatesManager'}
 
 rgs_admin_gestion_brand:
@@ -101,22 +101,22 @@ rgs_admin_categories_edit_2:
     requirements:
         id: \d+
 
-rgs_admin_etats_add:
-    path:     /etats/edit
+rgs_admin_states_add:
+    path:     /states/edit
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
+        _controller: 'RgsAdminModule:AdminController:editState'
 
-rgs_admin_etats_edit:
-    path:     /etats/edit/{id}/{slug}
+rgs_admin_states_edit:
+    path:     /states/edit/{id}/{slug}
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
+        _controller: 'RgsAdminModule:AdminController:editState'
     requirements:
         id: \d+
 
-rgs_admin_etats_edit_2:
-    path:     /etats/edit/{id}/
+rgs_admin_states_edit_2:
+    path:     /states/edit/{id}/
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editEtat'
+        _controller: 'RgsAdminModule:AdminController:editState'
     requirements:
         id: \d+
 

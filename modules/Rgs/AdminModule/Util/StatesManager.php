@@ -33,15 +33,15 @@ class StatesManager extends ContentManager {
     }
 
     public function getRepositoryName(){
-        return 'RgsCatalogModule:Etat';
+        return 'RgsCatalogModule:State';
     }
 
     public function getAddRouteId(){
-        return 'rgs_admin_etats_add';
+        return 'rgs_admin_states_add';
     }
 
     public function getEditRouteId(){
-        return 'rgs_admin_etats_edit_2';
+        return 'rgs_admin_states_edit_2';
     }
 
     public function getColumns(){

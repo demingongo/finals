@@ -4,7 +4,7 @@ namespace Rgs\CatalogModule\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Category,
-	Rgs\CatalogModule\Entity\Etat;
+	Rgs\CatalogModule\Entity\State;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;
 use Novice\Form\Extension\Entity\EntityExtension;
@@ -175,10 +175,10 @@ class AnnotationController extends \Novice\BackController
 				$filtre = true;
 			}
 		}
-		if($request->query->has('etat')){
-			$req_byEtat = $request->query->get('etat');
-			if(!empty($req_byEtat)){
-				$where['a.etat'] = $req_byEtat;
+		if($request->query->has('state')){
+			$req_byState = $request->query->get('state');
+			if(!empty($req_byState)){
+				$where['a.state'] = $req_byState;
 				$filtre = true;
 			}
 		}
@@ -191,14 +191,6 @@ class AnnotationController extends \Novice\BackController
 		$paginator = $em->getRepository('RgsCatalogModule:Article')->getFrontArticles($limit, $page, $where);
 
 		$articles = $paginator->getQuery()->getResult();
-
-		/*dump($articles);
-		foreach($articles as $a){
-			dump($a->getName());
-			dump($a->getCategory()->getName());
-			dump($a->getEtat());
-		}
-		exit(__METHOD__);*/
 
 		$this->assign("paginator", $paginator);
 		
@@ -253,27 +245,27 @@ class AnnotationController extends \Novice\BackController
 
 
 	/**
-	 * @NOVICE\Assign("etatWidget", route_names={"rgs_catalog_articles_all"})
+	 * @NOVICE\Assign("stateWidget", route_names={"rgs_catalog_articles_all"})
 	 */
-	public function getEtatWidget(Request $request)
+	public function getStateWidget(Request $request)
 	{
-		$byEtat = null;
+		$byState = null;
 		
-		if($request->query->has('etat') && !empty($request->query->get('etat'))){
-			$byEtat = $request->query->get('etat');
+		if($request->query->has('state') && !empty($request->query->get('state'))){
+			$byState = $request->query->get('state');
 		}
 
-		$entityExtEtat = new EntityExtension($this->getDoctrine(), array(
-		'label' => 'Etat',
-		'class' => 'RgsCatalogModule:Etat',
+		$entityExtState = new EntityExtension($this->getDoctrine(), array(
+		'label' => 'State',
+		'class' => 'RgsCatalogModule:State',
 		'choice_label' => function($cat){return $cat->getName();},
 		'query_builder' => function ($er) {
 				return $er->createQueryBuilder('e')
 					->where('e.published = :p')
 					->orderBy('e.name', 'ASC')
-					->setParameter('p', Etat::PUBLISHED);
+					->setParameter('p', State::PUBLISHED);
 		},
-        'name' => 'etat',
+        'name' => 'state',
 		//'feedback' => false,
 		'attributes' => array(
 			//'class' => 'selectmenu selectmenu-submit',
@@ -287,6 +279,6 @@ class AnnotationController extends \Novice\BackController
 			),
 		));
 
-		return $entityExtEtat->createField()->setValue($byEtat)->buildWidget();
+		return $entityExtState->createField()->setValue($byState)->buildWidget();
 	}
 }

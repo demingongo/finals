@@ -83,14 +83,14 @@ class Article extends Model\AssetEntity
     private $category;
 
 	/**
-     * @var Rgs\CatalogModule\Entity\Etat
+     * @var Rgs\CatalogModule\Entity\State
      *
-     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\Etat", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\State", inversedBy="articles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="etat_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
      * })
      */
-    private $etat;
+    private $state;
 
 	/**
      * @var Rgs\CatalogModule\Entity\Brand
@@ -326,26 +326,26 @@ class Article extends Model\AssetEntity
     }
 
 	/**
-     * Set etat
+     * Set state
      *
-     * @param Rgs\CatalogModule\Entity\Etat $etat
+     * @param Rgs\CatalogModule\Entity\State $state
      * @return Article
      */
-    public function setEtat(Etat $etat)
+    public function setState(State $state)
     {
-        $this->etat = $etat;
+        $this->state = $state;
 
         return $this;
     }
 
     /**
-     * Get etat
+     * Get state
      *
-     * @return Rgs\CatalogModule\Entity\Etat 
+     * @return Rgs\CatalogModule\Entity\State 
      */
-    public function getEtat()
+    public function getState()
     {
-        return $this->etat;
+        return $this->state;
     }
 
 	/**

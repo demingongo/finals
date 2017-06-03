@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request,
 	Symfony\Component\Security\Core\Util\StringUtils;
 use Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Category,
-	Rgs\CatalogModule\Entity\Etat;
+	Rgs\CatalogModule\Entity\State;
 use Rgs\UserModule\Entity\User,
 	Rgs\UserModule\Entity\Group;
 use Novice\Form\Extension\Entity\EntityExtension;

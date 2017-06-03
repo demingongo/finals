@@ -57,7 +57,7 @@ Multi line comment block with credits block
 
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$paginator max="4" queryStrict=['category', 'etat'] noQuery=false}
+		{pagination paginator=$paginator max="4" queryStrict=['category', 'state'] noQuery=false}
     </div>
     
 </div>
@@ -101,7 +101,7 @@ Multi line comment block with credits block
                         		<th>Category</th><td title="{$a.category.name}">{$a.category.name|truncate:15:'...':true}</td>
 	                        </tr>
                             <tr>
-        	                	<th>Etat</th><td>{$a.etat.name}</td>
+        	                	<th>State</th><td>{$a.state.name}</td>
             	            </tr>
     	                    <tr>
         	                	<th>Prix</th>
@@ -139,7 +139,7 @@ Multi line comment block with credits block
 </div>
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$paginator max="4" queryStrict=['category', 'etat'] noQuery=false}
+		{pagination paginator=$paginator max="4" queryStrict=['category', 'state'] noQuery=false}
     </div>
     
 </div>

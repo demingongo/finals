@@ -28,7 +28,7 @@ class ArticleForm
 	
     private $category;
 
-    private $etat;
+    private $state;
 
     private $brand;
 
@@ -271,26 +271,26 @@ class ArticleForm
     }
 
 	/**
-     * Set etat
+     * Set state
      *
-     * @param Rgs\CatalogModule\Entity\Etat $etat
+     * @param Rgs\CatalogModule\Entity\State $state
      * @return Article
      */
-    public function setEtat(ENTITY\Etat $etat)
+    public function setState(ENTITY\State $state)
     {
-        $this->etat = $etat;
+        $this->state = $state;
 
         return $this;
     }
 
     /**
-     * Get etat
+     * Get state
      *
-     * @return Rgs\CatalogModule\Entity\Etat 
+     * @return Rgs\CatalogModule\Entity\State 
      */
-    public function getEtat()
+    public function getState()
     {
-        return $this->etat;
+        return $this->state;
     }
 
 	/**

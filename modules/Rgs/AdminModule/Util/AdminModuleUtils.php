@@ -65,14 +65,14 @@ class AdminModuleUtils {
 				]
 			],
 			[
-				'property' => 'etat.name',
+				'property' => 'state.name',
 				'label' => 'State',
 				'class' => 'hidden-xs hidden-sm',
 				'route' => [
-					'id' => 'rgs_admin_etats_edit',
+					'id' => 'rgs_admin_states_edit',
 					'params' =>[
-						'id' => new ItemProperty('etat.id'), 
-						'slug' => new ItemProperty('etat.slug')
+						'id' => new ItemProperty('state.id'), 
+						'slug' => new ItemProperty('state.slug')
 					],
 					'absolute' => true
 				]
@@ -137,7 +137,7 @@ class AdminModuleUtils {
 				'property' => 'name',
 				'label' => 'Title',
 				'route' => [
-					'id' => 'rgs_admin_etats_edit',
+					'id' => 'rgs_admin_states_edit',
 					'params' =>[
 						'id' => new ItemProperty('id'), 
 						'slug' => new ItemProperty('slug')

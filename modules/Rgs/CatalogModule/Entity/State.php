@@ -8,12 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\NestedSet\MultipleRootNode;
 
 /**
- * Etat
+ * State
  *
  * @ORM\Table(name="state")
- * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\EtatRepository")
+ * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\StateRepository")
  */
-class Etat extends Model\AssetEntity
+class State extends Model\AssetEntity
 {
 
     /**
@@ -34,7 +34,7 @@ class Etat extends Model\AssetEntity
 	/**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="etat")
+     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="state")
      */
     private $articles;
 
@@ -66,7 +66,7 @@ class Etat extends Model\AssetEntity
      * Set name
      *
      * @param string $name
-     * @return Etat
+     * @return State
      */
     public function setName($name)
     {
@@ -89,7 +89,7 @@ class Etat extends Model\AssetEntity
      * Set slug
      *
      * @param string $slug
-     * @return Etat
+     * @return State
      */
     public function setSlug($slug)
     {
@@ -112,12 +112,12 @@ class Etat extends Model\AssetEntity
      * Add article
      *
      * @param Rgs\CatalogModule\Entity\Article $article
-     * @return Etat
+     * @return State
      */
     public function addArticle(Article $article)
     {
         $this->articles[] = $article;
-		$article->setEtat($this);
+		$article->setState($this);
 
         return $this;
     }

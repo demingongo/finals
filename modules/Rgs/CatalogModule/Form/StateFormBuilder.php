@@ -16,14 +16,14 @@ use Novice\Form\Validator\MaxLengthValidator,
 	Novice\Form\Validator\NonRequiredEmailValidator,
 	Novice\Form\Extension\Securimage\Validator\SecurimageValidator;
 
-use Rgs\CatalogModule\Entity\Etat;
+use Rgs\CatalogModule\Entity\State;
 
-class EtatFormBuilder extends FormBuilder
+class StateFormBuilder extends FormBuilder
 {
 
 	public function getName()
 	{
-		return 'etat_form';
+		return 'state_form';
 	}
   
   public function build()
@@ -53,7 +53,7 @@ class EtatFormBuilder extends FormBuilder
         'name' => 'published',
 		'inline' => 1,
 		//'required' => true,
-		'buttons' => array('Published' => Etat::PUBLISHED , 'Unpublished' => Etat::NOT_PUBLISHED),
+		'buttons' => array('Published' => State::PUBLISHED , 'Unpublished' => State::NOT_PUBLISHED),
 		'validators' => array(
     new NotNullValidator('Choisir le statut'),)
 		)))
