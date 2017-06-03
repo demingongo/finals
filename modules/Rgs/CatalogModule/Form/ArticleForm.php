@@ -30,7 +30,7 @@ class ArticleForm
 
     private $etat;
 
-    private $marque;
+    private $brand;
 
 	
 	
@@ -294,26 +294,26 @@ class ArticleForm
     }
 
 	/**
-     * Set marque
+     * Set brand
      *
-     * @param Rgs\CatalogModule\Entity\Marque $marque
+     * @param Rgs\CatalogModule\Entity\Brand $brand
      * @return Article
      */
-    public function setMarque(ENTITY\Marque $marque)
+    public function setBrand(ENTITY\Brand $brand)
     {
-        $this->marque = $marque;
+        $this->brand = $brand;
 
         return $this;
     }
 
     /**
-     * Get marque
+     * Get brand
      *
-     * @return Rgs\CatalogModule\Entity\Marque 
+     * @return Rgs\CatalogModule\Entity\Brand 
      */
-    public function getMarque()
+    public function getBrand()
     {
-        return $this->marque;
+        return $this->brand;
     }
 
 	public function isNew()

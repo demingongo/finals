@@ -14,6 +14,22 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Advertisement extends Model\AssetEntity
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=64,nullable=false, unique=false)
+     */
+    protected $name;
+
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=128, precision=0, scale=0, nullable=false, unique=true)
+	 * @Gedmo\Slug(fields={"name", "id"})
+     */
+    protected $slug;
+
+
 	/**
      * @var string
      *
@@ -46,6 +62,52 @@ class Advertisement extends Model\AssetEntity
 		if(!empty($name)){
 			$this->setName($name);
 		}
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Article
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+	/**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
 	/**

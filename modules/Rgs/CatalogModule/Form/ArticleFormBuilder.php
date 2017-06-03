@@ -73,8 +73,8 @@ class ArticleFormBuilder extends FormBuilder
 		'control_label' => true,
 		)))
 		->add(new Prototype(array('name' => 'category')))
-		->add(new Prototype(array('name' => 'marque')))
 		->add(new Prototype(array('name' => 'etat')))
+		->add(new Prototype(array('name' => 'brand')))
 		->add(new Prototype(array('name' => 'image')))
 		->add(new InputField(array(
 		'type' => 'number',
@@ -152,10 +152,10 @@ class ArticleFormBuilder extends FormBuilder
 		);
 		$this->form->addExtension(new \Novice\Form\Extension\Filemanager\FilemanagerExtension('/plugins/filemanager/filemanager', $options));
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
-		'class' => 'RgsCatalogModule:Marque',
+		'class' => 'RgsCatalogModule:Brand',
 		'choice_label' => 'name',
-        'label' => 'Marque',
-        'name' => 'marque',
+        'label' => 'Brand',
+        'name' => 'brand',
 		'attributes' => 
 			array(
 				'style' => 'width: 99%',
@@ -166,7 +166,7 @@ class ArticleFormBuilder extends FormBuilder
 				'class' => 'select2',
 				//'onchange' => 'this.form.submit()',
 			),
-		//'options' => $this->getMarques(),
+		//'options' => $this->getBrands(),
 		)));
 		$this->form->addExtension(new \Novice\Form\Extension\Entity\EntityExtension($this->container->get('managers'), array(
 		'class' => 'RgsCatalogModule:Etat',
@@ -246,11 +246,11 @@ class ArticleFormBuilder extends FormBuilder
 		dump($retour);
 		exit(__METHOD__);
 	}
-	private function getMarques()
+	private function getBrands()
 	{
 		$retour = array();
 		$em = $this->container->get('managers')->getManager();
-		$repository = $em->getRepository('RgsCatalogModule:Marque');
+		$repository = $em->getRepository('RgsCatalogModule:Brand');
 		$cs = $repository->findBy(
 				array(),
 				array('name' => 'ASC'),

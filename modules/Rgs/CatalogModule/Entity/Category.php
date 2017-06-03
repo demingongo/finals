@@ -13,20 +13,23 @@ use DoctrineExtensions\NestedSet\MultipleRootNode;
  * @ORM\Table(name="Category")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\CategoryRepository")
  */
-class Category extends Entity implements MultipleRootNode, Model\PublishedInterface
+class Category extends Model\AssetEntity implements MultipleRootNode
 {
 
-	//const PUBLISHED = 1;
-	//const NOT_PUBLISHED = 0;
-
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="name", type="string", length=64,nullable=false, unique=true)
      */
-    private $id;
+    protected $name;
+
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=128, precision=0, scale=0, nullable=false, unique=true)
+	 * @Gedmo\Slug(fields={"name", "id"})
+     */
+    protected $slug;
 
 	/**
      * @ORM\Column(type="integer")
@@ -42,21 +45,6 @@ class Category extends Entity implements MultipleRootNode, Model\PublishedInterf
 	 * @ORM\Column(type="integer")
 	 */
 	private $root;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=64, nullable=false, unique=true)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=128, precision=0, scale=0, nullable=false, unique=true)
-	 * @Gedmo\Slug(fields={"name", "id"})
-     */
-    private $slug;
 
 	/**
      * @var string
@@ -79,12 +67,6 @@ class Category extends Entity implements MultipleRootNode, Model\PublishedInterf
      */
     private $articles;
 
-
-	
-	use Model\DateOnCreateUpdateTrait;
-
-	use Model\PublishedTrait;
-
 	
 	
     /**
@@ -101,33 +83,10 @@ class Category extends Entity implements MultipleRootNode, Model\PublishedInterf
     }
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-	public function getLeftValue() { return $this->lft; }
-    public function setLeftValue($lft) { $this->lft = $lft; }
-
-    public function getRightValue() { return $this->rgt; }
-    public function setRightValue($rgt) { $this->rgt = $rgt; }
-
-	public function getRootValue() { return $this->root; }
-	public function setRootValue($root) { $this->root = $root; }
-
-    public function __toString() { return $this->name; }
-
-
-    /**
      * Set name
      *
      * @param string $name
-     * @return Category
+     * @return Article
      */
     public function setName($name)
     {
@@ -146,11 +105,11 @@ class Category extends Entity implements MultipleRootNode, Model\PublishedInterf
         return $this->name;
     }
 
-    /**
+	/**
      * Set slug
      *
      * @param string $slug
-     * @return Category
+     * @return Article
      */
     public function setSlug($slug)
     {
@@ -168,6 +127,19 @@ class Category extends Entity implements MultipleRootNode, Model\PublishedInterf
     {
         return $this->slug;
     }
+
+
+	public function getLeftValue() { return $this->lft; }
+    public function setLeftValue($lft) { $this->lft = $lft; }
+
+    public function getRightValue() { return $this->rgt; }
+    public function setRightValue($rgt) { $this->rgt = $rgt; }
+
+	public function getRootValue() { return $this->root; }
+	public function setRootValue($root) { $this->root = $root; }
+
+    public function __toString() { return $this->name; }
+
 
 	/**
      * Set description

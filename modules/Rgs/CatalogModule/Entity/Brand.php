@@ -8,22 +8,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\NestedSet\MultipleRootNode;
 
 /**
- * Marque
+ * Brand
  *
  * @ORM\Table(name="brand")
- * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\MarqueRepository")
+ * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\BrandRepository")
  */
-class Marque extends Entity implements Model\PublishedInterface
+class Brand extends Model\AssetEntity
 {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
 
     /**
      * @var string
@@ -57,16 +48,9 @@ class Marque extends Entity implements Model\PublishedInterface
 	/**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="marque")
+     * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="brand")
      */
     private $articles;
-
-
-	
-	use Model\DateOnCreateUpdateTrait;
-
-	use Model\PublishedTrait;
-
 	
 	
     /**
@@ -96,7 +80,7 @@ class Marque extends Entity implements Model\PublishedInterface
      * Set name
      *
      * @param string $name
-     * @return Marque
+     * @return Brand
      */
     public function setName($name)
     {
@@ -119,7 +103,7 @@ class Marque extends Entity implements Model\PublishedInterface
      * Set slug
      *
      * @param string $slug
-     * @return Marque
+     * @return Brand
      */
     public function setSlug($slug)
     {
@@ -142,7 +126,7 @@ class Marque extends Entity implements Model\PublishedInterface
      * Set logo
      *
      * @param string $logo
-     * @return Marque
+     * @return Brand
      */
     public function setLogo($logo)
     {
@@ -165,7 +149,7 @@ class Marque extends Entity implements Model\PublishedInterface
      * Set url
      *
      * @param string $url
-     * @return Marque
+     * @return Brand
      */
     public function setUrl($url)
     {
@@ -188,12 +172,12 @@ class Marque extends Entity implements Model\PublishedInterface
      * Add article
      *
      * @param Rgs\CatalogModule\Entity\Article $article
-     * @return Marque
+     * @return Brand
      */
     public function addArticle(Article $article)
     {
         $this->articles[] = $article;
-		$article->setMarque($this);
+		$article->setBrand($this);
 
         return $this;
     }

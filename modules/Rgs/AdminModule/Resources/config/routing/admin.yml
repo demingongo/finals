@@ -35,8 +35,8 @@ rgs_admin_gestion_etat:
     path:     /etats
     defaults: { content_manager: 'Rgs\AdminModule\Util\StatesManager'}
 
-rgs_admin_gestion_marque:
-    path:     /marques
+rgs_admin_gestion_brand:
+    path:     /brands
     defaults: { content_manager: 'Rgs\AdminModule\Util\BrandsManager' }
 
 rgs_admin_gestion_media:
@@ -120,22 +120,22 @@ rgs_admin_etats_edit_2:
     requirements:
         id: \d+
 
-rgs_admin_marques_add:
-    path:     /marques/edit
+rgs_admin_brands_add:
+    path:     /brands/edit
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editMarque'
+        _controller: 'RgsAdminModule:AdminController:editBrand'
 
-rgs_admin_marques_edit:
-    path:     /marques/edit/{id}/{slug}
+rgs_admin_brands_edit:
+    path:     /brands/edit/{id}/{slug}
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editMarque'
+        _controller: 'RgsAdminModule:AdminController:editBrand'
     requirements:
         id: \d+
 
-rgs_admin_marques_edit_2:
-    path:     /marques/edit/{id}/
+rgs_admin_brands_edit_2:
+    path:     /brands/edit/{id}/
     defaults:
-        _controller: 'RgsAdminModule:AdminController:editMarque'
+        _controller: 'RgsAdminModule:AdminController:editBrand'
     requirements:
         id: \d+
 

@@ -37,7 +37,7 @@ class ContentManagerMiddleware implements EventSubscriberInterface
 	public static function getSubscribedEvents()
     {
         return array(
-            Events::REQUEST => array(array('onRequest', 0, '^/admin/(articles|categories|marques|etats|advertisements)')),
+            Events::REQUEST => array(array('onRequest', 0, '^/admin/(articles|categories|brands|etats|advertisements)')),
         );
     }
 

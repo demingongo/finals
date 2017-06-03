@@ -15,6 +15,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Article extends Model\AssetEntity
 {
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=64,nullable=false, unique=false)
+     */
+    protected $name;
+
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=128, precision=0, scale=0, nullable=false, unique=true)
+	 * @Gedmo\Slug(fields={"name", "id"})
+     */
+    protected $slug;
+
 	/**
      * @var string
      *
@@ -78,14 +93,14 @@ class Article extends Model\AssetEntity
     private $etat;
 
 	/**
-     * @var Rgs\CatalogModule\Entity\Marque
+     * @var Rgs\CatalogModule\Entity\Brand
      *
-     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\Marque", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="Rgs\CatalogModule\Entity\Brand", inversedBy="articles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="marque_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
      * })
      */
-    private $marque;
+    private $brand;
 
 	
 	
@@ -101,6 +116,52 @@ class Article extends Model\AssetEntity
 		if(!empty($name)){
 			$this->setName($name);
 		}
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Article
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+	/**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
 	/**
@@ -288,25 +349,35 @@ class Article extends Model\AssetEntity
     }
 
 	/**
-     * Set marque
+     * Set brand
      *
-     * @param Rgs\CatalogModule\Entity\Marque $marque
+     * @param Rgs\CatalogModule\Entity\Brand $brand
      * @return Article
      */
-    public function setMarque(Marque $marque)
+    public function setBrand($brand)
     {
-        $this->marque = $marque;
+        if($brand instanceof Brand){
+            $this->brand = $brand;
+        }
+        else if($brand == null){
+            $this->brand = null;
+        }
+        else{
+            throw new \Symfony\Component\Debug\Exception\ContextErrorException(
+                "Argument 1 passed to Rgs\CatalogModule\Entity\Article::setBrand() must be an instance of Rgs\CatalogModule\Entity\Brand or null, ".gettype($brand)." given"
+                );
+        }
 
         return $this;
     }
 
     /**
-     * Get marque
+     * Get brand
      *
-     * @return Rgs\CatalogModule\Entity\Marque 
+     * @return Rgs\CatalogModule\Entity\Brand 
      */
-    public function getMarque()
+    public function getBrand()
     {
-        return $this->marque;
+        return $this->brand;
     }
 }

@@ -8,7 +8,7 @@ use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 use Rgs\CatalogModule\Entity\Category,
 	Rgs\CatalogModule\Entity\Article,
 	Rgs\CatalogModule\Entity\Advertisement,
-	Rgs\CatalogModule\Entity\Marque,
+	Rgs\CatalogModule\Entity\Brand,
 	Rgs\CatalogModule\Entity\Etat;
 
 use DoctrineModule\Form\Extension\EntityNode\EntityNodeExtension;
@@ -336,23 +336,23 @@ class AdminController extends \Novice\BackController
 	}
 	
 	
-	/*******************************MARQUES*************************************/
+	/*******************************BRANDS*************************************/
 	
 	
-	public function executeEditMarque(Request $request)
+	public function executeEditBrand(Request $request)
 	{	
-		$this->setView('file:[RgsAdminModule]Content/editMarque.php');
+		$this->setView('file:[RgsAdminModule]Content/editBrand.php');
 
 		if($request->attributes->has('id')){
-			$marque = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Marque')
+			$brand = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Brand')
 							->findOneById($request->attributes->get('id'));
 		}
 		else{
-			$marque = new Marque();
+			$brand = new Brand();
 		}
 
 		try{
-			$form = $this->buildForm(new \Rgs\CatalogModule\Form\MarqueFormBuilder($marque))
+			$form = $this->buildForm(new \Rgs\CatalogModule\Form\BrandFormBuilder($brand))
 						 ->form();
 		}
 		catch(\Exception $e){
@@ -371,18 +371,18 @@ class AdminController extends \Novice\BackController
 		try{
 			if ($form->isValid())
 			{
-				$em->persist($marque);
+				$em->persist($brand);
 				$em->flush();
 				$em->getConnection()->commit();
 
-				return $this->redirect($this->generateUrl('rgs_admin_gestion_marque'));
+				return $this->redirect($this->generateUrl('rgs_admin_gestion_brand'));
 			}
 		}
 		catch(\Exception $e){
 			$em->close();
 			$em->getConnection()->rollback();
 			if($e instanceof \Novice\Form\Exception\SecurityException){
-				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_marques_edit', array(
+				$session->getFlashBag()->set('error', '<b>Failure occured</b>, <a href="'.$this->generateUrl('rgs_admin_brands_edit', array(
 					"id" => $article->getId(),
 					"slug" => $article->getSlug(),
 				), 

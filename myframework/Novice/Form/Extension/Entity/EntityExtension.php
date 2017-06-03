@@ -100,8 +100,12 @@ class EntityExtension extends \Novice\Form\Extension\Extension implements EventS
 						/*dump($value);
 						dump($foreignEntity);
 						exit(__METHOD__);*/
-						if(!empty($foreignEntity))
+						if(!empty($foreignEntity)){
 							$entity[$this->name] = $foreignEntity;
+						}
+						else{
+							$entity[$this->name] = null;
+						}
 					}
 					else{
 						//$arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();

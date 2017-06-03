@@ -16,14 +16,14 @@ use Novice\Form\Validator\MaxLengthValidator,
 	Novice\Form\Validator\NonRequiredEmailValidator,
 	Novice\Form\Extension\Securimage\Validator\SecurimageValidator;
 
-use Rgs\CatalogModule\Entity\Marque;
+use Rgs\CatalogModule\Entity\Brand;
 
-class MarqueFormBuilder extends FormBuilder
+class BrandFormBuilder extends FormBuilder
 {
 
 	public function getName()
 	{
-		return 'marque_form';
+		return 'brand_form';
 	}
   
   public function build()
@@ -74,9 +74,10 @@ class MarqueFormBuilder extends FormBuilder
         'label' => $trans('form.status'),
 		'control_label' => true,
         'name' => 'published',
+		'required' => true,
 		'inline' => 1,
 		//'required' => true,
-		'buttons' => array('Published' => Marque::PUBLISHED , 'Unpublished' => Marque::NOT_PUBLISHED),
+		'buttons' => array('Published' => Brand::PUBLISHED , 'Unpublished' => Brand::NOT_PUBLISHED),
 		'validators' => array(
     new NotNullValidator('Choisir le statut'),)
 		)))
@@ -85,7 +86,7 @@ class MarqueFormBuilder extends FormBuilder
 		'type' => 'url',
         'name' => 'url',
 		'title' => 'lien vers site le officiel ou autres informations concernant la marque',
-		'control_label' => true,
+		'control_label' => true
 		)))
 		->add(new InputField(array(
         'label' => $trans('form.created_at'),

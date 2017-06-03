@@ -295,7 +295,7 @@
 									<a href="{path id='rgs_admin_gestion_etat' absolute=true}">Gestion des états</a>
 								</li>
 								<li>
-									<a href="{path id='rgs_admin_gestion_marque' absolute=true}">Gestion des marques</a>
+									<a href="{path id='rgs_admin_gestion_brand' absolute=true}">Gestion des marques</a>
 								</li>
 								<li>
 									<a href="{path id='rgs_admin_gestion_media' absolute=true}">Gestion des médias</a>

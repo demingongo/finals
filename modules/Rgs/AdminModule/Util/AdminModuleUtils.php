@@ -63,6 +63,33 @@ class AdminModuleUtils {
 					],
 					'absolute' => true
 				]
+			],
+			[
+				'property' => 'etat.name',
+				'label' => 'State',
+				'class' => 'hidden-xs hidden-sm',
+				'route' => [
+					'id' => 'rgs_admin_etats_edit',
+					'params' =>[
+						'id' => new ItemProperty('etat.id'), 
+						'slug' => new ItemProperty('etat.slug')
+					],
+					'absolute' => true
+				]
+			],
+			[
+				'property' => 'brand.name',
+				'fallbackView' => '-',
+				'label' => 'Brand',
+				'class' => 'hidden-xs hidden-sm hidden-md',
+				'route' => [
+					'id' => 'rgs_admin_brands_edit',
+					'params' =>[
+						'id' => new ItemProperty('brand.id'), 
+						'slug' => new ItemProperty('brand.slug')
+					],
+					'absolute' => true
+				]
 			]
 		);
     }
@@ -128,7 +155,7 @@ class AdminModuleUtils {
 				'property' => 'name',
 				'label' => 'Title',
 				'route' => [
-					'id' => 'rgs_admin_marques_edit',
+					'id' => 'rgs_admin_brands_edit',
 					'params' =>[
 						'id' => new ItemProperty('id'), 
 						'slug' => new ItemProperty('slug')

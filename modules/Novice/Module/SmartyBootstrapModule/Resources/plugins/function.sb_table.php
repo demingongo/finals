@@ -65,14 +65,24 @@ function smarty_function_sb_table($params, &$smarty)
         foreach($params['columns'] as $column){
             $prop = $column['property'];
 
-            $propertyValue = $accessor->getValue($entity, $prop);
+            $fallbackView = isset($column['fallbackView']) ? $column['fallbackView'] : '';
+
+            $isFallback = false;
+
+            if($accessor->isReadable($entity, $prop)){
+                $propertyValue = $accessor->getValue($entity, $prop);
+            }
+            else{
+                $propertyValue = $fallbackView;
+                $isFallback = true;
+            }
 
             $table .= ('<td class="'.(isset($column['class']) ? $column['class'] : '').'">');
 
             if(isset($column['filter'])){
-                $table .= $column['filter']($propertyValue, $entity, $i, $smarty);
+                $table .= $column['filter']($propertyValue, $entity, $i, $smarty, $isFallback);
             }
-            else if(isset($column['route']) && is_array($column['route'])){
+            else if(isset($column['route']) && is_array($column['route']) && !$isFallback){
                 $route = $column['route'];
 
                 if(isset($route['params']) && is_array($route['params'])){

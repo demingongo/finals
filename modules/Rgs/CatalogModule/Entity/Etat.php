@@ -13,17 +13,8 @@ use DoctrineExtensions\NestedSet\MultipleRootNode;
  * @ORM\Table(name="state")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\EtatRepository")
  */
-class Etat extends Entity implements Model\PublishedInterface
+class Etat extends Model\AssetEntity
 {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
 
     /**
      * @var string
@@ -46,10 +37,7 @@ class Etat extends Entity implements Model\PublishedInterface
      * @ORM\OneToMany(targetEntity="Rgs\CatalogModule\Entity\Article", mappedBy="etat")
      */
     private $articles;
-	
-	use Model\DateOnCreateUpdateTrait;
 
-	use Model\PublishedTrait;	
 	
     /**
      * Constructor

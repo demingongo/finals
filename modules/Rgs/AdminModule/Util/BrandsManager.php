@@ -33,15 +33,15 @@ class BrandsManager extends ContentManager {
     }
 
     public function getRepositoryName(){
-        return 'RgsCatalogModule:Marque';
+        return 'RgsCatalogModule:Brand';
     }
 
     public function getAddRouteId(){
-        return 'rgs_admin_marques_add';
+        return 'rgs_admin_brands_add';
     }
 
     public function getEditRouteId(){
-        return 'rgs_admin_marques_edit_2';
+        return 'rgs_admin_brands_edit_2';
     }
 
     public function getColumns(){

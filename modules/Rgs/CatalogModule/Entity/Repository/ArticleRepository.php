@@ -4,6 +4,7 @@ namespace Rgs\CatalogModule\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Query\Expr;
 
 use Rgs\CatalogModule\Entity\Article;
 use Rgs\CatalogModule\Entity\Model\PublishedInterface;
@@ -172,16 +173,25 @@ class ArticleRepository extends EntityRepository
 		// get qb for front visible categories (complicated because of hierarchy in category class ...)
 		$fcQB = $this->getEntityManager()->getRepository('RgsCatalogModule:Category')->getFrontIdsQB();
 
+		$fbQB = $this->getEntityManager()->getRepository('RgsCatalogModule:Brand')->getFrontQB();
+
 		$andModule = $qb->expr()->andX();
-		$andModule->add( $qb->expr()->eq('a.published', ':article_published') );	
-		$andModule->add( $qb->expr()->eq('e.published', ':etat_published') );
-		$andModule->add( $qb->expr()->eq('c.published', ':category_published') );
+		$andModule->add( $qb->expr()->eq('a.published', ':all_published') );	
+		$andModule->add( $qb->expr()->eq('e.published', ':all_published') );
+		$andModule->add( $qb->expr()->eq('c.published', ':all_published') );
+
+		//special subquery for brand (because no a required field and published brands)
+		$orBrandModule = $qb->expr()->orX();
+		$orBrandModule->add($qb->expr()->in('a.brand',$fbQB->getDQL()));
+		$orBrandModule->add($qb->expr()->isNull('a.brand'));
+		$andModule->add( $orBrandModule );
+
+		//special subquery for category (because of "nested set multiple root node" categories and published categories)
 		$andModule->add( $fcQB->expr()->in('c.id', $fcQB->getDQL()) );
 
 		$qb->andWhere( $andModule )
-		->setParameter('article_published', true)		
-		->setParameter('etat_published', true)
-		->setParameter('category_published', true)
+		->setParameter('bp', PublishedInterface::PUBLISHED)
+		->setParameter('all_published', true)
 		->setParameter('cnp', PublishedInterface::NOT_PUBLISHED)
 		->setParameter('cp', PublishedInterface::PUBLISHED);
 
