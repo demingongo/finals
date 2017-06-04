@@ -1,6 +1,6 @@
 <?php
 
-namespace Rgs\AdminModule\Util\ContentManager\Tools;
+namespace Novice\Module\ContentManagerModule\Util;
 
 use Novice\Form\Field\Field;
 

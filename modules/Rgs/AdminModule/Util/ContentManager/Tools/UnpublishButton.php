@@ -3,6 +3,7 @@
 namespace Rgs\AdminModule\Util\ContentManager\Tools;
 
 use Novice\Form\Field\Field;
+use Novice\Module\ContentManagerModule\Util\ToolButton;
 
 class UnpublishButton extends ToolButton
 {

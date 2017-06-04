@@ -13,6 +13,7 @@
 
 		<parameter key="templating.class">Novice\Templating\SmartyTemplating</parameter>
 		<parameter key="templating.route_function.class">Novice\Templating\Extension\RouteFunctionExtension</parameter>
+		<parameter key="templating.img_function.class">Novice\Templating\Extension\ImgFunctionExtension</parameter>
 
 		<parameter key="middlewares.class">Novice\Middleware\MiddlewareRegistry</parameter>
 		<parameter key="event_dispatcher.class">Novice\Middleware\ContainerAwareMiddlewareDispatcher</parameter>
@@ -28,6 +29,10 @@
 		<!--<service id="http_request" class="%framework.http_request.class%" />-->
 
 		<service id="templating.route_function" class="%templating.route_function.class%" >
+			<tag name="templating.extension" />
+		</service>
+
+		<service id="templating.img_function" class="%templating.img_function.class%" >
 			<tag name="templating.extension" />
 		</service>
 		

@@ -36,8 +36,12 @@ class CategoriesManager extends ContentManager {
         return 'c.published';
     }
 
-    public function getRepositoryName(){
+    public function getEntityName(){
         return 'RgsCatalogModule:Category';
+    }
+
+    public function getAlias(){
+        return 'c';
     }
 
     public function getAddRouteId(){

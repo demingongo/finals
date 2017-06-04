@@ -75,11 +75,7 @@ Multi line comment block with credits block
     	<!--<div class="col-md-3 col-sm-3">-->
         <div>
         	<a href="#">
-    			<img src="{image_src path=$a.image package=upload}" data-fallback-src="{image_src path='imagenotfound.jpg' package=img}" class="img-thumbnail" alt="image" style="height: 120px; min-width: 120px;" title="{if !empty($a.teaser)}        
-        	{$a.teaser|purify} 
-        {else}
-        	{$a.description|purify|truncate:60:'...':true}       
-        {/if}" />
+                {img src=$a.image package=upload class="img-thumbnail" alt="image" style="height: 120px; min-width: 120px;" title=$a.name}
             </a>
     	</div>
     </div>

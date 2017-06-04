@@ -32,8 +32,12 @@ class BrandsManager extends ContentManager {
         return 'm.published';
     }
 
-    public function getRepositoryName(){
+    public function getEntityName(){
         return 'RgsCatalogModule:Brand';
+    }
+
+    public function getAlias(){
+        return 'm';
     }
 
     public function getAddRouteId(){

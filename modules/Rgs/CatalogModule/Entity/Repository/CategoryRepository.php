@@ -166,16 +166,6 @@ class CategoryRepository extends EntityRepository
 		return $qb->getQuery()->getSingleScalarResult();
 	}
 
-	public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
-	{
-		return $this->findCategories($limit, $page, $where, $orderBy);
-	}
-
-	public function countItems($where = array())
-	{
-		return $this->countCategories($where);
-	}
-
 	public function getSQLFrontCategories($rsm){
 		if(isset($rsm) && $rsm instanceof \Doctrine\ORM\Query\ResultSetMappingBuilder){
 			$rsm->addRootEntityFromClassMetadata($this->getEntityName(), 'category');

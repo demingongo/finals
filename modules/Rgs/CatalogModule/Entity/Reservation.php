@@ -26,13 +26,6 @@ class Reservation extends Entity
     private $id;
 
 	/**
-     * @var integer
-     *
-     * @ORM\Column(name="reduction", type="smallint", nullable=true)
-     */
-    private $reduction;
-
-	/**
      * @var \DateTime
      *
      * @ORM\Column(name="expires_at", type="datetime", nullable=false)
@@ -67,29 +60,6 @@ class Reservation extends Entity
     public function getId()
     {
         return $this->id;
-    }
-
-	/**
-     * Set reduction
-     *
-     * @param integer $reduction
-     * @return Reservation
-     */
-    public function setReduction($reduction)
-    {
-        $this->reduction = $reduction;
-
-        return $this;
-    }
-
-    /**
-     * Get reduction
-     *
-     * @return int 
-     */
-    public function getReduction()
-    {
-        return $this->reduction;
     }
 
 	/**

@@ -32,8 +32,12 @@ class ArticlesManager extends ContentManager {
         return 'a.published';
     }
 
-    public function getRepositoryName(){
+    public function getEntityName(){
         return 'RgsCatalogModule:Article';
+    }
+
+    public function getAlias(){
+        return 'a';
     }
 
     public function getAddRouteId(){

@@ -32,8 +32,12 @@ class StatesManager extends ContentManager {
         return 'e.published';
     }
 
-    public function getRepositoryName(){
+    public function getEntityName(){
         return 'RgsCatalogModule:State';
+    }
+
+    public function getAlias(){
+        return 'e';
     }
 
     public function getAddRouteId(){

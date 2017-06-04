@@ -128,7 +128,7 @@ class ArticleRepository extends EntityRepository
 		return $qb->getQuery()->getSingleScalarResult();
 	}
 
-	public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
+	/*public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
 	{
 		return $this->findArticles($limit, $page, $where, $orderBy);
 	}
@@ -136,7 +136,7 @@ class ArticleRepository extends EntityRepository
 	public function countItems($where = array())
 	{
 		return $this->countArticles($where);
-	}
+	}*/
 	
 	
 	// BELOW, ALL THE METHODS FOR FRONTEND

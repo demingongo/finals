@@ -71,7 +71,9 @@ abstract class ContentManager
 
     abstract public function getVisibilityKey();
 
-    abstract public function getRepositoryName();
+    abstract public function getEntityName();
+
+    abstract public function getAlias();
 
     abstract public function getAddRouteId();
 

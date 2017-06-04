@@ -12,43 +12,4 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class AdvertisementRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
-	{
-		$qb = $this->createQueryBuilder('a');
-		
-		$i = 1;
-		foreach($where as $k => $v){
-			$qb->andWhere($qb->expr()->eq($k, '?'.$i))
-				->setParameter($i, $v);
-			$i++;
-		}
-
-		if(empty($orderBy))
-			$orderBy = array('a.name' => 'ASC');
-
-		foreach($orderBy as $k => $v){
-			$qb	->addOrderBy($k, $v);
-		}
-		
-		$qb ->setFirstResult(($page-1) * $limit)
-			->setMaxResults($limit);
-
-		return new Paginator($qb);
-	}
-
-	public function countItems($where = array())
-	{
-		$qb = $this->createQueryBuilder('a');
-
-		$qb->select('count(a.id)');
-
-		$i = 1;
-		foreach($where as $k => $v){
-			$qb->andWhere($qb->expr()->eq($k, '?'.$i))
-				->setParameter($i, $v);
-			$i++;
-		}
-
-		return $qb->getQuery()->getSingleScalarResult();
-	}
 }

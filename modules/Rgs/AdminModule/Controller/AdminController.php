@@ -33,7 +33,7 @@ class AdminController extends \Novice\BackController
 
 			$addRouteId = $cm->getAddRouteId();
 			$editRouteId = $cm->getEditRouteId();
-			$repositoryName = $cm->getRepositoryName();
+			$repositoryName = $cm->getEntityName();
 			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
 				$submit = end($submit);
 				
@@ -92,6 +92,11 @@ class AdminController extends \Novice\BackController
 		$contentManagerClass = $attributes['content_manager'];
 		$cm = new $contentManagerClass($this->container);
 
+		$entityName = $cm->getEntityName();
+		$alias = $cm->getAlias();
+
+		$em = $this->getDoctrine()->getManager();
+
 		$r = $this->processPostManagement($request, $cm);
 		if(is_object($r) && $r instanceof Response)
 			return $r;
@@ -136,20 +141,59 @@ class AdminController extends \Novice\BackController
 
 		list($sort, $order) = explode(" ",$ordering);
 
-		$totalItems = $this->getDoctrine()->getManager()
-			->getRepository($cm->getRepositoryName())
-			->countItems($where);
+		$repository = $em->getRepository($cm->getEntityName());
+
+		$repositoryObject = new \ReflectionObject($repository);
+
+		$totalItems;
+		if($repositoryObject->hasMethod('countItems')){
+			$totalItems = $repository->countItems($where);
+		}
+		else{
+			$qb = $em->createQueryBuilder()
+            ->select($alias)
+            ->from($cm->getEntityName(), $alias, null);
+
+			$qb->select('count('.$alias.'.id)');
+			$i = 1;
+			foreach($where as $k => $v){
+				$qb->andWhere($qb->expr()->eq($k, '?'.$i))
+					->setParameter($i, $v);
+				$i++;
+			}
+			$totalItems = $qb->getQuery()->getSingleScalarResult();
+		}
+
 		$pagesCount = ceil($totalItems / $limit);
 		if($page > $pagesCount)
 			$page = $pagesCount;
 		if($page == 0)
 			$page = 1;
+		
+		$items = [];
+		if($repositoryObject->hasMethod('findItems')){
+			$items = $repository->findItems($limit, $page, $where, array($sort => $order));
+		}
+		else{
+			$qb2 = $em->createQueryBuilder()
+            ->select($alias)
+            ->from($cm->getEntityName(), $alias, null);
+		
+			$i = 1;
+			foreach($where as $k => $v){
+				$qb2->andWhere($qb2->expr()->eq($k, '?'.$i))
+					->setParameter($i, $v);
+				$i++;
+			}
+			
+			$qb2->addOrderBy($sort, $order);
+		
+			$qb2->setFirstResult(($page-1) * $limit)
+				->setMaxResults($limit);
 
-		$items = $this->getDoctrine()->getManager()
-			->getRepository($cm->getRepositoryName())
-			->findItems($limit, $page, $where, array($sort => $order));
-
-		$adminModuleUtils = new AdminModuleUtils();
+			$items = new \Doctrine\ORM\Tools\Pagination\Paginator($qb2);
+		}
+		
 		$columns = $cm->getColumns();
 
 		$this->assign("columns", $columns);

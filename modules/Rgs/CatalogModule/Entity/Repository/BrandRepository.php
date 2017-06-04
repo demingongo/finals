@@ -102,16 +102,6 @@ class BrandRepository extends EntityRepository
 		return $qb->getQuery()->getSingleScalarResult();
 	}
 
-	public function findItems($limit = 20, $page = 1, $where = array(), $orderBy = array())
-	{
-		return $this->findBrands($limit, $page, $where, $orderBy);
-	}
-
-	public function countItems($where = array())
-	{
-		return $this->countBrands($where);
-	}
-
 	public function getFrontQB(){
 				$b = 'brand';
 

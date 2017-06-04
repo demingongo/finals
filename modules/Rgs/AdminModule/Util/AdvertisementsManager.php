@@ -32,8 +32,12 @@ class AdvertisementsManager extends ContentManager {
         return 'a.published';
     }
 
-    public function getRepositoryName(){
+    public function getEntityName(){
         return 'RgsCatalogModule:Advertisement';
+    }
+
+    public function getAlias(){
+        return 'a';
     }
 
     public function getAddRouteId(){
