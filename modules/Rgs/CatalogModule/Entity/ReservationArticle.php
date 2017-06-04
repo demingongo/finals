@@ -28,16 +28,16 @@ class ReservationArticle extends Entity
 	/**
      * @var integer
      *
-     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     * @ORM\Column(name="quantity", type="integer", nullable=false)
      */
-    private $quantite;
+    private $quantity;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prix_unitaire", type="decimal", precision=6, scale=2, nullable=true)
+     * @ORM\Column(name="unit_price", type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $prixUnitaire;
+    private $unitPrice;
 
 	/**
      * @var Reservation
@@ -79,38 +79,38 @@ class ReservationArticle extends Entity
     }
 
 
-    public function setQuantite($quantite)
+    public function setQuantity($quantity)
     {
-        $this->quantite = $quantite;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
     /**
-     * Get quantite
+     * Get quantity
      *
      * @return int 
      */
-    public function getQuantite()
+    public function getQuantity()
     {
-        return $this->quantite;
+        return $this->quantity;
     }
 
-	public function setPrixUnitaire($prixUnitaire)
+	public function setUnitPrice($unitPrice)
     {
-        $this->prixUnitaire = $prixUnitaire;
+        $this->unitPrice = $unitPrice;
 
         return $this;
     }
 
     /**
-     * Get prixUnitaire
+     * Get unitPrice
      *
      * @return int 
      */
-    public function getPrixUnitaire()
+    public function getUnitPrice()
     {
-        return $this->prixUnitaire;
+        return $this->unitPrice;
     }
 
 

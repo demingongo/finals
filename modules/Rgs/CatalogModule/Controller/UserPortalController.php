@@ -123,7 +123,7 @@ class UserPortalController extends \Novice\BackController
 		$ras = $this->caddie->findAll();
 		
 		foreach($ras as $ra){
-			$ra['article']['stock'] -= $ra['quantite'];
+			$ra['article']['stock'] -= $ra['quantity'];
 			$r->addReservationArticle($ra);
 		}
 		

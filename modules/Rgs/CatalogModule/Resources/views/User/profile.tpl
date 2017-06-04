@@ -5,7 +5,7 @@
 
 <p>{"user.email"|trans:[]:UserModule}: {$app.user.data.email}</p>
 
-<p>{"user.address"|trans:[]:UserModule}: {$app.user.data.adresse}</p>
+<p>{"user.address"|trans:[]:UserModule}: {$app.user.data.address}</p>
 
 <p>{"user.code"|trans:[]:UserModule}: {$app.user.data.code_postal}</p>
 

@@ -20,7 +20,7 @@ class ArticleForm
 
     private $stock;
 
-    private $prix;
+    private $price;
 
     private $image;
 
@@ -40,7 +40,7 @@ class ArticleForm
     public function __construct($name = null)
     {
 		$this->setStock(1);
-		$this->setPrix(0);
+		$this->setPrice(0);
 
 		if(!empty($name)){
 			$this->setName($name);
@@ -225,26 +225,26 @@ class ArticleForm
     }
 
 	/**
-     * Set prix
+     * Set price
      *
-     * @param string $prix
+     * @param string $price
      * @return Article
      */
-    public function setPrix($prix)
+    public function setPrice($price)
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get prix
+     * Get price
      *
      * @return string 
      */
-    public function getPrix()
+    public function getPrice()
     {
-        return $this->prix;
+        return $this->price;
     }
 
     /**

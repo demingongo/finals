@@ -1,7 +1,7 @@
 <?php
 
 
-function smarty_function_select_quantite($params, &$smarty)
+function smarty_function_select_quantity($params, &$smarty)
 {	
 	
 	$min = isset($params["min"]) ? (int)$params["min"] : 1;

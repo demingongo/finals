@@ -33,7 +33,7 @@ Panier -
     
     <div id="caddie" class="col-md-9 col-sm-12 col-xs-12">
         {foreach $rgs.caddie->findAll() as $r}
-        {$total = $total + ($r.article.prix * $r.quantite)}
+        {$total = $total + ($r.article.price * $r.quantity)}
         <article class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <form id="articleCaddieForm" name="articleCaddieForm" method="POST" data-novice="form-control">
         <input type="hidden" name="id" value="{$r.article.id}" />
@@ -58,19 +58,19 @@ Panier -
 			    </div>
             </div>
             <div class="panel-footer">
-        		<div>Quantite: {select_quantite min=1 max=$r.article.stock value=$r.quantite name="quantite" onchange="this.blur();
+        		<div>Quantite: {select_quantity min=1 max=$r.article.stock value=$r.quantity name="quantity" onchange="this.blur();
                 this.form.submit();"}
                 {************
                 <input 
                 type="number" 
-                name="quantite"
+                name="quantity"
                 min="1" max="{$r.article.stock}" 
-                value="{$r.quantite}" 
+                value="{$r.quantity}" 
                 style="text-align:right;"
                 onchange="this.form.submit()" />
                 *******}
                 </div>
-                <div>Prix Unitaire: {$r.prix_unitaire}</div>
+                <div>Prix Unitaire: {$r.unitPrice}</div>
             </div>
         </div>
         </form>

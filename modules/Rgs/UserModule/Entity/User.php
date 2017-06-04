@@ -64,9 +64,9 @@ class User extends Entity implements Model\LockedInterface
 	/**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=64, nullable=true)
+     * @ORM\Column(name="address", type="string", length=64, nullable=true)
      */
-    private $adresse;
+    private $address;
 
 	/**
      * @var string
@@ -349,17 +349,17 @@ class User extends Entity implements Model\LockedInterface
     }
 
 	
-    public function setAdresse($adresse)
+    public function setAddress($address)
     {
-        $this->adresse = $adresse;
+        $this->address = $address;
 
         return $this;
     }
 
     
-    public function getAdresse()
+    public function getAddress()
     {
-        return $this->adresse;
+        return $this->address;
     }
 
 	public function setCodePostal($codePostal)

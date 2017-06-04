@@ -100,14 +100,14 @@ class Caddie
 			$id = $article->getId();
 			
 			if(isset($this->reservationArticles[$id])){
-				$this->reservationArticles[$id]->setQuantite($qte);
+				$this->reservationArticles[$id]->setQuantity($qte);
 				$array[$id] = $qte;
 			}
 			else{		
 				$r = new ReservationArticle();
 				$r->setArticle($article);
-				$r->setQuantite($qte);
-				$r->setPrixUnitaire($article->getPrix());
+				$r->setQuantity($qte);
+				$r->setUnitPrice($article->getPrice());
 			
 				$this->reservationArticles[$id] = $r;
 				$array[$id] = $qte;
@@ -139,13 +139,13 @@ class Caddie
 			
 			
 			if(isset($this->reservationArticles[$id])){
-				$newQte = $this->reservationArticles[$id]->getQuantite()+1;
+				$newQte = $this->reservationArticles[$id]->getQuantity()+1;
 				
 				if($article->getStock() - $newQte < $this->minStock){
 					return false;
 				}
 				
-				$this->reservationArticles[$id]->setQuantite($newQte);
+				$this->reservationArticles[$id]->setQuantity($newQte);
 				$array[$id] = $newQte;
 				$this->qteTotal += $newQte;
 			}
@@ -155,8 +155,8 @@ class Caddie
 				}
 				$r = new ReservationArticle();
 				$r->setArticle($article);
-				$r->setQuantite(1);
-				$r->setPrixUnitaire($article->getPrix());
+				$r->setQuantity(1);
+				$r->setUnitPrice($article->getPrice());
 			
 				$this->reservationArticles[$id] = $r;
 				$array[$id] = 1;
@@ -206,7 +206,7 @@ class Caddie
 				if($this->reservationArticles[$id]->getArticle()->getStock() - $qte < $this->minStock){
 					return false;
 				}
-				$this->reservationArticles[$id]->setQuantite($qte);
+				$this->reservationArticles[$id]->setQuantity($qte);
 				$array[$id] = $qte;
 			}
 			else{
@@ -216,8 +216,8 @@ class Caddie
 				}		
 				$r = new ReservationArticle();
 				$r->setArticle($article);
-				$r->setQuantite($qte);
-				$r->setPrixUnitaire($article->getPrix());
+				$r->setQuantity($qte);
+				$r->setUnitPrice($article->getPrice());
 			
 				$this->reservationArticles[$id] = $r;
 				$array[$id] = $qte;
@@ -260,7 +260,7 @@ class Caddie
 			$array = $this->session->get($this->name);
 			
 			if(isset($this->reservationArticles[$id])){
-				$this->qteTotal -= $this->reservationArticles[$id]->getQuantite();
+				$this->qteTotal -= $this->reservationArticles[$id]->getQuantity();
 				unset($this->reservationArticles[$id]);
 			}
 			if(isset($array[$id])){		

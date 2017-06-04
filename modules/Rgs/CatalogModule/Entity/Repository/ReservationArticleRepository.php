@@ -20,7 +20,7 @@ class ReservationArticleRepository extends \Doctrine\ORM\EntityRepository
 			SET a.stock = a.stock + :quantity
 			WHERE a.id = :id')
 			->setParameter('id', $ra->getArticle()->getId())
-			->setParameter('quantity', $ra->getQuantite())
+			->setParameter('quantity', $ra->getQuantity())
 			->execute();
 		
 		//delete the reservation_article

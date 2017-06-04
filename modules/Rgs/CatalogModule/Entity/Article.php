@@ -54,9 +54,9 @@ class Article extends Model\AssetEntity
 	/**
      * @var decimal
      *
-     * @ORM\Column(name="prix", type="decimal", precision=6, scale=2, nullable=false, unique=false, options={"default":0})
+     * @ORM\Column(name="price", type="decimal", precision=6, scale=2, nullable=false, unique=false, options={"default":0})
      */
-    private $prix;
+    private $price;
 
 	/**
      * @var string
@@ -110,7 +110,7 @@ class Article extends Model\AssetEntity
     public function __construct($name = null)
     {
 		$this->setStock(1);
-		$this->setPrix(0);
+		$this->setPrice(0);
         $this->setPublished(self::PUBLISHED);
 
 		if(!empty($name)){
@@ -280,26 +280,26 @@ class Article extends Model\AssetEntity
     }
 
 	/**
-     * Set prix
+     * Set price
      *
-     * @param string $prix
+     * @param string $price
      * @return Article
      */
-    public function setPrix($prix)
+    public function setPrice($price)
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get prix
+     * Get price
      *
      * @return string 
      */
-    public function getPrix()
+    public function getPrice()
     {
-        return $this->prix;
+        return $this->price;
     }
 
     /**

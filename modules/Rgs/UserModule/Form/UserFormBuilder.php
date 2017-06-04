@@ -113,7 +113,7 @@ chiffres, lettres, tirets, underscores et apostrophes',
 		'type' => 'text',
 		'title' => 'Adresse : 
 chiffres, lettres, tirets, underscores, espaces et apostrophes',
-        'name' => 'adresse',
+        'name' => 'address',
 		'placeholder' => $trans('user.address'),
 		'pattern' => "^([ _A-z0-9'-]){0,64}$",
 		'control_label' => true,

@@ -56,8 +56,8 @@ class CaddieController extends \Novice\BackController
 					$this->caddie->removeAll();
 				}
 			}
-			else if($request->request->has('quantite')){
-				$this->caddie->setQuantity($request->request->get('id'), $request->request->get('quantite'));
+			else if($request->request->has('quantity')){
+				$this->caddie->setQuantity($request->request->get('id'), $request->request->get('quantity'));
 			}
 			
 			return $this->redirect($this->generateUrl("rgs_catalog_caddie"));

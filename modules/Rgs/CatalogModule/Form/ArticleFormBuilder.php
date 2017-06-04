@@ -90,7 +90,7 @@ class ArticleFormBuilder extends FormBuilder
 		'type' => 'number',
         'label' => 'Prix unitaire',
 		'title' => 'Prix de l\'article (en euro), utiliser le point ( . ) pour la virgule',
-        'name' => 'prix',
+        'name' => 'price',
 		'min' => 0,
         'max' => 9999.99,
 		'step' => 0.01,

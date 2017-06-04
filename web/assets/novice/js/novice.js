@@ -224,8 +224,19 @@ $(function () {
 	catch(err){
 		//console.log('chosen() doesnt exists');
 	}
-
 	
 	/*** END FORM-CONTROL ***/
+
+	/*** BEGIN IMAGE ***/
+
+	$("img[data-fallback-src]").bind('error', function() {
+		  var imgSrc = $(this).attr('src');
+		  var fallbackSrc = $(this).attr('data-fallback-src');
+          if (imgSrc != fallbackSrc && typeof fallbackSrc === 'string' && !fallbackSrc.isEmpty()) {
+			$(this).attr('src', fallbackSrc);
+          }
+    });
+
+	/*** END IMAGE **/
 
 });

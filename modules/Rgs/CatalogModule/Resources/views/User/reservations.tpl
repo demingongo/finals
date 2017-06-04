@@ -39,14 +39,14 @@
                             </div>
                         </td>
                         <td class="text-center" style="vertical-align:middle;">
-                        	{$rA.prix_unitaire} &euro;
+                        	{$rA.unitPrice} &euro;
                         </td>
                         <td class="text-center" style="vertical-align:middle;">
-                        	{$rA.quantite}
+                        	{$rA.quantity}
                         </td>
                         <td class="text-center" style="vertical-align:middle;">
-                        	<b>{$rA.prix_unitaire * $rA.quantite} &euro;</b>
-                            {$total= $total + ($rA.prix_unitaire * $rA.quantite)}
+                        	<b>{$rA.unitPrice * $rA.quantity} &euro;</b>
+                            {$total= $total + ($rA.unitPrice * $rA.quantity)}
                         </td>
                     </tr>
                     {/foreach}

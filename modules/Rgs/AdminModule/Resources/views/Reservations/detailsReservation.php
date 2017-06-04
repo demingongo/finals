@@ -30,8 +30,8 @@
   </thead>
   <tbody>
 		{foreach name=reservation from=$reservation.reservationArticles item=ra}
-        {$total = $total + ($ra.prixUnitaire * $ra.quantite)}
-        {$qtt = $qtt + $ra.quantite}
+        {$total = $total + ($ra.unitPrice * $ra.quantity)}
+        {$qtt = $qtt + $ra.quantity}
         	<tr>
             <td>
             	<a href="{path id='rgs_admin_articles_edit' params=['id' => $ra.article.id, 'slug' => $ra.article.slug] absolute=true}">
@@ -39,13 +39,13 @@
                 </a>
             </td>
             <td>
-            	<span class="pull-right">{$ra.prixUnitaire}</span>
+            	<span class="pull-right">{$ra.unitPrice}</span>
             </td>
             <td>
-            	<span class="pull-right">{$ra.quantite}</span>
+            	<span class="pull-right">{$ra.quantity}</span>
             </td>
             <td>
-            	<span class="pull-right">{($ra.prixUnitaire * $ra.quantite)}&nbsp;&euro;</span>
+            	<span class="pull-right">{($ra.unitPrice * $ra.quantity)}&nbsp;&euro;</span>
             </td>
             </tr>
         {/foreach}
