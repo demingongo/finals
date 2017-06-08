@@ -251,6 +251,8 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
+		$session = $this->get('session');
+
 		$form->handleRequest($request);
 		try{
 			if ($form->isValid())
@@ -269,7 +271,12 @@ class AdminController extends \Novice\BackController
 				'" class="alert-link">fill in the form</a> and try submitting again.');
 					break;
 				default:
-					throw $e;
+					if($e instanceof \Doctrine\DBAL\Exception\UniqueConstraintViolationException){
+						$form->getField('name')->setWarningMessage(': "'.$category->getName().'" already exists');
+						$session->getFlashBag()->set('error', 'Error');
+					}
+					else
+						throw $e;
 			}
 		}
 

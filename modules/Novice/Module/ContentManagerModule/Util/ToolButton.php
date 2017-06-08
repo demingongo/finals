@@ -10,6 +10,13 @@ class ToolButton extends Field
     protected $item_action;
     protected $icon;
 
+    protected $contentManager;
+
+    public function __construct(ContentManagerInterface $cm, array $options = array()){
+        parent::__construct($options);
+        $this->contentManager = $cm;
+    }
+
     protected function setType($type)
     {
         $this->type = (string) $type;
@@ -23,6 +30,10 @@ class ToolButton extends Field
     protected function setItem_action($item_action)
     {
         $this->item_action = (bool) $item_action;
+    }
+
+    public function itemAction(){
+        return $this->item_action;
     }
 
     public function buildWidget()
@@ -53,5 +64,8 @@ class ToolButton extends Field
         $widget .= ($this->label ? $this->label : '').'</button>';
 
         return $widget;
+    }
+
+    public function onSubmit(){
     }
 }

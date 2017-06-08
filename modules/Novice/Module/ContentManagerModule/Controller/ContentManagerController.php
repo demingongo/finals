@@ -3,7 +3,9 @@ namespace Novice\Module\ContentManagerModule\Controller;
 
 use Novice\BackController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Utils\ToolFieldsUtils;
 
 class ContentManagerController extends BackController
 {
@@ -155,8 +157,26 @@ class ContentManagerController extends BackController
 			$repositoryName = $cm->getEntityName();
 			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
 				$submit = end($submit);
+
+				$response;
+				$btns = $cm->getToolsButtons();
+				foreach($btns as $btn){
+					$submitVal = $btn->value();
+					if($submit == $submitVal){
+						$ids = null;
+						if($request->request->has('cid')){
+							$ids = $request->request->get('cid');
+						}
+						//if it's not an item action and with no item selected
+						if(!($btn->itemAction() && empty($ids))){
+							$response = $btn->onSubmit($ids);
+						}
+						break;
+					}
+				}
+				return $response;
 				
-				if($submit == "add.new"){
+				/*if($submit == "add.new"){
 					return $this->redirect($this->generateUrl($addRouteId));
 				}
 
@@ -188,7 +208,7 @@ class ContentManagerController extends BackController
 					else if($submit == "edit"){
 						return $this->redirect($this->generateUrl($editRouteId, array('id'=>$ids[0])));
 					}
-				}
+				}*/
 			}
 		}
 	}

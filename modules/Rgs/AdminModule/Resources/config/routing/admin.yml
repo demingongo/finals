@@ -45,7 +45,7 @@ rgs_admin_gestion_media:
 
 # content forms
 rgs_admin_advertisements_add:
-    path:     /advertisements/edit
+    path:     /advertisements/add
     defaults:
         _controller: 'RgsAdminModule:AdminController:editAdvertisement'
 
@@ -64,7 +64,7 @@ rgs_admin_advertisements_edit_2:
         id: \d+
 
 rgs_admin_articles_add:
-    path:     /articles/edit
+    path:     /articles/add
     defaults:
         _controller: 'RgsAdminModule:AdminController:editArticle'
 
@@ -83,7 +83,7 @@ rgs_admin_articles_edit_2:
         id: \d+
 
 rgs_admin_categories_add:
-    path:     /categories/edit
+    path:     /categories/add
     defaults:
         _controller: 'RgsAdminModule:AdminController:editCategory'
 
@@ -102,7 +102,7 @@ rgs_admin_categories_edit_2:
         id: \d+
 
 rgs_admin_states_add:
-    path:     /states/edit
+    path:     /states/add
     defaults:
         _controller: 'RgsAdminModule:AdminController:editState'
 
@@ -121,7 +121,7 @@ rgs_admin_states_edit_2:
         id: \d+
 
 rgs_admin_brands_add:
-    path:     /brands/edit
+    path:     /brands/add
     defaults:
         _controller: 'RgsAdminModule:AdminController:editBrand'
 
@@ -154,7 +154,7 @@ rgs_admin_gestion_groups:
 
 # users forms
 rgs_admin_users_add:
-    path:     /users/edit
+    path:     /users/add
     defaults:
         _controller: 'RgsAdminModule:UserManagerController:editUser'
         _permissions: ROLE_SUPER_ADMIN

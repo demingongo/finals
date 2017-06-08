@@ -18,6 +18,7 @@ class App extends Application
 			new Novice\FrameworkModule(),
 			new Novice\Module\SwiftmailerModule\SwiftmailerModule(),
 			new Novice\Module\SmartyBootstrapModule\SmartyBootstrapModule(),
+			new Novice\Module\ContentManagerModule\ContentManagerModule(),
 			
 			new Rgs\UserModule\UserModule(),
 			new Rgs\CatalogModule\RgsCatalogModule(),

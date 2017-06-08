@@ -68,7 +68,7 @@ Multi line comment block with credits block
 <div class="panel-body" style="height: 240px;">
 	<div class="row text-center">
     	<h4>
-			<a href="#">{$a.name}</a>
+			<a href="{path id=rgs_catalog_article_details params=['id' => $a.id, 'slug' => $a.slug]}">{$a.name}</a>
 		</h4>
     </div>
     <div class="row text-center">
@@ -135,7 +135,7 @@ Multi line comment block with credits block
 </div>
 <div class="col-xs-12">
 	<div class="pull-right">
-		{pagination paginator=$paginator max="4" queryStrict=['category', 'state'] noQuery=false}
+		{pagination paginator=$paginator max="4" queryStrict=['category', 'state']}
     </div>
     
 </div>

@@ -7,16 +7,23 @@ use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 
 use Rgs\AdminModule\Util\ContentManager\Tools as CMTools;
 use Utils\ToolFieldsUtils;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-abstract class ContentManager 
+use Novice\Module\ContentManagerModule\Util\ContentManagerInterface;
+
+abstract class ContentManager implements ContentManagerInterface
 {
 
     protected $container;
     protected $fieldCreator;
 
-    public function __construct($container){
+    public function __construct(ContainerInterface $container){
         $this->container = $container;
         $this->fieldCreator = new ToolFieldsUtils();
+    }
+
+    public function getContainer(){
+        return $this->container;
     }
 
     public function getName(){
@@ -57,11 +64,11 @@ abstract class ContentManager
 
     public function getToolsButtons(){
         return [
-            new CMTools\AddButton(),
-            new CMTools\EditButton(),
-            new CMTools\PublishButton(),
-            new CMTools\UnpublishButton(),
-            new CMTools\DeleteButton()
+            new CMTools\AddButton($this),
+            new CMTools\EditButton($this),
+            new CMTools\PublishButton($this),
+            new CMTools\UnpublishButton($this),
+            new CMTools\DeleteButton($this)
         ];
     }
 

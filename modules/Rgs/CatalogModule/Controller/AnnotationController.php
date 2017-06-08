@@ -206,7 +206,28 @@ class AnnotationController extends \Novice\BackController
 	}
 
 	/**
-	 * @NOVICE\Assign("categoryWidget", route_names={"rgs_catalog_articles_all"})
+     * @Route("/articles/{id}/{slug}", 
+	 *			name="rgs_catalog_article_details",
+	 * 			requirements={"id": "\d+"})
+	 *
+	 * @NOVICE\Template
+     */
+	public function executeArticleDetails($id, $slug, $request)
+	{	
+		$em = $this->getDoctrine()->getManager();
+		$article = $em->getRepository('RgsCatalogModule:Article')->findOneById($id);
+
+		if(empty($article)){
+			return $this->redirectError();
+		}
+		
+		$this->assign("article", $article);
+
+		$this->assign("nofilterHref", $this->generateUrl("rgs_catalog_articles_all"));
+	}
+
+	/**
+	 * @NOVICE\Assign("categoryWidget", route_names={"rgs_catalog_articles_all","rgs_catalog_article_details"})
 	 */
 	public function getCategoryWidget(Request $request)
 	{
@@ -245,7 +266,7 @@ class AnnotationController extends \Novice\BackController
 
 
 	/**
-	 * @NOVICE\Assign("stateWidget", route_names={"rgs_catalog_articles_all"})
+	 * @NOVICE\Assign("stateWidget", route_names={"rgs_catalog_articles_all","rgs_catalog_article_details"})
 	 */
 	public function getStateWidget(Request $request)
 	{

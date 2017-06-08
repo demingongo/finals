@@ -7,12 +7,8 @@ use Novice\Module\ContentManagerModule\Util\ToolButton;
 
 class DeleteButton extends ToolButton
 {
-    protected $type;
-    protected $itemAction;
-    protected $icon;
-
-    public function __construct(){
-        parent::__construct([
+    public function __construct($cm){
+        parent::__construct($cm, [
             'type' => 'danger',
             'item_action' => true,
             'value' => 'delete',
@@ -24,5 +20,24 @@ class DeleteButton extends ToolButton
 Warning: This action cannot be undone."
             ]
         ]);
+    }
+
+    public function onSubmit($ids = null){
+        $cm = $this->contentManager;
+        $entityName = $cm->getEntityName();
+        $em = $cm->getContainer()->get('managers')->getManager();
+        try{
+				if($cm->getName() == 'category'){
+					$result = $em->getRepository($entityName)
+					->deleteByIds($cm->getContainer()->get('nested_set'), $ids);
+				}
+				else{
+					$result = $em->getRepository($entityName)
+					->deleteByIds($ids);
+				}
+		}
+		catch(\Exception $e){
+		        $this->get('session')->getFlashBag()->set('error', $e->getMessage());
+		}
     }
 }

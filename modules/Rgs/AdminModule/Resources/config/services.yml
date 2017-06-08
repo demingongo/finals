@@ -1,5 +1,5 @@
 parameters:
-    content_manager.default.controller: RgsAdminModule:AdminController:contentManager
+    content_manager.default.controller: ContentManagerModule:ContentManagerController:index
     content_manager.default.template: file:[RgsAdminModule]Content/contentManager.php
     content_manager.middleware.class: Rgs\AdminModule\Middleware\ContentManagerMiddleware
 
