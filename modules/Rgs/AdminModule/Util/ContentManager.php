@@ -9,7 +9,8 @@ use Rgs\AdminModule\Util\ContentManager\Tools as CMTools;
 use Utils\ToolFieldsUtils;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Novice\Module\ContentManagerModule\Util\ContentManagerInterface;
+use Novice\Module\ContentManagerModule\Util\ContentManagerInterface,
+    Novice\Module\ContentManagerModule\Util\ToolButtonsGroup;
 
 abstract class ContentManager implements ContentManagerInterface
 {
@@ -62,14 +63,14 @@ abstract class ContentManager implements ContentManagerInterface
         return array();
     }
 
-    public function getToolsButtons(){
-        return [
+    public function getToolButtonsGroup(){
+        return new ToolButtonsGroup([
             new CMTools\AddButton($this),
             new CMTools\EditButton($this),
             new CMTools\PublishButton($this),
             new CMTools\UnpublishButton($this),
             new CMTools\DeleteButton($this)
-        ];
+        ]);
     }
 
     abstract public function getDefaultOrder();

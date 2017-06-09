@@ -18,5 +18,5 @@ interface ContentManagerInterface
 
     public function getColumns();
 
-    public function getToolsButtons();
+    public function getToolButtonsGroup();
 }

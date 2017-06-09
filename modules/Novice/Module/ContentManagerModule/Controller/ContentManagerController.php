@@ -41,7 +41,7 @@ class ContentManagerController extends BackController
 
 		$customFields = $cm->getCustomFields();
 
-		$toolButtons = $cm->getToolsButtons();
+		$toolButtons = $cm->getToolButtonsGroup()->getToolButtons();
 		$toolButtons = isset($toolButtons) && is_array($toolButtons) ? $toolButtons : array();
 
 		$orderingField = $fieldsUtils->createOrderField($cm->getOrderOptions());
@@ -159,7 +159,7 @@ class ContentManagerController extends BackController
 				$submit = end($submit);
 
 				$response;
-				$btns = $cm->getToolsButtons();
+				$btns = $cm->getToolButtonsGroup()->getToolButtons();
 				foreach($btns as $btn){
 					$submitVal = $btn->value();
 					if($submit == $submitVal){
