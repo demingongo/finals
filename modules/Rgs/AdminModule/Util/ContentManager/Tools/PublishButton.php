@@ -10,12 +10,12 @@ use Rgs\CatalogModule\Entity\Model\PublishedInterface;
 class PublishButton extends ToolButton
 {
     public function __construct($cm){
-        parent::__construct($cm, [
+        parent::__construct([
             'item_action' => true,
             'value' => 'publish',
             'label' => 'Publish',
             'icon' => 'fa fa-check-circle text-success'
-        ]);
+        ], $cm);
     }
 
     public function onSubmit($ids = null){

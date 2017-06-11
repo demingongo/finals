@@ -152,9 +152,9 @@ class ContentManagerController extends BackController
 		if($request->isMethod('POST'))
 		{
 
-			$addRouteId = $cm->getAddRouteId();
+			/*$addRouteId = $cm->getAddRouteId();
 			$editRouteId = $cm->getEditRouteId();
-			$repositoryName = $cm->getEntityName();
+			$repositoryName = $cm->getEntityName();*/
 			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
 				$submit = end($submit);
 

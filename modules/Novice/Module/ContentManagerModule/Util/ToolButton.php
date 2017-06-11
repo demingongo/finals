@@ -12,8 +12,14 @@ class ToolButton extends Field
 
     protected $contentManager;
 
-    public function __construct(ContentManagerInterface $cm, array $options = array()){
+    public function __construct(array $options = array(), $cm = null){
         parent::__construct($options);
+        if(!empty($cm)){
+            $this->setContentManager($cm);
+        }
+    }
+
+    public function setContentManager(ContentManagerInterface $cm){
         $this->contentManager = $cm;
     }
 

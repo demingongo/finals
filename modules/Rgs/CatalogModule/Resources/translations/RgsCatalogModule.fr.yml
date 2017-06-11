@@ -27,6 +27,7 @@ layout:
 # Form field labels
 form:
     title: "Titre"
+    teaser: "Texte teaser"
     description: "Description"
     image: "Image"
     created_at: "Date de creation"

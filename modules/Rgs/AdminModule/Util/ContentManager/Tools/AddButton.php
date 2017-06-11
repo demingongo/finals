@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class AddButton extends ToolButton
 {
     public function __construct($cm){
-        parent::__construct($cm, [
+        parent::__construct([
             'type' => 'success',
             'value' => 'add.new',
             'label' => 'Add',
             'icon' => 'fa fa-plus-circle'
-        ]);
+        ], $cm);
     }
 
     public function onSubmit(){

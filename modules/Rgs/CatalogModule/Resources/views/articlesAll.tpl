@@ -94,13 +94,13 @@ Multi line comment block with credits block
         <table class="table table-bordered table-condensed"> <!-- table-condensed-->
                 		<tbody>
                     		<tr>
-                        		<th>Category</th><td title="{$a.category.name}">{$a.category.name|truncate:15:'...':true}</td>
+                        		<th>{'Category'|trans}</th><td title="{$a.category.name}">{$a.category.name|truncate:15:'...':true}</td>
 	                        </tr>
                             <tr>
-        	                	<th>State</th><td>{$a.state.name}</td>
+        	                	<th>{'State'|trans}</th><td>{$a.state.name}</td>
             	            </tr>
     	                    <tr>
-        	                	<th>Prix</th>
+        	                	<th>{'Price'|trans}</th>
                                 <td>
                                 	{if !empty($a.price) && $a.price gt 0}
                                     	&euro;&nbsp;{$a.price}
@@ -110,7 +110,7 @@ Multi line comment block with credits block
                                 </td>
             	            </tr>
                 	        <tr>
-                    	    	<th>Stock</th>
+                    	    	<th>{'Stock'|trans}</th>
                                 <td>
                                 	{if !empty($a.stock) && $a.stock gt 0}
                                 		<small class="text-success">Disponible</small>
@@ -124,9 +124,13 @@ Multi line comment block with credits block
         <form method="post" action="{path id='rgs_catalog_caddie_add'}">
         	<input type="hidden" name="id" value="{$a.id}" />
             {auth permissions=ROLE_ADMIN}
-        	<a class="btn btn-xs btn-warning" href="#"> edit </a>
+        	<a class="btn btn-xs btn-warning" 
+				href="{path id=rgs_admin_articles_edit params=['id' => $a.id, 'slug' => $a.slug]}" 
+				target="_blank">
+			 edit 
+			 </a>
     		{/auth}
-            <button type="submit" class="btn btn-xs btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</button>
+            <button type="submit" class="btn btn-xs btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> {'Caddie'|trans}</button>
         </form>
         </div>
 	</div>

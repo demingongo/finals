@@ -4,3 +4,19 @@ nav:
     about: About
     contact: Contact
     content: Content
+
+"Teaser text": "Teaser text"
+
+# GLOBAL
+"Category": "Category"
+"State": "State"
+"Price": "Price"
+"Stock": "Stock"
+"Caddie": "Caddie"
+
+"Configure the choice": "Configure the choice"
+"All Categories": "All Categories"
+"All States": "All States"
+
+"Quantity": "Quantity"
+"Unit price": "Unit price"

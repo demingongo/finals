@@ -48,6 +48,9 @@ class ArticleFormBuilder extends FormBuilder
 	$trans = function($string, array $array = array(), $lang = null) use ($translator, $domain){
 		return $translator->trans($string, $array, $domain, $lang);
 	};
+	$transGobal = function($string, array $array = array(), $lang = null) use ($translator){
+		return $translator->trans($string, $array, null, $lang);
+	};
     $this->form->add(new InputField(array(
         'label' => $trans('form.title'),
 		'type' => 'text',
@@ -66,6 +69,12 @@ class ArticleFormBuilder extends FormBuilder
 		'validators' => array(
     new MaxLengthValidator('Le nom spécifié est trop long (64 caractères maximum)', 64),
     new NotNullValidator('Spécifiez le titre'),)
+		)))
+		->add(new TextareaField(array(
+        'label' => $trans('form.teaser'),
+		'title' => $transGobal('Teaser text'),
+        'name' => 'teaser',
+		'control_label' => true,
 		)))
 		->add(new TextareaField(array(
         'label' => $trans('form.description'),

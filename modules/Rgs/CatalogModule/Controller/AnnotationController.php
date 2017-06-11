@@ -39,6 +39,10 @@ class AnnotationController extends \Novice\BackController
 		return $this->request_stack->getCurrentRequest()->getBaseUrl();
 	}
 
+	private function trans($string, array $array = array(), $domain = null, $lang = null){
+		return $this->get('translator')->trans($string, $array, $domain, $lang);
+	}
+
 
 	private function createToken(){
 		$tokenId    = base64_encode(mcrypt_create_iv(32));
@@ -215,10 +219,10 @@ class AnnotationController extends \Novice\BackController
 	public function executeArticleDetails($id, $slug, $request)
 	{	
 		$em = $this->getDoctrine()->getManager();
-		$article = $em->getRepository('RgsCatalogModule:Article')->findOneById($id);
+		$article = $em->getRepository('RgsCatalogModule:Article')->findOneBy(['id' => $id, 'published' => true]);
 
 		if(empty($article)){
-			return $this->redirectError();
+			return $this->redirect($this->generateUrl("rgs_catalog_articles_all"));
 		}
 		
 		$this->assign("article", $article);
@@ -238,7 +242,7 @@ class AnnotationController extends \Novice\BackController
 		}
 
 		$entityExtCat = new EntityExtension($this->getDoctrine(), array(
-		'label' => 'Category',
+		'label' => $this->trans('Category'),
 		'class' => 'RgsCatalogModule:Category',
 		'choice_label' => function($cat){return $cat->getName();},
 		'query_builder' => function ($repository) {
@@ -252,7 +256,7 @@ class AnnotationController extends \Novice\BackController
 		'attributes' => array(
 			//'class' => 'selectmenu selectmenu-submit',
 			'style' => 'width: 90%',
-			'data-placeholder' => 'All Categories',
+			'data-placeholder' => $this->trans('All Categories'),
 			//'data-theme' => 'classic',
 			'data-allow-clear' => 'true',
 			//'data-minimum-results-for-search' => 15,
@@ -277,7 +281,7 @@ class AnnotationController extends \Novice\BackController
 		}
 
 		$entityExtState = new EntityExtension($this->getDoctrine(), array(
-		'label' => 'State',
+		'label' => $this->trans('State'),
 		'class' => 'RgsCatalogModule:State',
 		'choice_label' => function($cat){return $cat->getName();},
 		'query_builder' => function ($er) {
@@ -291,7 +295,7 @@ class AnnotationController extends \Novice\BackController
 		'attributes' => array(
 			//'class' => 'selectmenu selectmenu-submit',
 			'style' => 'width: 90%',
-			'data-placeholder' => 'All States',
+			'data-placeholder' => $this->trans('All States'),
 			//'data-theme' => 'classic',
 			'data-allow-clear' => 'true',
 			'data-minimum-results-for-search' => 3,

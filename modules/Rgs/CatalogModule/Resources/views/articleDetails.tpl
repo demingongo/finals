@@ -20,7 +20,7 @@ Multi line comment block with credits block
 
 <article class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="panel panel-default" style="min-height: 460px;" > <!-- style="height: 470px;" -->
-<div class="panel-body" style="height: 240px;">
+<div class="panel-body">
 	<div class="row text-center">
     	<h1>
 			<a href="#">{$article.name}</a>
@@ -33,8 +33,15 @@ Multi line comment block with credits block
         <form method="post" action="{path id='rgs_catalog_caddie_add'}">
         	<input type="hidden" name="id" value="{$article.id}" />
             {auth permissions=ROLE_ADMIN}
-        	<a class="btn btn-xs btn-warning" href="#"> edit </a>
+        	<a class="btn btn-xs btn-warning" 
+				href="{path id=rgs_admin_articles_edit params=['id' => $article.id, 'slug' => $article.slug]}" 
+				target="_blank">
+			 edit 
+			 </a>
     		{/auth}
+			<div class="description-article">
+			{$article.description}
+			</div>
             <button type="submit" class="btn btn-xs btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</button>
         </form>
 </div>

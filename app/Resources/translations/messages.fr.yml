@@ -4,3 +4,19 @@ nav:
     about: A Propos
     contact: Contact
     content: Contenu
+
+"Teaser text": "Texte accrocheur"
+
+# GLOBAL
+"Category": "Catégorie"
+"State": "Etat"
+"Price": "Prix"
+"Stock": "Stock"
+"Caddie": "Panier"
+
+"Configure the choice": "Configurer le choix"
+"All Categories": "Toutes les catégories"
+"All States": "Tous les états"
+
+"Quantity": "Quantité"
+"Unit price": "Prix unitaire"

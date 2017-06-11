@@ -14,7 +14,6 @@ use Novice\Module\ContentManagerModule\Util\ContentManagerInterface,
 
 abstract class ContentManager implements ContentManagerInterface
 {
-
     protected $container;
     protected $fieldCreator;
 

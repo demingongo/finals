@@ -11,7 +11,7 @@ Multi line comment block with credits block
 **********************************************************}
 
 {block name="title"}
-Panier - 
+Caddie - 
 {/block}
 
 
@@ -21,7 +21,7 @@ Panier -
 
 {block  name=section}
 {$total = 0}
-<h1>Panier</h1>
+<h1>{'Caddie'|trans}</h1>
 <hr />
     	{if $rgs.caddie->count() == 0}
         <h3>
@@ -40,8 +40,18 @@ Panier -
         <div class="panel panel-default" style="min-height: 250px;" > <!-- style="height: 470px;" -->        	
         	<div class="panel-heading text-center">
             
-            	<a href="#" title="{$r.article.name|escape}" class="hidden-lg hidden-sm hidden-xs">{$r.article.name|truncate:23:'...':true}</a>
-				<a href="#" title="{$r.article.name|escape}" class="hidden-md">{$r.article.name|truncate:29:'...':true}</a>
+            	<a 
+                    href="{path id=rgs_catalog_article_details params=['id' => $r.article.id, 'slug' => $r.article.slug]}" 
+                    title="{$r.article.name|escape}" 
+                    class="hidden-lg hidden-sm hidden-xs">
+                    {$r.article.name|truncate:23:'...':true}
+                </a>
+				<a 
+                    href="{path id=rgs_catalog_article_details params=['id' => $r.article.id, 'slug' => $r.article.slug]}" 
+                    title="{$r.article.name|escape}" 
+                    class="hidden-md">
+                    {$r.article.name|truncate:29:'...':true}
+                </a>
                 
 		        <button type="submit" name="caddie[]" class="btn btn-xs btn-warning pull-right" value="remove"
                  title="Retirer du caddie">
@@ -58,7 +68,7 @@ Panier -
 			    </div>
             </div>
             <div class="panel-footer">
-        		<div>Quantite: {select_quantity min=1 max=$r.article.stock value=$r.quantity name="quantity" onchange="this.blur();
+        		<div>{'Quantity'|trans}: {select_quantity min=1 max=$r.article.stock value=$r.quantity name="quantity" onchange="this.blur();
                 this.form.submit();"}
                 {************
                 <input 
@@ -70,7 +80,7 @@ Panier -
                 onchange="this.form.submit()" />
                 *******}
                 </div>
-                <div>Prix Unitaire: {$r.unitPrice}</div>
+                <div>{'Unit price'|trans}: {$r.unitPrice} &euro;</div>
             </div>
         </div>
         </form>

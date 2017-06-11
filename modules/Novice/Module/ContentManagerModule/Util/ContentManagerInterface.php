@@ -12,6 +12,14 @@ interface ContentManagerInterface
 
     public function getTitle();
 
+    public function getDefaultOrder();
+
+    public function getOrderOptions();
+
+    public function getEntityName();
+    
+    public function getAlias();
+
     public function getCustomFields();
 
     public function processCustomFields($request, array $where, $customFields);

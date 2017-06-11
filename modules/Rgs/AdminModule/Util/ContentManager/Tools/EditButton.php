@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class EditButton extends ToolButton
 {
     public function __construct($cm){
-        parent::__construct($cm, [
+        parent::__construct([
             'type' => 'primary',
             'item_action' => true,
             'value' => 'edit',
             'label' => 'Edit',
             'icon' => 'fa fa-edit'
-        ]);
+        ], $cm);
     }
 
     public function onSubmit($ids = null){
