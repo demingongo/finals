@@ -18,6 +18,11 @@ Multi line comment block with credits block
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+{**********
+{annotated_form class="col-xs-12 col-sm-12 col-md-12 col-lg-12" form=$article}
+{/annotated_form}
+*****}
+
 <article class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <div class="panel panel-default" style="min-height: 460px;" > <!-- style="height: 470px;" -->
 <div class="panel-body">

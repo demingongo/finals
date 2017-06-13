@@ -25,7 +25,7 @@ Caddie -
 <hr />
     	{if $rgs.caddie->count() == 0}
         <h3>
-        	Vous n'avez pas d'articles dans votre panier.
+        	{'No articles in the caddie'|trans}.
         </h3>
         {/if}
  
@@ -91,7 +91,7 @@ Caddie -
     <div id="receipt" class="col-md-3 col-sm-12 col-xs-12">
     	<div style="margin-bottom: 10px;">
     	<a class="btn btn-block btn-info" href="{path id='rgs_catalog_articles_all' absolute=true}">
-					<h4><span class="glyphicon glyphicon-chevron-left"></span> Poursuivre les achats</h4>
+					<h4><span class="glyphicon glyphicon-chevron-left"></span> {'Continue shopping'|trans}</h4>
 		</a>
         </div>
         {if $rgs.caddie->count() > 0}
@@ -99,15 +99,15 @@ Caddie -
     	<div >
         	<div class="panel panel-primary" >
             <div class="panel-heading">
-            	<h4>Total panier</h4>
+            	<h4>{'Caddie invoice'}</h4>
             </div>
             <div class="panel-body">
             	<div >
                 	<h4>
-                		Nombre d'articles: <span class="pull-right"><b>{$rgs.caddie->count()}</b></span>        	
+                		{'Number of articles'|trans}: <span class="pull-right"><b>{$rgs.caddie->count()}</b></span>        	
 		            </h4>
     	            <h4>
-        	        	Prix:   <span class="pull-right"><b>{$total} &euro;</b></span>          	
+        	        	{'Price'|trans}:   <span class="pull-right"><b>{$total} &euro;</b></span>          	
 	        	    </h4>
                 </div>
             </div>
@@ -116,11 +116,11 @@ Caddie -
 		        <button type="submit" name="caddie[]" class="btn btn-block btn-success" value="confirm" 
                 title="Valider le caddie pour réserver les articles"
                  {if $rgs.caddie->count() == 0}disabled{/if}>
-					<h4>Reserver</h4>
+					<h4>{'toCommand'|trans}</h4>
 		        </button>
 	    	    <button type="submit" name="caddie[]" class="btn btn-block btn-danger" value="removeAll" data-novice-toggle="confirm" 
-				data-novice-text="Voulez-vous vider le panier ?" {if $rgs.caddie->count() == 0}disabled{/if}>
-					<h5><span class="glyphicon glyphicon-trash"></span> Vider</h5>
+				data-novice-text="{'Would you like to empty the caddie'|trans} ?" {if $rgs.caddie->count() == 0}disabled{/if}>
+					<h5><span class="glyphicon glyphicon-trash"></span> {'toEmpty'|trans}</h5>
 		        </button>
             </div>
             </div>

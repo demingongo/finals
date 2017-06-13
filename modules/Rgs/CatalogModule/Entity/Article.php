@@ -6,11 +6,17 @@ use Novice\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+use Novice\Annotation as NOVICE;
+use Novice\Annotation\Form\Form as FORM;
+use Novice\Annotation\Form\Field as FIELD;
+use Novice\Annotation\Form\Validator as VALIDATOR;
+
 /**
  * Article
  *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\ArticleRepository")
+ * @FORM("article_form")
  */
 class Article extends Model\AssetEntity
 {
@@ -19,6 +25,13 @@ class Article extends Model\AssetEntity
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64,nullable=false, unique=false)
+     * @FIELD(fieldClass="Novice\Form\Field\InputField", 
+     *                      arguments={"maxlength": 64, "required": true, "control_label": true, "label": "Name", "pattern": "^[^ ].{1,}$",
+     *                                  "attributes": {"data-error": "something to write", "title": "Choisir un titre"} 
+     *                      }
+     *                    )
+     * @VALIDATOR\NotNull("Spécifiez le titre")
+     * @VALIDATOR\MaxLength(maxLength=64, errorMessage="Le nom spécifié est trop long (64 caractères maximum)")
      */
     protected $name;
 
@@ -34,6 +47,9 @@ class Article extends Model\AssetEntity
      * @var string
      *
      * @ORM\Column(name="teaser", type="text", nullable=true)
+     * @FIELD(fieldClass="Novice\Form\Field\TextareaField", 
+     *                      arguments={"title": "Teaser text", "control_label": true, "label": "teaser"}
+     *                    )
      */
     private $teaser;
 
@@ -41,6 +57,9 @@ class Article extends Model\AssetEntity
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @FIELD(fieldClass="Novice\Form\Field\TextareaField", 
+     *                      arguments={"control_label": true, "label": "Description"}
+     *                    )
      */
     private $description;
 
@@ -48,6 +67,12 @@ class Article extends Model\AssetEntity
      * @var integer
      *
      * @ORM\Column(name="stock", type="integer", length=64,nullable=false, unique=false, options={"default":1})
+     * @FIELD(fieldClass="Novice\Form\Field\InputField", 
+     *                      arguments={"type": "number", "label": "Stock", "min": 0, "max": 9999,
+     *                                  "title": "le nombre de pièces en stock (entre 0 et 9999)",
+     *                                  "pattern": "[0-9]{0,}", "placeholder": "0"
+     *                      }
+     *                    )
      */
     private $stock;
 
@@ -55,6 +80,12 @@ class Article extends Model\AssetEntity
      * @var decimal
      *
      * @ORM\Column(name="price", type="decimal", precision=6, scale=2, nullable=false, unique=false, options={"default":0})
+     * @FIELD(fieldClass="Novice\Form\Field\InputField", 
+     *                      arguments={"type": "number", "label": "Prix unitaire", "min": 0, "max": 9999.99, "step": 0.01,
+     *                                  "title": "Prix de l'article (en euro), utiliser le point ( . ) pour la virgule",
+     *                                  "pattern": "[,.0-9]{0,}", "placeholder": "0.00", "addon": "&euro;"
+     *                      }
+     *                    )
      */
     private $price;
 

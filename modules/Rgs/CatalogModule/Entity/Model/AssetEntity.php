@@ -6,6 +6,9 @@ use Novice\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+use Novice\Annotation\Form\Field as FIELD;
+use Novice\Annotation\Form\Validator as VALIDATOR;
+
 /**
 * Extends this absctract class to have common fields for asset type of entities :
 * - id
@@ -50,6 +53,13 @@ abstract class AssetEntity extends Entity implements PublishedInterface
      * @var boolean
      *
      * @ORM\Column(name="published", type="boolean", nullable=false, unique=false, options={"default":true})
+     * @FIELD(fieldClass="Novice\Form\Field\RadioField", 
+     *                      arguments={"label": "Status", "control_label": true, "inline": 1, "required": true, 
+     *                                  "buttons": {"Published": PublishedInterface::PUBLISHED , "Unpublished": PublishedInterface::NOT_PUBLISHED},
+     *                                  "attributes": {"class": "icheck iradio_line-red"}
+     *                      }
+     *                    )
+     * @VALIDATOR\NotNull("Choisir le statut")
      */
     protected $published;
 
