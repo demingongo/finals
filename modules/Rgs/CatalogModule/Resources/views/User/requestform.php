@@ -8,7 +8,7 @@
 
 {block  name=section}
 
-<h1>Send a request</h1>
+<h1>{'Send a request'|trans}</h1>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -19,20 +19,20 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 {form var="user_request" method="post" data-toggle="validator" novalidate="true" enctype="multipart/form-data" class="col-sm-6 col-sm-offset-3"}
     <div class="form-group">
     <label for="subject">{form_error path="subject" style="color: red;"}</label>
-    {form_input path="subject" class="form-control" placeholder="Subject"}
+    {form_input path="subject" class="form-control" placeholder='Subject'|trans title='The name of the product you propose'|trans}
     {/form_input}
     </div>
     <div class="form-group">
     <label for="subject">{form_error path="description" style="color: red;"}</label>
-    {form_textarea path="description" class="form-control" placeholder="Description"}
+    {form_textarea path="description" class="form-control" placeholder='Description'|trans}
     {/form_textarea}
     </div>
     <div class="form-group">
-    {form_input type="file" path="image" class="form-control" placeholder="Image" accept=".png,.jpg,.jpeg,.bmp"}
+    {form_input type="file" path="image" class="form-control" placeholder='Image'|trans accept=".png,.jpg,.jpeg,.bmp"}
     {/form_input}
     </div>
     <div class="form-group">
-    {form_submit class="form-control btn-success"}
+    {form_submit class="form-control btn-success" value='Send'|trans}
     </div>
 {/form}
 

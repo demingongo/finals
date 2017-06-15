@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="{asset url='/style_ie.css' package='css'}" type="text/css">
 <![endif]-->
 
-<title>{nocache}{block name=title}{/block}{#sitename#}{/nocache}</title>
+<title>{nocache}{block name=title}{#sitename#}{/block}{/nocache}</title>
 {block name=head}{/block}
 </head>
 
@@ -65,8 +65,9 @@
                 <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                 <i class="caret"></i></a>
                 <ul id="g-account-menu" class="dropdown-menu">
-                	<li> <a href="{path id='rgs_catalog_user_profile' params=['tab'=>'myreservations'] absolute=true}"> My reservations</a></li>
-                    <li> <a href="{path id='rgs_catalog_user_requestform' absolute=true}"> Send a request</a></li>
+                    <li> <a href="{path id='rgs_catalog_user_profile' absolute=true}"> {'My profile'|trans}</a></li>
+                	<li> <a href="{path id='rgs_catalog_user_profile' params=['tab'=>'myreservations'] absolute=true}"> {'My reservations'|trans}</a></li>
+                    <li> <a href="{path id='rgs_catalog_user_requestform' absolute=true}"> {'Send a request'|trans}</a></li>
                     <li class="divider"></li>
                     <li> <a href="{path id='user_security_logout' absolute=true}"><i class="glyphicon glyphicon-log-out"></i> {'layout.logout'|trans:[]:UserModule}</a></li>
                 </ul>
@@ -164,6 +165,7 @@
 		<ul class="list-inline">
 			<li><i class="glyphicon glyphicon-copyright-mark"></i> {#sitename#} 2017</li>
 			<li><a href="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</a></li>
+            <li><a href="{path id='rgs_catalog_articles_all' absolute=true}">{'Articles'|trans}</a></li>
             <li><a href="#about">{'nav.about'|trans}</a></li>
             <li><a href="#contact">{'nav.contact'|trans}</a></li>
 		</ul>
@@ -175,6 +177,7 @@
 		<select class="form-control" id="footernav">
 			<option value="#">---</option>
 			<option value="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</option>
+            <option value="{path id='rgs_catalog_articles_all' absolute=true}">{'Articles'|trans}</option>
 			<option value="#about">{'nav.about'|trans}</option>
             <option value="#contact">{'nav.contact'|trans}</option>
 		</select>

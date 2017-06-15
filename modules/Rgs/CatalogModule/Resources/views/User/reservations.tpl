@@ -1,4 +1,4 @@
-<h2>My reservations</h2>
+<h2>{'My reservations'|trans}</h2>
 <hr />
 
 {foreach $app.user.data.reservations as $resa}
@@ -6,7 +6,7 @@
 {$total=0}
 <div class="panel panel-default">
 	<div class="panel-heading">
-    	<div>Code: {$resa.id}</div>
+    	<div>Code reservation: {$resa.id}</div>
     	<div>Reservation: {$resa.created_at|date_format:"%Y-%m-%d %H:%M:%S"}</div>
         <div>Expiration: {$resa.expires_at|date_format:"%Y-%m-%d %H:%M:%S"}</div>
 	</div>
@@ -15,16 +15,16 @@
         	<table id="tab" class="table table-striped table-hover">
             	<thead>
                 	<th class="text-center">
-                    	Titre
+                    	{'Title'|trans}
                     </th>
                     <th class="text-center">
-                    	Prix à l'unité
+                    	{'Unit price'|trans}
                     </th>
                     <th class="text-center">
-                    	Quantité
+                    	{'Quantity'|trans}
                     </th>
                     <th class="text-center">
-                    	Sous-total
+                    	{'Subtotal'|trans}
                     </th>
                 </thead>
                 

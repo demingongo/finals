@@ -1,10 +1,10 @@
 {* file:[RgsCatalogModule]menu_filtre.tpl *}
 
-<div class="col-sm-3">
+<div class="col-xs-12 col-md-3 col-lg-3 col-sm-3">
 
 	<h4><b>{'Configure the choice'|trans}</b></h4>
 	<a href="{$nofilterHref}">
-		<small>{'Désactiver tous les filtres'|trans}</small>
+		<small>{'Deactivate current filters'|trans}</small>
     </a>
     <hr />
     <form method="get" id="filtre" name="filtre" data-novice='form-control'>

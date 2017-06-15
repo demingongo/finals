@@ -4,6 +4,7 @@ nav:
     about: About
     contact: Contact
     content: Content
+    news: News
 
 "Teaser text": "Teaser text"
 
@@ -13,6 +14,13 @@ nav:
 "Price": "Price"
 "Stock": "Stock"
 "Caddie": "Caddie"
+"available_stock": "Available"
+"unavailable_stock": "Unavailable"
+"new": "new"
+"occasion": "occasion"
+"New": "New"
+"Occasion": "Occasion"
+"Title": "Title"
 
 "Configure the choice": "Configure the choice"
 "All Categories": "All Categories"
@@ -20,6 +28,7 @@ nav:
 
 "Quantity": "Quantity"
 "Unit price": "Unit price"
+"Subtotal": "Subtotal"
 "Continue shopping": "Continue shopping"
 "No articles in the caddie": "No articles in the caddie"
 "Caddie invoice": "Caddie invoice"
@@ -27,3 +36,19 @@ nav:
 "toCommand": "Reserve"
 "toEmpty": "Empty"
 "Would you like to empty the caddie": "Would you like to empty the caddie"
+"All articles": "All articles"
+"Deactivate current filters": "Deactivate current filters"
+
+"My profile": "My profile"
+"My reservations": "My reservations"
+"Send a request": "Send a request"
+"My account": "My account"
+
+"Subject": "Subject"
+"Send": "Send"
+"The name of the product you propose": "The name of the product you propose"
+
+"Minimum %nb% characters": "Minimum %nb% characters"
+"Maximum %nb% characters": "Maximum %nb% characters"
+"Whoops, passwords don't match": "Whoops, passwords don't match"
+"That email address is invalid": "That email address is invalid"

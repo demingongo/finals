@@ -10,7 +10,18 @@ Multi line comment block with credits block
   @ css:            the style output
 **********************************************************}
 
+{block name=title}
+{$article.name}
+{/block}
+
 {block  name=section}
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 main-title">
+  <h1>{$article.name}</h1>
+  <span>{'Articles'|trans} &gt; {$article.name}</span>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 {include file="menu_filtre.tpl"}
 
@@ -24,7 +35,7 @@ Multi line comment block with credits block
 *****}
 
 <article class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<div class="panel panel-default" style="min-height: 460px;" > <!-- style="height: 470px;" -->
+<div class="panel panel-default panel-single-article" > <!-- style="height: 470px;" -->
 <div class="panel-body">
 	<div class="row text-center">
     	<h1>
@@ -32,7 +43,7 @@ Multi line comment block with credits block
 		</h1>
     </div>
 	<div>
-		{img src=$article.image package=upload class="img-thumbnail" alt="image" style="height: 120px; min-width: 120px;" title=$article.name}
+		{img src=$article.image package=upload class="img-thumbnail" alt=$article.name style="height: 120px; min-width: 120px;" title=$article.name}
 	</div>
         	
         <form method="post" action="{path id='rgs_catalog_caddie_add'}">
@@ -45,13 +56,15 @@ Multi line comment block with credits block
 			 </a>
     		{/auth}
 			<div class="description-article">
-			{$article.description}
+				{$article.description}
 			</div>
             <button type="submit" class="btn btn-xs btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</button>
         </form>
 </div>
 </div>
 </article>
+</div>
+
 </div>
 
 </div>

@@ -10,32 +10,29 @@ Multi line comment block with credits block
   @ css:            the style output
 **********************************************************}
 
-
-
-
 {block  name=section}
-{******************
-<p>{path id="rgs_catalog_index" referenceType=ABSOLUTE_URL}</p>
-*******************}
-
-<p>{$tinymce_base_url}</p>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 main-title">
+  <h1>{'nav.home'|trans}</h1>
+</div>
 
 {foreach name=item from=$ads item=item}
-<div class="col-sm-12">
-<h3 class="text-center">{$item.name}</h3>
-{if !empty($item.image)}
-<p class="text-center">
-<img src="{image_src path=$item.image package=upload}" class="img-responsive img-thumbnail" alt="{$item.name}" title="{$item.name}"  />
-</p>
-{/if}
-<p>
-{$item.description}
-</p>
+<div class="col-xs-12 col-md-4 col-lg-4 col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="text-center">{$item.name}</h3>
+    </div>
+    <div class="panel-body">
+      {if !empty($item.image)}
+        <p class="text-center">
+          <img src="{image_src path=$item.image package=upload}" class="img-responsive img-thumbnail" alt="{$item.name}" title="{$item.name}"  />
+        </p>
+      {/if}
+      <p>
+        {$item.description}
+      </p>
+    </div>
+  </div>
 </div>
-<hr />
 {/foreach}
 
-{************
-<p>num items : {constant object=$controller name=NUM_ITEMS }</p>
-*************}
 {/block}

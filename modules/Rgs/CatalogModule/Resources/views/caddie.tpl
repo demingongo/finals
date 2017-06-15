@@ -10,8 +10,8 @@ Multi line comment block with credits block
   @ css:            the style output
 **********************************************************}
 
-{block name="title"}
-Caddie - 
+{block name="title" prepend}
+{'Caddie'|trans} | 
 {/block}
 
 
@@ -21,7 +21,10 @@ Caddie -
 
 {block  name=section}
 {$total = 0}
-<h1>{'Caddie'|trans}</h1>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 main-title">
+    <h1>{'Caddie'|trans}</h1>
+</div>
 <hr />
     	{if $rgs.caddie->count() == 0}
         <h3>

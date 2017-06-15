@@ -23,21 +23,10 @@ use Novice\Password;
 class AnnotationController extends \Novice\BackController
 {
 	
-	const NUM_ITEMS = 11;
-	
 	/**
 	 * @NOVICE\Service
 	 */
 	private $request_stack;
-	
-	
-	/**
-	 * @NOVICE\Assign("tinymce_base_url", route_names={"rgs_catalog_index", "rgs_catalog_articles_all"})
-	 */
-	public function getBaseUrl()
-	{
-		return $this->request_stack->getCurrentRequest()->getBaseUrl();
-	}
 
 	private function trans($string, array $array = array(), $domain = null, $lang = null){
 		return $this->get('translator')->trans($string, $array, $domain, $lang);
@@ -110,18 +99,9 @@ class AnnotationController extends \Novice\BackController
      */
 	public function executeIndex($request)
 	{
-
 		$em = $this->getDoctrine()->getManager();
-
 		$ads = $em->getRepository('RgsCatalogModule:Advertisement')->findBy(['published' => true], [ 'updatedAt' => 'DESC']);
-		
-		/*findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-
-		$persister = $this->_em->getUnitOfWork()->getEntityPersister($this->_entityName);
-
-        return $persister->loadAll($criteria, $orderBy, $limit, $offset);*/
-
-		return array('controller' => $this, 'ads' => $ads);
+		return array('ads' => $ads);
 	}
 	
 	/**

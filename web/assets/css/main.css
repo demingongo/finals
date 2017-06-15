@@ -7,6 +7,53 @@ html {
   padding-top: 0px;
 }
 
+.main-title h1{
+    text-align: center;
+}
+
+.main-title{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background-color: #222;
+    color: white;
+    border-radius: 3px;
+}
+
+.main-title.primary{
+    background-color: #337ab7;
+}
+
+.title1{
+    background-color: #222;
+    color: whitesmoke;
+    border-radius: 3px;
+}
+
+.full-width{
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.top10{
+    margin-top: 10px;
+}
+
+.panel-single-article{
+    padding-bottom: 60px;
+}
+
+.panel-single-article .description-article{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.panel-single-article .teaser-article{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 .navbar-custom.affix {
     background-color: #222;
@@ -123,10 +170,14 @@ min-height: 400px;
 }
 
 .carousel {
-  height: 400px;
+  height: 300px; /*400px*/
 }
 .carousel .item {
-  height: 400px;
+  height: 300px; /*400px*/
+}
+
+.carousel-inner > .item > img {
+  height: 400px; /*500px*/
 }
 
 .no-carousel {

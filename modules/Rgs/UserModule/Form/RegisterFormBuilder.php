@@ -57,8 +57,8 @@ class RegisterFormBuilder extends FormBuilder
     $this->form->add(new InputField(array(
         'label' => $username,
 		'type' => 'text',
-		'title' => 'Minimum 6 caractères : 
-chiffres, lettres, tirets, underscores et apostrophes',
+		'title' => $translator->trans('Minimum %nb% caractères : 
+chiffres, lettres, tirets, underscores et apostrophes', array('%nb%' => 6)),
         'name' => 'login',
         //'maxlength' => 50,
 		'placeholder' => $translator->trans('form.placeholder.username', array(), $domain),
@@ -66,26 +66,26 @@ chiffres, lettres, tirets, underscores et apostrophes',
 	    'required' => true,
 		'control_label' => true,
 		'validators' => array(
-    new MaxLengthValidator('Le nom spécifié est trop long (30 caractères maximum)', 30),
-    new NotNullValidator('Spécifiez le login'),)
+    new MaxLengthValidator( $translator->trans('Maximum %nb% characters', array('%nb%' => 30)), 30),
+    new NotNullValidator( $translator->trans('Login is required') ),)
 		)))
 		->add(new InputField(array(
         'label' => 'Email',
 		'type' => 'email',
-		'title' => 'Write your email address',
+		'title' => $translator->trans('form.placeholder.email', array(), $domain),
         'name' => 'email',
         'maxlength' => 50,
 		'placeholder' => $translator->trans('form.placeholder.email', array(), $domain),
 	    'required' => true,
 		'addon' => '@',
-		'attributes' => array('data-error' => 'That email address is invalid'),
+		'attributes' => array('data-error' => $translator->trans('That email address is invalid') ),
 		'validators' => array(
 	new EmailValidator('Email invalid', true, true),)
 		)))
 		->add(new InputField(array(
         'label' => $password,
 		'type' => 'password',
-		'title' => 'Minimum 6 caractères',
+		'title' => $translator->trans('Minimum %nb% characters', array('%nb%' => 6)),
         'name' => 'password',
         'maxlength' => 24,
 		'placeholder' => $password,
@@ -95,7 +95,7 @@ chiffres, lettres, tirets, underscores et apostrophes',
 		//'always_empty' => false,
 		'attributes' => array('data-minlength' => '6',),
 		'validators' => array(
-    new MinLengthValidator('Minimum 6 caractères', 6),)
+    new MinLengthValidator( $translator->trans('Minimum %nb% characters', array('%nb%' => 6)), 6),)
 		)))
 		->add(new InputField(array(
         'label' => '&nbsp;',
@@ -108,7 +108,7 @@ chiffres, lettres, tirets, underscores et apostrophes',
 		'control_label' => true,
 		'feedback_icon' => true,
 		'attributes' => array('data-match' => '#'.$this->form->getName().'_password',
-							  'data-match-error' => 'Whoops, these don\'t match'),
+							  'data-match-error' => $translator->trans('Whoops, passwords don\'t match') ),
 		)));
 
 		/*$options = array(

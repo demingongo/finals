@@ -4,6 +4,7 @@ nav:
     about: A Propos
     contact: Contact
     content: Contenu
+    news: News
 
 "Teaser text": "Texte accrocheur"
 
@@ -13,6 +14,13 @@ nav:
 "Price": "Prix"
 "Stock": "Stock"
 "Caddie": "Panier"
+"available_stock": "Disponible"
+"unavailable_stock": "Hors stock"
+"new": "neuf"
+"occasion": "occasion"
+"New": "Neuf"
+"Occasion": "Occasion"
+"Title": "Titre"
 
 "Configure the choice": "Configurer le choix"
 "All Categories": "Toutes les catégories"
@@ -20,10 +28,27 @@ nav:
 
 "Quantity": "Quantité"
 "Unit price": "Prix unitaire"
+"Subtotal": "Sous-total"
 "Continue shopping": "Poursuivre les achats"
-"No article in the caddie": "Vous n'avez pas d'articles dans votre panier"
+"No articles in the caddie": "Vous n'avez pas d'articles dans votre panier"
 "Caddie invoice": "Total panier"
 "Number of articles": "Nombre d'articles"
 "toCommand": "Réserver"
 "toEmpty": "Vider"
 "Would you like to empty the caddie": "Voulez-vous vider le panier"
+"All articles": "Tous les articles"
+"Deactivate current filters": "Désactiver tous les filtres"
+
+"My profile": "Mon profil"
+"My reservations": "Mes réservations"
+"Send a request": "Envoyer une requête"
+"My account": "Mon compte"
+
+"Subject": "Sujet"
+"Send": "Envoyer"
+"The name of the product you propose": "Le nom du produit que vous proposez"
+
+"Minimum %nb% characters": "Minimum %nb% caractères"
+"Maximum %nb% characters": "Maximum %nb% caractères"
+"Whoops, passwords don't match": "Whoops, les mots de passe ne correspondent pas"
+"That email address is invalid": "Cette adresse email est invalide"

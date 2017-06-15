@@ -85,6 +85,7 @@ resetting:
 layout:
     logout: Logout
     login: Login
+    lostpassword: Lost password
     register: Register
     logged_in_as: Logged in as %username%
     edit: Edit Account

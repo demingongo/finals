@@ -1,6 +1,10 @@
-{* file:[RgsCatalogModule]lostPassword.php *}
+{* file:[UserModule]Security/login.php *}
 
 {extends file='file:rgs_layout.php'}
+
+{block name="title" prepend}
+{'layout.login'|trans:[]:UserModule} | 
+{/block}
 
 {block name="carousel"}
 {include file='file:includes/noCarousel.tpl'}
@@ -8,6 +12,11 @@
 
 
 {block  name=section}
+
+<div id="header" class="col-xs-12 col-sm-11 col-md-11 col-lg-11 col-sm-offset-1 main-title primary">
+	<h1>{'layout.login'|trans:[]:UserModule}</h1>
+</div>
+
 <div class="col-sm-5 col-xs-offset-1">
 {if $session_flash->has('notice')}
 {notification type="error" message=$session_flash->get('notice') sign=true close=false}

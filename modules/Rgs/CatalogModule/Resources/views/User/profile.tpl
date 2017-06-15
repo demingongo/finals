@@ -1,4 +1,4 @@
-<h2>My Profile: {$app.user.data.group.name}</h2>
+<h2>{'My profile'|trans}: {$app.user.data.group.name}</h2>
 <hr />
     
 <p>{"user.login"|trans:[]:UserModule}: {$app.user.data.login}</p>

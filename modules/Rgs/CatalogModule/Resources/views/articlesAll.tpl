@@ -10,6 +10,10 @@ Multi line comment block with credits block
   @ css:            the style output
 **********************************************************}
 
+{block name=title prepend}
+{'Articles'|trans} | 
+{/block}
+
 {block  name=section}
 
 {**********
@@ -40,22 +44,25 @@ Multi line comment block with credits block
 </div>
 *********************}
 
-<div class="col-sm-3 hidden-xs">    
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 main-title">
+  <h1>{'Articles'|trans}</h1>
 </div>
-<div class="col-sm-9">
-	<div class="col-xs-12 hidden-xs">
-    <h3 class="text-nowrap"><b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($paginator)})</span></b></h3>
-	</div>
-    <h3 class="text-nowrap visible-xs">
-    	<b>{$titre} <span style="color:#B8B8B8;">{if $filter}<small>+ filtre</small> {/if}({count($paginator)})</span></b>
-    </h3>
-</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 full-width">
 
 {include file="menu_filtre.tpl"}
 
-<div class="col-sm-9">
+<div class="col-xs-12 col-md-9 col-lg-9 col-sm-9 full-width">
 
-<div class="col-xs-12">
+<div class="col-xs-12 col-md-12 col-lg-12 col-sm-12 title1 full-width top10">
+	<div class="col-xs-12">
+        <h3 class="text-nowrap">
+            {'All articles'|trans} <span style="color:#B8B8B8;">{if $filter}<small>+ {'filter'|trans}</small> {/if}({count($paginator)})</span>
+        </h3>
+	</div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	<div class="pull-right">
 		{pagination paginator=$paginator max="4" queryStrict=['category', 'state'] noQuery=false}
     </div>
@@ -97,7 +104,7 @@ Multi line comment block with credits block
                         		<th>{'Category'|trans}</th><td title="{$a.category.name}">{$a.category.name|truncate:15:'...':true}</td>
 	                        </tr>
                             <tr>
-        	                	<th>{'State'|trans}</th><td>{$a.state.name}</td>
+        	                	<th>{'State'|trans}</th><td>{$a.state.name|trans}</td>
             	            </tr>
     	                    <tr>
         	                	<th>{'Price'|trans}</th>
@@ -113,9 +120,9 @@ Multi line comment block with credits block
                     	    	<th>{'Stock'|trans}</th>
                                 <td>
                                 	{if !empty($a.stock) && $a.stock gt 0}
-                                		<small class="text-success">Disponible</small>
+                                		<small class="text-success">{'available_stock'|trans}</small>
                                     {else}
-                                    	<small class="text-danger">Hors stock</small>
+                                    	<small class="text-danger">{'unavailable_stock'|trans}</small>
                                     {/if}
                                 </td>
                         	</tr>
@@ -137,11 +144,13 @@ Multi line comment block with credits block
 </article>
 {/foreach}
 </div>
-<div class="col-xs-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	<div class="pull-right">
 		{pagination paginator=$paginator max="4" queryStrict=['category', 'state']}
     </div>
     
 </div>
+</div>
+
 </div>
 {/block}
