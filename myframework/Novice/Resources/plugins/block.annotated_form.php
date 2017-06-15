@@ -84,7 +84,7 @@ function smarty_block_annotated_form($params, $content, \Smarty_Internal_Templat
 
     foreach($props as $p){
         $annotations = $reader->getPropertyAnnotations($p);
-        $propsConf = $getConfigurations($annotations, '\Novice\Annotation\Form\Field');
+        $propsConf = $getConfigurations($annotations, '\Novice\Annotation\ConfigurationAnnotation');
         if(isset($propsConf['_field'])){
             $f = $propsConf["_field"];
             $class = new \ReflectionClass($f->getFieldClass());
@@ -93,6 +93,16 @@ function smarty_block_annotated_form($params, $content, \Smarty_Internal_Templat
             $field->setValidators($getValidators($annotations));
             $form->add($field);
         }
+        else if(isset($propsConf['_extension'])){
+            $f = $propsConf["_extension"];
+            if($f->isService()){
+                $ext = $smarty->getContainer()->get($f->getProvider())->getExtension();
+                $form->addExtension($ext);
+            }
+        }
+
+        //$propsExtension = $getConfigurations($annotations, '\Novice\Annotation\Form\Extension');
+
     }
 
     dump($form);
@@ -102,6 +112,8 @@ function smarty_block_annotated_form($params, $content, \Smarty_Internal_Templat
         $params['name'] = $form->getName();
     }
 
+    $form->handleRequest($smarty->getContainer()->get('request_stack')->getCurrentRequest());
+    $form->isValid();
     $formView = $form->createView();
 
 	$strict = isset($params['strict']) ? (bool) $params['strict'] : true;

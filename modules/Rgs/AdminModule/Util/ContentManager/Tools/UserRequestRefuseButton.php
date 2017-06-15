@@ -7,15 +7,14 @@ use Novice\Module\ContentManagerModule\Util\ToolButton;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class ValidUserRequestButton extends ToolButton
+class UserRequestRefuseButton extends ToolButton
 {
     public function __construct($cm){
         parent::__construct([
-            'type' => 'success',
             'item_action' => true,
-            'value' => 'valid',
-            'label' => 'Valid',
-            'icon' => 'fa fa-plus-circle'
+            'value' => 'decline',
+            'label' => 'Decline',
+            'icon' => 'fa fa-times-circle text-danger'
         ], $cm);
     }
 
@@ -30,10 +29,10 @@ class ValidUserRequestButton extends ToolButton
 							foreach($ids as $id){
 								$result = $em->getRepository($cm->getEntityName())
 											->findOneById($id);
-								if($result->isPublished()){
+								if($result->hasStatus()){
 									continue;
 								}
-								$result->setPublished($result::PUBLISHED);
+								$result->setStatus($result::STATUS_ARCHIVED);
 								$em->persist($result);
 								$allRequests[] = $result;
 							}
@@ -49,7 +48,7 @@ class ValidUserRequestButton extends ToolButton
 							return;
 						}
 						foreach($allRequests as $r){
-							$container->get('rgs.mailer')->sendRequestConfirm($r);
+							$container->get('rgs.mailer')->sendRequestDecline($r);
 						}
     }
 }

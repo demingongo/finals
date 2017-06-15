@@ -82,9 +82,14 @@ class ContentManagerController extends BackController
 			$qb->select('count('.$alias.'.id)');
 			$i = 1;
 			foreach($where as $k => $v){
-				$qb->andWhere($qb->expr()->eq($k, '?'.$i))
-					->setParameter($i, $v);
-				$i++;
+				if(is_null($v)){
+					$qb->andWhere($qb->expr()->isNull($k));
+				}
+				else{
+					$qb->andWhere($qb->expr()->eq($k, '?'.$i))
+						->setParameter($i, $v);
+					$i++;
+				}
 			}
 			$totalItems = $qb->getQuery()->getSingleScalarResult();
 		}
@@ -106,9 +111,14 @@ class ContentManagerController extends BackController
 		
 			$i = 1;
 			foreach($where as $k => $v){
-				$qb2->andWhere($qb2->expr()->eq($k, '?'.$i))
-					->setParameter($i, $v);
-				$i++;
+				if(is_null($v)){
+					$qb2->andWhere($qb2->expr()->isNull($k));
+				}
+				else{
+					$qb2->andWhere($qb2->expr()->eq($k, '?'.$i))
+						->setParameter($i, $v);
+					$i++;
+				}
 			}
 			
 			$qb2->addOrderBy($sort, $order);

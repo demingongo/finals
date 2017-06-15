@@ -192,5 +192,13 @@ rgs_admin_reservations_details:
 # user requests management
 rgs_admin_gestion_requests:
     path:     /requests/
+    defaults: { content_manager: 'Rgs\AdminModule\Util\UserRequestManager' }
+#    defaults:
+#        _controller: 'RgsAdminModule:RequestManagerController:gestionRequest'
+
+rgs_admin_requests_edit:
+    path:     /requests/{id}
     defaults:
-        _controller: 'RgsAdminModule:RequestManagerController:gestionRequest'
+        _controller: 'RgsAdminModule:RequestManagerController:detailsRequest'
+    requirements:
+        id: \d+

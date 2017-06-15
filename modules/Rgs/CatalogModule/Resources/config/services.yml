@@ -29,6 +29,10 @@ services:
     class: %rgs.file_uploader.class%
     arguments: [%file_uploader.dir%, users]
 
+   ext_provider.image:
+    class: Rgs\CatalogModule\Services\ExtensionProvider\Image
+    arguments: [@service_container]
+
    #MIDDLEWARES
 
    rgs.locale_middleware:

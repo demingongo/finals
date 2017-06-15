@@ -23,6 +23,7 @@ layout:
     state: Etat
     brand: Marque
     advertisement: Publicité
+    user_requests: Requêtes utilisateur
 
 # Form field labels
 form:

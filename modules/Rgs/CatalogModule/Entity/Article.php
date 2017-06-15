@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Novice\Annotation as NOVICE;
 use Novice\Annotation\Form\Form as FORM;
 use Novice\Annotation\Form\Field as FIELD;
+use Novice\Annotation\Form\Extension as EXTENSION;
 use Novice\Annotation\Form\Validator as VALIDATOR;
 
 /**
@@ -93,6 +94,7 @@ class Article extends Model\AssetEntity
      * @var string
      *
      * @ORM\Column(name="image", type="string", nullable=true)
+     * @EXTENSION(providerService="ext_provider.image")
      */
     private $image;
 

@@ -14,7 +14,7 @@ use Rgs\UserModule\Entity\User;
  * @ORM\Table(name="user_request")
  * @ORM\Entity(repositoryClass="Rgs\CatalogModule\Entity\Repository\UserRequestRepository")
  */
-class UserRequest extends Entity implements Model\PublishedInterface
+class UserRequest extends Entity implements Model\StatusInterface
 {
 
     /**
@@ -56,7 +56,7 @@ class UserRequest extends Entity implements Model\PublishedInterface
 	
 	use Model\DateOnCreateUpdateTrait;
 
-	use Model\PublishedTrait;
+	use Model\StatusTrait;
 
 	
 	
@@ -65,8 +65,6 @@ class UserRequest extends Entity implements Model\PublishedInterface
      */
     public function __construct($name = null)
     {
-        $this->setPublished(self::NOT_PUBLISHED);
-
 		if(!empty($name)){
 			$this->setName($name);
 		}
