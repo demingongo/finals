@@ -97,9 +97,20 @@ function smarty_function_form_build_widget($params, &$smarty)
 				$params['class'] = 'row form-group '.$params['class'];
 			}
 		
-			// On génère un par un les champs du formulaire.
+			// On gï¿½nï¿½re un par un les champs du formulaire.
 			foreach ($params['form']->fields as $field)
 			{
+
+				if(!empty($params['hide']) && is_array($params['hide']) && in_array($field->name(), $params['hide'])){
+						continue;
+				}
+
+				if(!empty($params['specs']) && is_array($params['specs'])){
+					if(array_key_exists($field->name(), $params['specs'])){
+						$field->setAttributes($params['specs'][$field->name()]);
+					}
+				}
+
 				$view .= '<div class="'.htmlspecialchars($params['class']).'">'.$field->setRendered()->buildWidget().'</div>';			
 			}
 

@@ -11,7 +11,7 @@
 <div class="col-xs-10 col-sm-8 col-md-6">
 	<form data-toggle="validator" lang={#lang#} {*data-novice='form-control'*} method="post" {*class="form-inline"*}>
     
-    <h3>Reservé par: 
+    <h3>{'Reserved by'|trans}: 
     	<a href="{path id='rgs_admin_users_edit' params=['id' => $reservation.user.id] absolute=true}">{$reservation.user.login}</a>
         <small>({$reservation.user.email})</small>
     </h3>
@@ -23,8 +23,8 @@
   <thead>
     <tr>
       <th>Article</th>
-      <th><span class="pull-right">Prix Unitaire</span></th>
-      <th><span class="pull-right">Quantité</span></th>
+      <th><span class="pull-right">{'Unit price'|trans}</span></th>
+      <th><span class="pull-right">{'Quantity'|trans}</span></th>
       <th></th>
     </tr>
   </thead>
@@ -69,10 +69,10 @@
 		{* begin submit *}
 		<div class="row form-group col-md-12">
 			<button type="submit" id="_submit" name="submit[]" class="btn btn-warning pull-right" value="cancel" title="Cancel the reservation" >
-                Cancel
+                {'Cancel'|trans}
             </button>
             <button type="submit" id="_submit" name="submit[]" class="btn btn-primary pull-right" value="valid" title="Confirm that reservation was paid" >
-                Paid
+                {'Paid'|trans}
             </button>
 		</div>
 		{* end submit *}

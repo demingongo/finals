@@ -104,8 +104,21 @@ class ReservationRepository extends \Doctrine\ORM\EntityRepository
 	
 	public function cancelExpired()
 	{
+		$this->cancelThoseWithExpiration();
+	}
+
+	public function cancelNonExpired()
+	{
+		$this->cancelThoseWithExpiration(false);
+	}
+
+	private function cancelThoseWithExpiration($boolean = true){
+		$sign = ">";
+		if($boolean){
+			$sign = "<=";
+		}
 		$dt = new \Datetime("now");
-		$result = $this->createQueryBuilder('r')->andWhere('r.expiresAt <= :expiresAt')
+		$result = $this->createQueryBuilder('r')->andWhere('r.expiresAt '.$sign.' :expiresAt')
 			->setParameter('expiresAt', $dt->format('Y-m-d H:i:s'))
 			->getQuery()
 			->getResult();

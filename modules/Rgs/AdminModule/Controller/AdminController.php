@@ -227,9 +227,7 @@ class AdminController extends \Novice\BackController
 		
 
 	public function executeEditCategory(Request $request)
-	{	
-		$this->setView('file:[RgsAdminModule]Content/editCategory.php');
-
+	{
 		if($request->attributes->has('id')){
 			$category = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Category')
 							->findOneById($request->attributes->get('id'));
@@ -280,16 +278,14 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
-		$this->assign(array('title' => 'Edit',
+		$this->assign(array('title' => 'Category',
 							'form' => $form->createView()));
 	}
 	
 	/*******************************ARTICLES*************************************/
 	
 	public function executeEditArticle(Request $request)
-	{	
-		$this->setView('file:[RgsAdminModule]Content/editArticle.php');
-
+	{
 		if($request->attributes->has('id')){
 			$article = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Article')
 							->findOneById($request->attributes->get('id'));
@@ -331,16 +327,14 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
-		$this->assign(array('title' => 'Edit',
+		$this->assign(array('title' => 'Article',
 							'form' => $form->createView()));
 	}
 
 	/*******************************ADVERTISEMENTS*************************************/
 
 	public function executeEditAdvertisement(Request $request)
-	{	
-		$this->setView('file:[RgsAdminModule]Content/editArticle.php');
-
+	{
 		if($request->attributes->has('id')){
 			$article = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Advertisement')
 							->findOneById($request->attributes->get('id'));
@@ -382,7 +376,7 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
-		$this->assign(array('title' => 'Edit',
+		$this->assign(array('title' => 'Advertisement',
 							'form' => $form->createView()));
 	}
 	
@@ -391,9 +385,7 @@ class AdminController extends \Novice\BackController
 	
 	
 	public function executeEditBrand(Request $request)
-	{	
-		$this->setView('file:[RgsAdminModule]Content/editBrand.php');
-
+	{
 		if($request->attributes->has('id')){
 			$brand = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:Brand')
 							->findOneById($request->attributes->get('id'));
@@ -444,7 +436,7 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
-		$this->assign(array('title' => 'Edit',
+		$this->assign(array('title' => 'Brand',
 							'form' => $form->createView()));
 	}
 	
@@ -453,8 +445,7 @@ class AdminController extends \Novice\BackController
 	
 	
 	public function executeEditState(Request $request)
-	{	
-		$this->setView('file:[RgsAdminModule]Content/editState.php');
+	{
 
 		if($request->attributes->has('id')){
 			$state = $this->getDoctrine()->getManager()->getRepository('RgsCatalogModule:State')
@@ -506,7 +497,7 @@ class AdminController extends \Novice\BackController
 			}
 		}
 
-		$this->assign(array('title' => 'Edit',
+		$this->assign(array('title' => 'State',
 							'form' => $form->createView()));
 	}
 	

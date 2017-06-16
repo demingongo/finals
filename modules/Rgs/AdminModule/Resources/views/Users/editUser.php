@@ -11,7 +11,7 @@
 <div class="col-xs-10 col-sm-8 col-md-6">
 	<form data-toggle="validator" lang={#lang#} {*data-novice='form-control'*} method="post" {*class="form-inline"*}>
 
-		{form_build_widget form=$form}
+		{form_build_widget form=$form hide=$hideFields}
 
 		{* begin submit *}
 		<div class="row form-group col-md-12">

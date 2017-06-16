@@ -439,13 +439,26 @@ class UserManagerController extends \Novice\BackController
 	{	
 		$this->setView('file:[RgsAdminModule]Users/editUser.php');
 
+		$hideFields = [];
+
 		if($request->attributes->has('id')){
 			$user = $this->getDoctrine()->getManager()->getRepository('UserModule:User')
 							->findOneById($request->attributes->get('id'));
+			
+			// if the user found is the current user, cannot edit some fields
+			if($user->getId() == $this->get("app.user")->getData()->getId()){
+				$hideFields = [
+					'activated',
+					'locked'
+				];
+			}
 		}
 		else{
 			$user = new User();
 		}
+
+		// assign it
+		$this->assign('hideFields', $hideFields);
 
 		try{
 			$form = $this->buildForm(new \Rgs\UserModule\Form\UserFormBuilder($user))

@@ -266,13 +266,52 @@ class RequestManagerController extends \Novice\BackController
 	
 	
 	public function executeDetailsRequest(Request $request)
-	{
-		$this->setView('file:[RgsAdminModule]Reservations/detailsUserRequest.php');
-		
-		$reservation = $this->getDoctrine()->getManager()
+	{	
+		$item = $this->getDoctrine()->getManager()
 			->getRepository('RgsCatalogModule:UserRequest')->findOneById($request->attributes->get('id'));
+
+		if(empty($item)){
+			return $this->redirectError();
+		}
+
+		if($request->isMethod("POST") && !$item->hasStatus()){
+			if($request->request->has('submit') && is_array($submit = $request->request->get('submit'))){
+				$submit = end($submit);
+
+				$saveit = false;
+				if($submit == "accept"){
+					$item->setStatus(true);
+					$saveit = true;
+				}
+				else if ($submit == "decline"){
+					$item->setStatus(false);
+					$saveit = true;
+				}
+
+				if($saveit){
+					$em = $this->getDoctrine()->getManager();
+					$em->getConnection()->beginTransaction();
+					try{
+						$em->persist($item);
+						$em->flush();
+						$em->getConnection()->commit();
+						$this->get('session')->getFlashBag()->set('success', 'Successfully updated');
+					
+						$this->get('rgs.mailer')->sendRequestConfirm($item);
+					}
+					catch(\Exception $e){
+						$em->close();
+						$em->getConnection()->rollback();
+						$this->get('session')->getFlashBag()->set('error', '<b>Failure occured</b>');
+					}
+				}
+				
+
+			}
+
+		}
 		
-		$this->assign("request", $reservation);
+		$this->assign("item", $item);
 
 	}
 	

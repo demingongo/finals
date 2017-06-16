@@ -23,9 +23,9 @@
 	<div class="col-lg-12">
 		<h1 class="page-header">
         {if $expiredPage}
-        Reservations expirées
+        {'Expired reservations'}
         {else}
-        Reservations
+        {'Reservations'}
         {/if}
         </h1>
     </div>
@@ -42,14 +42,14 @@
 	</div>
 	<div id="collapse-tools" class="col-lg-8 collapse subhead-collapse">
     	<button type="submit" name="submit[]" class="btn btn-outline btn-primary itemAction to-xs" value="edit">
-		<span class="fa fa-edit"></span> Details
+		<span class="fa fa-edit"></span> {'Edit'|trans}
 		</button>
     	<button type="submit" name="submit[]" class="btn btn-outline btn-warning itemAction to-xs" value="cancel">
-		 Cancel
+		 {'Cancel'|trans}
         </button>
         <button type="submit" name="submit[]" id="cancelAll" class="btn btn-outline btn-danger to-xs" data-novice-toggle="confirm" 
 		 data-toggle="tooltip" data-placement="top" data-original-title="Cancel all" value="cancelAll">
-		<span class="fa fa-trash"></span> Cancel all
+		<span class="fa fa-trash"></span> {'Cancel all'|trans}
 		</button>
 	</div>
 </div>

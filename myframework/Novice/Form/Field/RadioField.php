@@ -11,6 +11,8 @@ class RadioField extends Field
   protected $inline;
 
   protected $control_label = false;
+
+	protected $disabled;
   /*
   protected $autofocus;
   protected $checked;
@@ -18,6 +20,12 @@ class RadioField extends Field
   protected $readonly;
   */
   protected $required = false;
+
+
+	public function setDisabled($disabled)
+  {
+      $this->disabled = (bool)$disabled;
+  }
 
 
   public function setValue($value)//redefinition de la methode setValue de la classe parente Field pour accepter if is_bool($value)
@@ -164,7 +172,13 @@ class RadioField extends Field
 		else
 			$cl = $class;
 		
-		$widget .='<label class="'.$cl.'">';
+		$widget .='<label class="'.$cl.'" ';
+
+		if($this->disabled){
+			$widget .= 'disabled="disabled" ';
+		}
+		
+		$widget .= '>';
 
 		$widget .=  $this->buildInputRadio($value, $isChecked, $attr);
   	

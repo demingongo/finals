@@ -111,7 +111,17 @@ Si vous avez besoin d'aide, veuillez contacter l'administrateur du site.";
 		$to = $userRequest->getUser()->getEmail();
 		$msg = "Hello,<br /><br />
 
-We read your request and we'll be grateful to receive you during our open hours with your product so we can continue further the negociations.";
+We <b>accepted</b> your request and we'll be grateful to receive you during our open hours with your product so we can continue further the negociations.";
+		if(!$userRequest->getStatus()){
+			$msg = "Hello,<br /><br />
+
+We thank you and appreciate your proposition. We considered your offer and decided to <b>decline</b>.<br /><br />
+
+We sincerely appreciate you taking the time and hope for future propositions that we'd gladly receive.<br /><br />
+
+Again, thank you for your consideration.";
+		}
+		
 		$this->templating->assign(array('tpl_name' => $template, 'message' => $msg));
 		$body = $this->templating->fetch($template);
 		$this->sendMessage($to, $subject, $body);
@@ -119,19 +129,6 @@ We read your request and we'll be grateful to receive you during our open hours 
 
 	public function sendRequestDecline(\Rgs\CatalogModule\Entity\UserRequest $userRequest)
 	{
-		$this->setAssign();
-		$subject = $this->name." : RE - ".$userRequest->getSubject();
-		$template = 'file:[RgsCatalogModule]Mail/mail.php';
-		$to = $userRequest->getUser()->getEmail();
-		$msg = "Hello,<br /><br />
-
-We thank you and appreciate your proposition. We considered your offer and decided to decline.<br /><br />
-
-We sincerely appreciate you taking the time and hope for future propositions that we'd gladly receive.<br /><br />
-
-Again, thank you for your consideration.";
-		$this->templating->assign(array('tpl_name' => $template, 'message' => $msg));
-		$body = $this->templating->fetch($template);
-		$this->sendMessage($to, $subject, $body);
+		return $this->sendRequestConfirm($userRequest);
 	}
 }

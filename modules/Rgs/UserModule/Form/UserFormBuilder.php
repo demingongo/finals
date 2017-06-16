@@ -86,8 +86,10 @@ chiffres, lettres, tirets, underscores et apostrophes',
 		'attributes' => array('data-error' => 'That email address is invalid'),
 		'validators' => array(
 	new EmailValidator('Email invalid', true, true),)
-		)))
-		->add(new RadioField(array(
+		)));
+		
+		// SHOULD NOT BE SHOWN FOR MYSELF (USER SESSION)
+		$this->form->add(new RadioField(array(
         'label' => $trans('user.activated'),
 		'control_label' => true,
         'name' => 'activated',
@@ -106,8 +108,9 @@ chiffres, lettres, tirets, underscores et apostrophes',
 		'required' => true,
 		'buttons' => array('Yes' => User::NOT_LOCKED , 'No' => User::LOCKED),
 		'validators' => array(new NotNullValidator('Faire un choix !'))
-		)))
-		->add(new Prototype(array('name'=>'group')))
+		)));
+		
+		$this->form->add(new Prototype(array('name'=>'group')))
 		->add(new InputField(array(
         'label' => $trans('user.address'),
 		'type' => 'text',
