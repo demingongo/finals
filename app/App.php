@@ -2,18 +2,12 @@
 
 use Novice\Application;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\HttpFoundation\RequestMatcher;
-
-use Novice\Middleware\MiddlewareDispatcher;
-
-use Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
 
 class App extends Application
 {
     public function registerModules()
     {
         $modules = array(
-            //new Acme\AcmeModule\AcmeModule(),
 			new DoctrineModule\DoctrineModule(),
 			new Novice\FrameworkModule(),
 			new Novice\Module\SwiftmailerModule\SwiftmailerModule(),
@@ -24,7 +18,6 @@ class App extends Application
 			new Rgs\CatalogModule\RgsCatalogModule(),
 			new Rgs\AdminModule\RgsAdminModule(),
 			new Doctrine\NestedSetModule\NestedSetModule(),
-			new Api\CatalogModule\CatalogApiModule()
 
 			//new Cocur\Slugify\Bridge\Symfony\CocurSlugifyModule(),
         );
@@ -37,8 +30,6 @@ class App extends Application
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        //$loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
-		//$loader->load(__DIR__.'/config/config.yml');
 		$loader->load(__DIR__.'/config/rgs/config.yml');
     }
 
