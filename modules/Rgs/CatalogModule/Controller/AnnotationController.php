@@ -31,67 +31,6 @@ class AnnotationController extends \Novice\BackController
 	private function trans($string, array $array = array(), $domain = null, $lang = null){
 		return $this->get('translator')->trans($string, $array, $domain, $lang);
 	}
-
-
-	private function createToken(){
-		$tokenId    = base64_encode(mcrypt_create_iv(32));
-
-		dump($tokenId);
-		
-
-		$issuedAt   = time();
-	    $notBefore  = $issuedAt + 10;             //Adding 10 seconds
-	    $expire     = $notBefore + 60;            // Adding 60 seconds
-	    $serverName = $this->get('request_stack')->getCurrentRequest()->server->get('SERVER_NAME'); // Retrieve the server name
-    
-	    /*
-	     * Create the token as an array
-	     */
-	    $data = [
-	        'iat'  => $issuedAt,         // Issued at: time when the token was generated
-	        'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-	        'iss'  => $serverName,       // Issuer
-	        //'nbf'  => $notBefore,        // Not before
-	        //'exp'  => $expire,           // Expire
-	        'data' => [                  // Data related to the signer user
-	            'userId'   => 1, // userid from the users table
-	            'userName' => "sdemingongo@email.address", // User name
-	        ]
-	    ];
-
-		dump($data);
-
-		$jwtKey = 'secret';
-			
-		try{
-			$jwtKey = $this->container->getParameterBag()->get('jwt_key');
-		}
-		catch(\Exception $e){
-		}
-
-		dump($jwtKey);
-
-		$secretKey = Password::hash(base64_encode(md5($jwtKey)), array("cost" => PASSWORD_BCRYPT_DEFAULT_COST, "salt" => md5($jwtKey) ));	
-		dump($secretKey);
-
-		$jwt = JWT::encode(
-		    $data,      //Data to be encoded in the JWT
-	        $secretKey, // The signing key
-	        'HS512'     // Algorithm used to sign the token, see https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40#section-3
-        );
-        
-		$unencodedArray = ['jwt' => $jwt];
-	    dump(json_encode($unencodedArray));
-
-		$s2 = Password::hash(base64_encode(md5($jwtKey)), array("cost" => PASSWORD_BCRYPT_DEFAULT_COST, "salt" => md5($jwtKey)));
-		dump($s2);
-		$decoded = (array) JWT::decode($jwt, $s2, array('HS512'));
-
-		dump($decoded["data"]);
-
-		exit(__METHOD__);
-	}
-	
 	
 	/**
      * @Route("/{homepage}", name="rgs_catalog_index" , defaults={"homepage": "home"}, requirements={"homepage": "home|accueil|index"})

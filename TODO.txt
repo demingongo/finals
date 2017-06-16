@@ -1,3 +1,0 @@
-﻿- make content manager easier
-
-- adapt it so it can be used with custom action buttons (e.g. reservations, user requests)

@@ -62,8 +62,6 @@ class CaddieController extends \Novice\BackController
 			
 			return $this->redirect($this->generateUrl("rgs_catalog_caddie"));
 		}
-		
-		//return array('titre' => 'Panier');
 	}
 	
 	/**
