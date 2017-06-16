@@ -8,15 +8,7 @@ Multi line comment block with credits block
   @ maintainer:     support@example.com
   @ para:           var that sets block style
   @ css:            the style output
-**********************************************************}
 
-{block name=title prepend}
-{'Articles'|trans} | 
-{/block}
-
-{block  name=section}
-
-{**********
 <div>
 <h1>TEST <small>file:[RgsCatalogModule]articlesAll.tpl</small></h1>
 {form var="article_attr" method="post" data-toggle="validator" novalidate="true" enctype="multipart/form-data"}
@@ -42,7 +34,15 @@ Multi line comment block with credits block
 <p>
 </p>
 </div>
-*********************}
+
+**********************************************************}
+
+{block name=title prepend}
+{'Articles'|trans} | 
+{/block}
+
+{block  name=section}
+
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 main-title">
   <h1>{'Articles'|trans}</h1>
@@ -81,7 +81,7 @@ Multi line comment block with credits block
     <div class="row text-center">
     	<!--<div class="col-md-3 col-sm-3">-->
         <div>
-        	<a href="#">
+        	<a href="{path id=rgs_catalog_article_details params=['id' => $a.id, 'slug' => $a.slug]}">
                 {img src=$a.image package=upload class="img-thumbnail" alt="image" style="height: 120px; min-width: 120px;" title=$a.name}
             </a>
     	</div>

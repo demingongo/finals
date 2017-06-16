@@ -1,6 +1,0 @@
-# les parametres pour acceder a la base de donnees
-imports:
-    - { resource: parameters.yml }
-    - { resource: doctrine.yml }
-    - { resource: framework.yml }
-    - { resource: swiftmailer.yml }

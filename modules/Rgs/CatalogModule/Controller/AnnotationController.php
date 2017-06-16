@@ -42,6 +42,24 @@ class AnnotationController extends \Novice\BackController
 		$ads = $em->getRepository('RgsCatalogModule:Advertisement')->findBy(['published' => true], [ 'updatedAt' => 'DESC']);
 		return array('ads' => $ads);
 	}
+
+	/**
+     * @Route("/about", name="rgs_catalog_about")
+	 * @NOVICE\Template("file:[RgsCatalogModule]default.tpl")
+     */
+	public function executeAbout($request)
+	{
+		return array('title' => "nav.about");
+	}
+
+	/**
+     * @Route("/contact", name="rgs_catalog_contact")
+	 * @NOVICE\Template("file:[RgsCatalogModule]default.tpl")
+     */
+	public function executeContact($request)
+	{
+		return array('title' => "nav.contact");
+	}
 	
 	/**
      * @Route("/language_{_locale}", name="rgs_catalog_language" , requirements={"_locale": "en|fr|es"})

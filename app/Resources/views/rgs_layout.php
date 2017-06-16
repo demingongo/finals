@@ -53,9 +53,9 @@
         <li>
 		<a href="{path id='rgs_catalog_articles_all'}">Articles</a></li>
         <li>
-		<a href="#about">{'nav.about'|trans}</a></li>
+		<a href="{path id='rgs_catalog_about'}">{'nav.about'|trans}</a></li>
         <li>
-		<a href="#contact">{'nav.contact'|trans}</a></li>
+		<a href="{path id='rgs_catalog_contact'}">{'nav.contact'|trans}</a></li>
       </ul>
 	  <ul class="nav navbar-nav navbar-right">
 		{auth}
@@ -166,8 +166,8 @@
 			<li><i class="glyphicon glyphicon-copyright-mark"></i> {#sitename#} 2017</li>
 			<li><a href="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</a></li>
             <li><a href="{path id='rgs_catalog_articles_all' absolute=true}">{'Articles'|trans}</a></li>
-            <li><a href="#about">{'nav.about'|trans}</a></li>
-            <li><a href="#contact">{'nav.contact'|trans}</a></li>
+            <li><a href="{path id='rgs_catalog_about' absolute=true}">{'nav.about'|trans}</a></li>
+            <li><a href="{path id='rgs_catalog_contact' absolute=true}">{'nav.contact'|trans}</a></li>
 		</ul>
 	</div>
 	<div class="visible-xs form-group">
@@ -178,8 +178,8 @@
 			<option value="#">---</option>
 			<option value="{path id='rgs_catalog_index' absolute=true}">{'nav.home'|trans}</option>
             <option value="{path id='rgs_catalog_articles_all' absolute=true}">{'Articles'|trans}</option>
-			<option value="#about">{'nav.about'|trans}</option>
-            <option value="#contact">{'nav.contact'|trans}</option>
+			<option value="{path id='rgs_catalog_about' absolute=true}">{'nav.about'|trans}</option>
+            <option value="{path id='rgs_catalog_contact' absolute=true}">{'nav.contact'|trans}</option>
 		</select>
 	</div>
 	</div>

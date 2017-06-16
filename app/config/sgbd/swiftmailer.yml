@@ -1,4 +1,0 @@
-swiftmailer:
-    transport:  %mailer_transport%
-    username:   %mailer_user%
-    password:   %mailer_password%

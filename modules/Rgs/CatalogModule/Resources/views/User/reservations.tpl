@@ -32,7 +32,7 @@
                 	{foreach name=reservation_articles from=$resa.reservation_articles item=rA}
                     <tr>
                     	<td class="text-center">
-                        	<a href="#">{$rA.article.name}</a>
+                        	<a href="{path id=rgs_catalog_article_details params=['id' => $rA.article.id, 'slug' => $rA.article.slug]}">{$rA.article.name}</a>
                             <div>
                             	<img src="{image_src path=$rA.article.image package=upload}" 
                                 class="img-thumbnail" alt="image" style="height: 120px; min-width: 120px;" />
