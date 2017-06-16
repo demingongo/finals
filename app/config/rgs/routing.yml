@@ -26,13 +26,3 @@ user_security:
 user_register:
     resource: "@UserModule/Resources/config/routing/registration.xml"
     prefix: /register
-
-api_catalog:
-    resource: @CatalogApiModule/Controller/
-    type: annotation
-    host: "{domain}"
-    prefix:   /api
-    defaults:
-        domain: localhost
-    requirements:
-        domain: localhost|127.0.0.1
